@@ -1,0 +1,11 @@
+build-*/ 
+*.pro.user 
+*.pro.user.* 
+debug/ 
+release/ 
+*.exe 
+*.o 
+moc_*.cpp 
+ui_*.h 
+qrc_*.cpp 
+.DS_Store 
