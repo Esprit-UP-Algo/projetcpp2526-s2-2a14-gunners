@@ -1,4 +1,4 @@
-#include "gestionjournal.h"
+#include "gestionournal.h"
 
 #include <QApplication>
 
