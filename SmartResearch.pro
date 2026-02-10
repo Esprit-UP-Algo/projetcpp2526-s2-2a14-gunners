@@ -1,4 +1,4 @@
-QT += core gui widgets
+QT += core gui widgets sql
 
 CONFIG += c++11
 
@@ -8,15 +8,18 @@ TARGET = SmartResearch
 SOURCES += \
     main.cpp \
     smartresearch.cpp \
-    gestionsession.cpp
+    gestionsession.cpp \
+    gestionreviewer.cpp      # RETIREZ gestionreviewer_main.cpp
 
 HEADERS += \
     smartresearch.h \
-    gestionsession.h
+    gestionsession.h \
+    gestionreviewer.h
 
 FORMS += \
     smartresearch.ui \
-    gestionsession.ui
+    gestionsession.ui \
+    gestionreviewer.ui
 
 RESOURCES += \
     ressources.qrc
