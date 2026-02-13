@@ -1,0 +1,12 @@
+release/main.o
+release/smartresearch.o
+release/gestionsession.o
+release/gestionreviewer.o
+release/gestionjournal.o
+release/gestionpublication.o
+release/qrc_ressources.o
+release/moc_smartresearch.o
+release/moc_gestionsession.o
+release/moc_gestionreviewer.o
+release/moc_gestionjournal.o
+release/moc_gestionpublication.o
