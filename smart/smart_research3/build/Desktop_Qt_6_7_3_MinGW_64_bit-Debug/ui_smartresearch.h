@@ -19,13 +19,14 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTableView>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -70,15 +71,15 @@ public:
     QPushButton *btn_Enregistrer_Utilisateur;
     QPushButton *btn_Modifier_Utilisateur;
     QPushButton *btn_Annuler_Utilisateur;
-    QGroupBox *groupBox_Utilisateur_List;
-    QLineEdit *lineEdit_Recherche_Utilisateur;
-    QPushButton *btn_Recherche_Utilisateur;
-    QTableView *tableView_Utilisateur;
-    QPushButton *btn_Supprimer_Utilisateur;
-    QPushButton *btn_Exportation_Utilisateur;
-    QPushButton *btn_Statistique_Utilisateur;
-    QPushButton *btn_Quitter_Utilisateur;
-    QComboBox *comboBox;
+    QGroupBox *groupBox_Session_List_6;
+    QLineEdit *rechSession_6;
+    QPushButton *rechercheSession_6;
+    QPushButton *statSession_6;
+    QPushButton *SuppSession_6;
+    QPushButton *quitterSession_6;
+    QPushButton *expoSession_6;
+    QComboBox *comboBox_10;
+    QTableWidget *tableWidget_10;
     QWidget *tab;
     QGroupBox *groupBox_2;
     QWidget *formLayoutWidget;
@@ -106,15 +107,15 @@ public:
     QPushButton *enregistrer;
     QPushButton *modif;
     QPushButton *annuler;
-    QGroupBox *groupBox_3;
-    QLineEdit *rechPub;
-    QPushButton *recherchePub;
-    QPushButton *statPub;
-    QPushButton *SuppPub;
-    QPushButton *quitterPub;
-    QTableView *tableViewPub;
-    QPushButton *expoPub;
-    QComboBox *comboBox_2;
+    QGroupBox *groupBox_Session_List_5;
+    QLineEdit *rechSession_5;
+    QPushButton *rechercheSession_5;
+    QPushButton *statSession_5;
+    QPushButton *SuppSession_5;
+    QPushButton *quitterSession_5;
+    QPushButton *expoSession_5;
+    QComboBox *comboBox_9;
+    QTableWidget *tableWidget_9;
     QWidget *tab_journal;
     QGroupBox *groupBox_Journal_Form;
     QWidget *formLayoutWidget_Journal;
@@ -142,15 +143,15 @@ public:
     QPushButton *enregistrer1;
     QPushButton *modif1;
     QPushButton *annuler1;
-    QGroupBox *groupBox_Journal_List;
-    QLineEdit *rechPub1;
-    QPushButton *recherchePub1;
-    QPushButton *statPub1;
-    QPushButton *SuppPub1;
-    QPushButton *quitterPub1;
-    QTableView *tableViewPub1;
-    QPushButton *expoPub1;
-    QComboBox *comboBox_3;
+    QGroupBox *groupBox_Session_List_4;
+    QLineEdit *rechSession_4;
+    QPushButton *rechercheSession_4;
+    QPushButton *statSession_4;
+    QPushButton *SuppSession_4;
+    QPushButton *quitterSession_4;
+    QPushButton *expoSession_4;
+    QComboBox *comboBox_8;
+    QTableWidget *tableWidget_8;
     QWidget *tab_reviewer;
     QGroupBox *groupBox_Reviewer_Form;
     QWidget *formLayoutWidget_Reviewer;
@@ -172,14 +173,15 @@ public:
     QPushButton *enregistrerReviewer;
     QPushButton *modifierReviewer;
     QPushButton *annulerReviewer;
-    QGroupBox *groupBox_Reviewer_List;
-    QLineEdit *rechercheLineEdit;
-    QPushButton *rechercherButton;
-    QTableView *tableViewReviewer;
-    QPushButton *supprimerReviewerButton;
-    QPushButton *assignerPublicationButton;
-    QPushButton *rapportButton;
-    QComboBox *comboBox_4;
+    QGroupBox *groupBox_Session_List_3;
+    QLineEdit *rechSession_3;
+    QPushButton *rechercheSession_3;
+    QPushButton *statSession_3;
+    QPushButton *SuppSession_3;
+    QPushButton *quitterSession_3;
+    QPushButton *expoSession_3;
+    QComboBox *comboBox_7;
+    QTableWidget *tableWidget_7;
     QWidget *tab_session;
     QGroupBox *groupBox_Session_Form;
     QWidget *formLayoutWidget_Session;
@@ -192,14 +194,15 @@ public:
     QLabel *label_S_Lieu;
     QLineEdit *abstractSession;
     QLabel *label_S_Type;
-    QFormLayout *formLayout_2_Session;
-    QRadioButton *conferenceSession;
-    QRadioButton *journalSession;
     QLabel *label_S_ListPub;
-    QLineEdit *mot_cleSession;
     QLabel *label_S_ListRev;
-    QLineEdit *statutSession;
     QDateEdit *dateSession;
+    QHBoxLayout *horizontalLayout_Role_2;
+    QRadioButton *radioButton_Admin_5;
+    QRadioButton *radioButton_Admin_6;
+    QRadioButton *radioButton_Chercheur_2;
+    QListWidget *listWidget;
+    QListWidget *listWidget_2;
     QPushButton *enregistrerSession;
     QPushButton *modifSession;
     QPushButton *annulerSession;
@@ -209,9 +212,9 @@ public:
     QPushButton *statSession;
     QPushButton *SuppSession;
     QPushButton *quitterSession;
-    QTableView *tableViewSession;
     QPushButton *expoSession;
     QComboBox *comboBox_5;
+    QTableWidget *tableWidget_5;
     QWidget *tab_paiement;
     QGroupBox *groupBox_Paiement_Form;
     QWidget *formLayoutWidget_Utilisateur_2;
@@ -238,13 +241,15 @@ public:
     QPushButton *btn_Enregistrer_Utilisateur_2;
     QPushButton *btn_Modifier_Utilisateur_2;
     QPushButton *btn_Annuler_Utilisateur_2;
-    QGroupBox *groupBox_Paiement_List;
-    QLineEdit *lineEdit_recherche_paie;
-    QPushButton *pushButton_recherche_paie;
-    QPushButton *pushButton_pdf_paie;
-    QPushButton *pushButton_stat_paie;
-    QTableView *tableView_Utilisateur_2;
+    QGroupBox *groupBox_Session_List_2;
+    QLineEdit *rechSession_2;
+    QPushButton *rechercheSession_2;
+    QPushButton *statSession_2;
+    QPushButton *SuppSession_2;
+    QPushButton *quitterSession_2;
+    QPushButton *expoSession_2;
     QComboBox *comboBox_6;
+    QTableWidget *tableWidget_6;
     QLabel *TableaudeBoard;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -569,46 +574,58 @@ public:
         btn_Annuler_Utilisateur->setObjectName("btn_Annuler_Utilisateur");
         btn_Annuler_Utilisateur->setGeometry(QRect(150, 460, 150, 41));
         btn_Annuler_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        groupBox_Utilisateur_List = new QGroupBox(tab_utilisateur);
-        groupBox_Utilisateur_List->setObjectName("groupBox_Utilisateur_List");
-        groupBox_Utilisateur_List->setGeometry(QRect(460, 10, 711, 541));
-        groupBox_Utilisateur_List->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168); border: #A8D3F0;\n"
-"        QGroupBox { border: 2px solid #2c3e50; border-radius: 15px; margin-top: 20px; font-weight: bold; color: #2c3e50; }\n"
-"        QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; padding: 0 10px; }\n"
-"        "));
-        lineEdit_Recherche_Utilisateur = new QLineEdit(groupBox_Utilisateur_List);
-        lineEdit_Recherche_Utilisateur->setObjectName("lineEdit_Recherche_Utilisateur");
-        lineEdit_Recherche_Utilisateur->setGeometry(QRect(10, 40, 161, 26));
-        lineEdit_Recherche_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        btn_Recherche_Utilisateur = new QPushButton(groupBox_Utilisateur_List);
-        btn_Recherche_Utilisateur->setObjectName("btn_Recherche_Utilisateur");
-        btn_Recherche_Utilisateur->setGeometry(QRect(180, 38, 150, 31));
-        btn_Recherche_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        tableView_Utilisateur = new QTableView(groupBox_Utilisateur_List);
-        tableView_Utilisateur->setObjectName("tableView_Utilisateur");
-        tableView_Utilisateur->setGeometry(QRect(10, 80, 691, 341));
-        tableView_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        btn_Supprimer_Utilisateur = new QPushButton(groupBox_Utilisateur_List);
-        btn_Supprimer_Utilisateur->setObjectName("btn_Supprimer_Utilisateur");
-        btn_Supprimer_Utilisateur->setGeometry(QRect(40, 440, 150, 41));
-        btn_Supprimer_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        btn_Exportation_Utilisateur = new QPushButton(groupBox_Utilisateur_List);
-        btn_Exportation_Utilisateur->setObjectName("btn_Exportation_Utilisateur");
-        btn_Exportation_Utilisateur->setGeometry(QRect(390, 440, 150, 31));
-        btn_Exportation_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        btn_Statistique_Utilisateur = new QPushButton(groupBox_Utilisateur_List);
-        btn_Statistique_Utilisateur->setObjectName("btn_Statistique_Utilisateur");
-        btn_Statistique_Utilisateur->setGeometry(QRect(560, 440, 150, 31));
-        btn_Statistique_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        btn_Quitter_Utilisateur = new QPushButton(groupBox_Utilisateur_List);
-        btn_Quitter_Utilisateur->setObjectName("btn_Quitter_Utilisateur");
-        btn_Quitter_Utilisateur->setGeometry(QRect(480, 480, 150, 31));
-        btn_Quitter_Utilisateur->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        comboBox = new QComboBox(groupBox_Utilisateur_List);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName("comboBox");
-        comboBox->setGeometry(QRect(540, 30, 76, 26));
+        groupBox_Session_List_6 = new QGroupBox(tab_utilisateur);
+        groupBox_Session_List_6->setObjectName("groupBox_Session_List_6");
+        groupBox_Session_List_6->setGeometry(QRect(460, 10, 721, 541));
+        groupBox_Session_List_6->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
+"border: #A8D3F0;\n"
+"/* Style pour tous les GroupBox */\n"
+"QGroupBox {\n"
+"    border: 2px solid #2c3e50; /* Couleur de la bordure */\n"
+"    border-radius: 15px;      /* M\303\252me arrondi que les boutons */\n"
+"    margin-top: 20px;         /* Espace pour le titre en haut */\n"
+"    font-weight: bold;\n"
+"    color: #2c3e50;\n"
+"}\n"
+"/* Style sp\303\251cifique pour le titre du GroupBox */\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top center; /* Place le titre en haut au centre */\n"
+"    padding: 0 10px;\n"
+"}"));
+        rechSession_6 = new QLineEdit(groupBox_Session_List_6);
+        rechSession_6->setObjectName("rechSession_6");
+        rechSession_6->setGeometry(QRect(10, 40, 161, 26));
+        rechSession_6->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        rechercheSession_6 = new QPushButton(groupBox_Session_List_6);
+        rechercheSession_6->setObjectName("rechercheSession_6");
+        rechercheSession_6->setGeometry(QRect(180, 38, 150, 31));
+        rechercheSession_6->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        statSession_6 = new QPushButton(groupBox_Session_List_6);
+        statSession_6->setObjectName("statSession_6");
+        statSession_6->setGeometry(QRect(550, 450, 150, 31));
+        statSession_6->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        SuppSession_6 = new QPushButton(groupBox_Session_List_6);
+        SuppSession_6->setObjectName("SuppSession_6");
+        SuppSession_6->setGeometry(QRect(40, 440, 150, 41));
+        SuppSession_6->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
+        quitterSession_6 = new QPushButton(groupBox_Session_List_6);
+        quitterSession_6->setObjectName("quitterSession_6");
+        quitterSession_6->setGeometry(QRect(480, 490, 150, 31));
+        quitterSession_6->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
+""));
+        expoSession_6 = new QPushButton(groupBox_Session_List_6);
+        expoSession_6->setObjectName("expoSession_6");
+        expoSession_6->setGeometry(QRect(390, 450, 150, 31));
+        expoSession_6->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        comboBox_10 = new QComboBox(groupBox_Session_List_6);
+        comboBox_10->addItem(QString());
+        comboBox_10->addItem(QString());
+        comboBox_10->setObjectName("comboBox_10");
+        comboBox_10->setGeometry(QRect(550, 40, 141, 26));
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -681,7 +698,12 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
 #endif
         palette.setBrush(QPalette::Disabled, QPalette::Accent, brush1);
-        comboBox->setPalette(palette);
+        comboBox_10->setPalette(palette);
+        comboBox_10->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        tableWidget_10 = new QTableWidget(groupBox_Session_List_6);
+        tableWidget_10->setObjectName("tableWidget_10");
+        tableWidget_10->setGeometry(QRect(20, 110, 641, 241));
+        tableWidget_10->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab_utilisateur, QString());
         tab = new QWidget();
         tab->setObjectName("tab");
@@ -825,10 +847,10 @@ public:
         annuler->setGeometry(QRect(150, 460, 150, 41));
         annuler->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
 ""));
-        groupBox_3 = new QGroupBox(tab);
-        groupBox_3->setObjectName("groupBox_3");
-        groupBox_3->setGeometry(QRect(460, 10, 711, 541));
-        groupBox_3->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
+        groupBox_Session_List_5 = new QGroupBox(tab);
+        groupBox_Session_List_5->setObjectName("groupBox_Session_List_5");
+        groupBox_Session_List_5->setGeometry(QRect(460, 10, 721, 541));
+        groupBox_Session_List_5->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
 "border: #A8D3F0;\n"
 "/* Style pour tous les GroupBox */\n"
 "QGroupBox {\n"
@@ -838,56 +860,48 @@ public:
 "    font-weight: bold;\n"
 "    color: #2c3e50;\n"
 "}\n"
-"\n"
 "/* Style sp\303\251cifique pour le titre du GroupBox */\n"
 "QGroupBox::title {\n"
 "    subcontrol-origin: margin;\n"
 "    subcontrol-position: top center; /* Place le titre en haut au centre */\n"
 "    padding: 0 10px;\n"
 "}"));
-        rechPub = new QLineEdit(groupBox_3);
-        rechPub->setObjectName("rechPub");
-        rechPub->setGeometry(QRect(10, 40, 161, 26));
-        rechPub->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        recherchePub = new QPushButton(groupBox_3);
-        recherchePub->setObjectName("recherchePub");
-        recherchePub->setGeometry(QRect(180, 38, 150, 31));
-        recherchePub->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+        rechSession_5 = new QLineEdit(groupBox_Session_List_5);
+        rechSession_5->setObjectName("rechSession_5");
+        rechSession_5->setGeometry(QRect(10, 40, 161, 26));
+        rechSession_5->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        rechercheSession_5 = new QPushButton(groupBox_Session_List_5);
+        rechercheSession_5->setObjectName("rechercheSession_5");
+        rechercheSession_5->setGeometry(QRect(180, 38, 150, 31));
+        rechercheSession_5->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
 ""));
-        statPub = new QPushButton(groupBox_3);
-        statPub->setObjectName("statPub");
-        statPub->setGeometry(QRect(560, 440, 150, 31));
-        statPub->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+        statSession_5 = new QPushButton(groupBox_Session_List_5);
+        statSession_5->setObjectName("statSession_5");
+        statSession_5->setGeometry(QRect(550, 450, 150, 31));
+        statSession_5->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
 ""));
-        SuppPub = new QPushButton(groupBox_3);
-        SuppPub->setObjectName("SuppPub");
-        SuppPub->setGeometry(QRect(40, 440, 150, 41));
-        SuppPub->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        quitterPub = new QPushButton(groupBox_3);
-        quitterPub->setObjectName("quitterPub");
-        quitterPub->setGeometry(QRect(480, 480, 150, 31));
-        quitterPub->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
+        SuppSession_5 = new QPushButton(groupBox_Session_List_5);
+        SuppSession_5->setObjectName("SuppSession_5");
+        SuppSession_5->setGeometry(QRect(40, 440, 150, 41));
+        SuppSession_5->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
+        quitterSession_5 = new QPushButton(groupBox_Session_List_5);
+        quitterSession_5->setObjectName("quitterSession_5");
+        quitterSession_5->setGeometry(QRect(480, 490, 150, 31));
+        quitterSession_5->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
 ""));
-        tableViewPub = new QTableView(groupBox_3);
-        tableViewPub->setObjectName("tableViewPub");
-        tableViewPub->setGeometry(QRect(10, 80, 691, 341));
-        tableViewPub->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+        expoSession_5 = new QPushButton(groupBox_Session_List_5);
+        expoSession_5->setObjectName("expoSession_5");
+        expoSession_5->setGeometry(QRect(390, 450, 150, 31));
+        expoSession_5->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
 ""));
-        expoPub = new QPushButton(groupBox_3);
-        expoPub->setObjectName("expoPub");
-        expoPub->setGeometry(QRect(390, 440, 150, 31));
-        expoPub->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
-""));
-        comboBox_2 = new QComboBox(groupBox_3);
-        comboBox_2->addItem(QString());
-        comboBox_2->addItem(QString());
-        comboBox_2->setObjectName("comboBox_2");
-        comboBox_2->setGeometry(QRect(600, 40, 76, 26));
+        comboBox_9 = new QComboBox(groupBox_Session_List_5);
+        comboBox_9->addItem(QString());
+        comboBox_9->addItem(QString());
+        comboBox_9->setObjectName("comboBox_9");
+        comboBox_9->setGeometry(QRect(550, 40, 141, 26));
         QPalette palette1;
         palette1.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        QBrush brush7(QColor(0, 36, 168, 255));
-        brush7.setStyle(Qt::SolidPattern);
-        palette1.setBrush(QPalette::Active, QPalette::Button, brush7);
+        palette1.setBrush(QPalette::Active, QPalette::Button, brush1);
         palette1.setBrush(QPalette::Active, QPalette::Light, brush1);
         palette1.setBrush(QPalette::Active, QPalette::Midlight, brush1);
         palette1.setBrush(QPalette::Active, QPalette::Dark, brush2);
@@ -895,8 +909,8 @@ public:
         palette1.setBrush(QPalette::Active, QPalette::Text, brush);
         palette1.setBrush(QPalette::Active, QPalette::BrightText, brush1);
         palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette1.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette1.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette1.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette1.setBrush(QPalette::Active, QPalette::Window, brush1);
         palette1.setBrush(QPalette::Active, QPalette::Shadow, brush);
         palette1.setBrush(QPalette::Active, QPalette::AlternateBase, brush1);
         palette1.setBrush(QPalette::Active, QPalette::ToolTipBase, brush4);
@@ -906,7 +920,7 @@ public:
 #endif
         palette1.setBrush(QPalette::Active, QPalette::Accent, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette1.setBrush(QPalette::Inactive, QPalette::Button, brush7);
+        palette1.setBrush(QPalette::Inactive, QPalette::Button, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::Light, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::Midlight, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::Dark, brush2);
@@ -914,8 +928,8 @@ public:
         palette1.setBrush(QPalette::Inactive, QPalette::Text, brush);
         palette1.setBrush(QPalette::Inactive, QPalette::BrightText, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-        palette1.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette1.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette1.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette1.setBrush(QPalette::Inactive, QPalette::Window, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
         palette1.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush1);
         palette1.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush4);
@@ -925,7 +939,7 @@ public:
 #endif
         palette1.setBrush(QPalette::Inactive, QPalette::Accent, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        palette1.setBrush(QPalette::Disabled, QPalette::Button, brush7);
+        palette1.setBrush(QPalette::Disabled, QPalette::Button, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::Light, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::Midlight, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::Dark, brush2);
@@ -933,8 +947,8 @@ public:
         palette1.setBrush(QPalette::Disabled, QPalette::Text, brush2);
         palette1.setBrush(QPalette::Disabled, QPalette::BrightText, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        palette1.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette1.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        palette1.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette1.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
         palette1.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
         palette1.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush4);
@@ -943,7 +957,12 @@ public:
         palette1.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
 #endif
         palette1.setBrush(QPalette::Disabled, QPalette::Accent, brush1);
-        comboBox_2->setPalette(palette1);
+        comboBox_9->setPalette(palette1);
+        comboBox_9->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        tableWidget_9 = new QTableWidget(groupBox_Session_List_5);
+        tableWidget_9->setObjectName("tableWidget_9");
+        tableWidget_9->setGeometry(QRect(20, 110, 641, 241));
+        tableWidget_9->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab, QString());
         tab_journal = new QWidget();
         tab_journal->setObjectName("tab_journal");
@@ -1084,10 +1103,10 @@ public:
         annuler1->setGeometry(QRect(150, 460, 150, 41));
         annuler1->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
 ""));
-        groupBox_Journal_List = new QGroupBox(tab_journal);
-        groupBox_Journal_List->setObjectName("groupBox_Journal_List");
-        groupBox_Journal_List->setGeometry(QRect(460, 10, 711, 541));
-        groupBox_Journal_List->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
+        groupBox_Session_List_4 = new QGroupBox(tab_journal);
+        groupBox_Session_List_4->setObjectName("groupBox_Session_List_4");
+        groupBox_Session_List_4->setGeometry(QRect(460, 10, 721, 541));
+        groupBox_Session_List_4->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
 "border: #A8D3F0;\n"
 "/* Style pour tous les GroupBox */\n"
 "QGroupBox {\n"
@@ -1097,54 +1116,48 @@ public:
 "    font-weight: bold;\n"
 "    color: #2c3e50;\n"
 "}\n"
-"\n"
 "/* Style sp\303\251cifique pour le titre du GroupBox */\n"
 "QGroupBox::title {\n"
 "    subcontrol-origin: margin;\n"
 "    subcontrol-position: top center; /* Place le titre en haut au centre */\n"
 "    padding: 0 10px;\n"
 "}"));
-        rechPub1 = new QLineEdit(groupBox_Journal_List);
-        rechPub1->setObjectName("rechPub1");
-        rechPub1->setGeometry(QRect(10, 40, 161, 26));
-        rechPub1->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        recherchePub1 = new QPushButton(groupBox_Journal_List);
-        recherchePub1->setObjectName("recherchePub1");
-        recherchePub1->setGeometry(QRect(180, 38, 150, 31));
-        recherchePub1->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+        rechSession_4 = new QLineEdit(groupBox_Session_List_4);
+        rechSession_4->setObjectName("rechSession_4");
+        rechSession_4->setGeometry(QRect(10, 40, 161, 26));
+        rechSession_4->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        rechercheSession_4 = new QPushButton(groupBox_Session_List_4);
+        rechercheSession_4->setObjectName("rechercheSession_4");
+        rechercheSession_4->setGeometry(QRect(180, 38, 150, 31));
+        rechercheSession_4->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
 ""));
-        statPub1 = new QPushButton(groupBox_Journal_List);
-        statPub1->setObjectName("statPub1");
-        statPub1->setGeometry(QRect(560, 440, 150, 31));
-        statPub1->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+        statSession_4 = new QPushButton(groupBox_Session_List_4);
+        statSession_4->setObjectName("statSession_4");
+        statSession_4->setGeometry(QRect(550, 450, 150, 31));
+        statSession_4->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
 ""));
-        SuppPub1 = new QPushButton(groupBox_Journal_List);
-        SuppPub1->setObjectName("SuppPub1");
-        SuppPub1->setGeometry(QRect(40, 440, 150, 41));
-        SuppPub1->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        quitterPub1 = new QPushButton(groupBox_Journal_List);
-        quitterPub1->setObjectName("quitterPub1");
-        quitterPub1->setGeometry(QRect(480, 480, 150, 31));
-        quitterPub1->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
+        SuppSession_4 = new QPushButton(groupBox_Session_List_4);
+        SuppSession_4->setObjectName("SuppSession_4");
+        SuppSession_4->setGeometry(QRect(40, 440, 150, 41));
+        SuppSession_4->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
+        quitterSession_4 = new QPushButton(groupBox_Session_List_4);
+        quitterSession_4->setObjectName("quitterSession_4");
+        quitterSession_4->setGeometry(QRect(480, 490, 150, 31));
+        quitterSession_4->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
 ""));
-        tableViewPub1 = new QTableView(groupBox_Journal_List);
-        tableViewPub1->setObjectName("tableViewPub1");
-        tableViewPub1->setGeometry(QRect(10, 80, 691, 341));
-        tableViewPub1->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+        expoSession_4 = new QPushButton(groupBox_Session_List_4);
+        expoSession_4->setObjectName("expoSession_4");
+        expoSession_4->setGeometry(QRect(390, 450, 150, 31));
+        expoSession_4->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
 ""));
-        expoPub1 = new QPushButton(groupBox_Journal_List);
-        expoPub1->setObjectName("expoPub1");
-        expoPub1->setGeometry(QRect(390, 440, 150, 31));
-        expoPub1->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
-""));
-        comboBox_3 = new QComboBox(groupBox_Journal_List);
-        comboBox_3->addItem(QString());
-        comboBox_3->addItem(QString());
-        comboBox_3->setObjectName("comboBox_3");
-        comboBox_3->setGeometry(QRect(610, 40, 76, 26));
+        comboBox_8 = new QComboBox(groupBox_Session_List_4);
+        comboBox_8->addItem(QString());
+        comboBox_8->addItem(QString());
+        comboBox_8->setObjectName("comboBox_8");
+        comboBox_8->setGeometry(QRect(550, 40, 141, 26));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette2.setBrush(QPalette::Active, QPalette::Button, brush7);
+        palette2.setBrush(QPalette::Active, QPalette::Button, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Light, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Midlight, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Dark, brush2);
@@ -1152,8 +1165,8 @@ public:
         palette2.setBrush(QPalette::Active, QPalette::Text, brush);
         palette2.setBrush(QPalette::Active, QPalette::BrightText, brush1);
         palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette2.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette2.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette2.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette2.setBrush(QPalette::Active, QPalette::Window, brush1);
         palette2.setBrush(QPalette::Active, QPalette::Shadow, brush);
         palette2.setBrush(QPalette::Active, QPalette::AlternateBase, brush1);
         palette2.setBrush(QPalette::Active, QPalette::ToolTipBase, brush4);
@@ -1163,7 +1176,7 @@ public:
 #endif
         palette2.setBrush(QPalette::Active, QPalette::Accent, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette2.setBrush(QPalette::Inactive, QPalette::Button, brush7);
+        palette2.setBrush(QPalette::Inactive, QPalette::Button, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::Light, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::Midlight, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::Dark, brush2);
@@ -1171,8 +1184,8 @@ public:
         palette2.setBrush(QPalette::Inactive, QPalette::Text, brush);
         palette2.setBrush(QPalette::Inactive, QPalette::BrightText, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-        palette2.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette2.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette2.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette2.setBrush(QPalette::Inactive, QPalette::Window, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
         palette2.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush1);
         palette2.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush4);
@@ -1182,7 +1195,7 @@ public:
 #endif
         palette2.setBrush(QPalette::Inactive, QPalette::Accent, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        palette2.setBrush(QPalette::Disabled, QPalette::Button, brush7);
+        palette2.setBrush(QPalette::Disabled, QPalette::Button, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::Light, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::Midlight, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::Dark, brush2);
@@ -1190,8 +1203,8 @@ public:
         palette2.setBrush(QPalette::Disabled, QPalette::Text, brush2);
         palette2.setBrush(QPalette::Disabled, QPalette::BrightText, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        palette2.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette2.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        palette2.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette2.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
         palette2.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
         palette2.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush4);
@@ -1200,7 +1213,12 @@ public:
         palette2.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
 #endif
         palette2.setBrush(QPalette::Disabled, QPalette::Accent, brush1);
-        comboBox_3->setPalette(palette2);
+        comboBox_8->setPalette(palette2);
+        comboBox_8->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        tableWidget_8 = new QTableWidget(groupBox_Session_List_4);
+        tableWidget_8->setObjectName("tableWidget_8");
+        tableWidget_8->setGeometry(QRect(20, 110, 641, 241));
+        tableWidget_8->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab_journal, QString());
         tab_reviewer = new QWidget();
         tab_reviewer->setObjectName("tab_reviewer");
@@ -1304,10 +1322,10 @@ public:
         annulerReviewer->setObjectName("annulerReviewer");
         annulerReviewer->setGeometry(QRect(150, 460, 150, 41));
         annulerReviewer->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        groupBox_Reviewer_List = new QGroupBox(tab_reviewer);
-        groupBox_Reviewer_List->setObjectName("groupBox_Reviewer_List");
-        groupBox_Reviewer_List->setGeometry(QRect(460, 10, 711, 541));
-        groupBox_Reviewer_List->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
+        groupBox_Session_List_3 = new QGroupBox(tab_reviewer);
+        groupBox_Session_List_3->setObjectName("groupBox_Session_List_3");
+        groupBox_Session_List_3->setGeometry(QRect(460, 10, 721, 541));
+        groupBox_Session_List_3->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
 "border: #A8D3F0;\n"
 "/* Style pour tous les GroupBox */\n"
 "QGroupBox {\n"
@@ -1323,38 +1341,42 @@ public:
 "    subcontrol-position: top center; /* Place le titre en haut au centre */\n"
 "    padding: 0 10px;\n"
 "}"));
-        rechercheLineEdit = new QLineEdit(groupBox_Reviewer_List);
-        rechercheLineEdit->setObjectName("rechercheLineEdit");
-        rechercheLineEdit->setGeometry(QRect(10, 40, 161, 26));
-        rechercheLineEdit->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        rechercherButton = new QPushButton(groupBox_Reviewer_List);
-        rechercherButton->setObjectName("rechercherButton");
-        rechercherButton->setGeometry(QRect(180, 38, 150, 31));
-        rechercherButton->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        tableViewReviewer = new QTableView(groupBox_Reviewer_List);
-        tableViewReviewer->setObjectName("tableViewReviewer");
-        tableViewReviewer->setGeometry(QRect(10, 80, 691, 341));
-        tableViewReviewer->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        supprimerReviewerButton = new QPushButton(groupBox_Reviewer_List);
-        supprimerReviewerButton->setObjectName("supprimerReviewerButton");
-        supprimerReviewerButton->setGeometry(QRect(40, 440, 150, 41));
-        supprimerReviewerButton->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        assignerPublicationButton = new QPushButton(groupBox_Reviewer_List);
-        assignerPublicationButton->setObjectName("assignerPublicationButton");
-        assignerPublicationButton->setGeometry(QRect(210, 450, 150, 31));
-        assignerPublicationButton->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        rapportButton = new QPushButton(groupBox_Reviewer_List);
-        rapportButton->setObjectName("rapportButton");
-        rapportButton->setGeometry(QRect(380, 450, 150, 31));
-        rapportButton->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        comboBox_4 = new QComboBox(groupBox_Reviewer_List);
-        comboBox_4->addItem(QString());
-        comboBox_4->addItem(QString());
-        comboBox_4->setObjectName("comboBox_4");
-        comboBox_4->setGeometry(QRect(600, 40, 76, 26));
+        rechSession_3 = new QLineEdit(groupBox_Session_List_3);
+        rechSession_3->setObjectName("rechSession_3");
+        rechSession_3->setGeometry(QRect(10, 40, 161, 26));
+        rechSession_3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        rechercheSession_3 = new QPushButton(groupBox_Session_List_3);
+        rechercheSession_3->setObjectName("rechercheSession_3");
+        rechercheSession_3->setGeometry(QRect(180, 38, 150, 31));
+        rechercheSession_3->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        statSession_3 = new QPushButton(groupBox_Session_List_3);
+        statSession_3->setObjectName("statSession_3");
+        statSession_3->setGeometry(QRect(550, 450, 150, 31));
+        statSession_3->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        SuppSession_3 = new QPushButton(groupBox_Session_List_3);
+        SuppSession_3->setObjectName("SuppSession_3");
+        SuppSession_3->setGeometry(QRect(40, 440, 150, 41));
+        SuppSession_3->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
+        quitterSession_3 = new QPushButton(groupBox_Session_List_3);
+        quitterSession_3->setObjectName("quitterSession_3");
+        quitterSession_3->setGeometry(QRect(480, 490, 150, 31));
+        quitterSession_3->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
+""));
+        expoSession_3 = new QPushButton(groupBox_Session_List_3);
+        expoSession_3->setObjectName("expoSession_3");
+        expoSession_3->setGeometry(QRect(390, 450, 150, 31));
+        expoSession_3->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        comboBox_7 = new QComboBox(groupBox_Session_List_3);
+        comboBox_7->addItem(QString());
+        comboBox_7->addItem(QString());
+        comboBox_7->setObjectName("comboBox_7");
+        comboBox_7->setGeometry(QRect(550, 40, 141, 26));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette3.setBrush(QPalette::Active, QPalette::Button, brush7);
+        palette3.setBrush(QPalette::Active, QPalette::Button, brush1);
         palette3.setBrush(QPalette::Active, QPalette::Light, brush1);
         palette3.setBrush(QPalette::Active, QPalette::Midlight, brush1);
         palette3.setBrush(QPalette::Active, QPalette::Dark, brush2);
@@ -1362,8 +1384,8 @@ public:
         palette3.setBrush(QPalette::Active, QPalette::Text, brush);
         palette3.setBrush(QPalette::Active, QPalette::BrightText, brush1);
         palette3.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette3.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette3.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette3.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette3.setBrush(QPalette::Active, QPalette::Window, brush1);
         palette3.setBrush(QPalette::Active, QPalette::Shadow, brush);
         palette3.setBrush(QPalette::Active, QPalette::AlternateBase, brush1);
         palette3.setBrush(QPalette::Active, QPalette::ToolTipBase, brush4);
@@ -1373,7 +1395,7 @@ public:
 #endif
         palette3.setBrush(QPalette::Active, QPalette::Accent, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette3.setBrush(QPalette::Inactive, QPalette::Button, brush7);
+        palette3.setBrush(QPalette::Inactive, QPalette::Button, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::Light, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::Midlight, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::Dark, brush2);
@@ -1381,8 +1403,8 @@ public:
         palette3.setBrush(QPalette::Inactive, QPalette::Text, brush);
         palette3.setBrush(QPalette::Inactive, QPalette::BrightText, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
         palette3.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush1);
         palette3.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush4);
@@ -1392,7 +1414,7 @@ public:
 #endif
         palette3.setBrush(QPalette::Inactive, QPalette::Accent, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        palette3.setBrush(QPalette::Disabled, QPalette::Button, brush7);
+        palette3.setBrush(QPalette::Disabled, QPalette::Button, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::Light, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::Midlight, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::Dark, brush2);
@@ -1400,8 +1422,8 @@ public:
         palette3.setBrush(QPalette::Disabled, QPalette::Text, brush2);
         palette3.setBrush(QPalette::Disabled, QPalette::BrightText, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
         palette3.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
         palette3.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush4);
@@ -1410,18 +1432,23 @@ public:
         palette3.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
 #endif
         palette3.setBrush(QPalette::Disabled, QPalette::Accent, brush1);
-        comboBox_4->setPalette(palette3);
+        comboBox_7->setPalette(palette3);
+        comboBox_7->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        tableWidget_7 = new QTableWidget(groupBox_Session_List_3);
+        tableWidget_7->setObjectName("tableWidget_7");
+        tableWidget_7->setGeometry(QRect(20, 110, 641, 241));
+        tableWidget_7->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab_reviewer, QString());
         tab_session = new QWidget();
         tab_session->setObjectName("tab_session");
         groupBox_Session_Form = new QGroupBox(tab_session);
         groupBox_Session_Form->setObjectName("groupBox_Session_Form");
-        groupBox_Session_Form->setGeometry(QRect(0, 10, 461, 541));
+        groupBox_Session_Form->setGeometry(QRect(0, 10, 451, 541));
         groupBox_Session_Form->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
 "border: #A8D3F0;"));
         formLayoutWidget_Session = new QWidget(groupBox_Session_Form);
         formLayoutWidget_Session->setObjectName("formLayoutWidget_Session");
-        formLayoutWidget_Session->setGeometry(QRect(20, 50, 411, 261));
+        formLayoutWidget_Session->setGeometry(QRect(20, 50, 475, 311));
         formLayout_Session = new QFormLayout(formLayoutWidget_Session);
         formLayout_Session->setObjectName("formLayout_Session");
         formLayout_Session->setContentsMargins(0, 0, 0, 0);
@@ -1471,52 +1498,56 @@ public:
 
         formLayout_Session->setWidget(4, QFormLayout::LabelRole, label_S_Type);
 
-        formLayout_2_Session = new QFormLayout();
-        formLayout_2_Session->setObjectName("formLayout_2_Session");
-        conferenceSession = new QRadioButton(formLayoutWidget_Session);
-        conferenceSession->setObjectName("conferenceSession");
-        conferenceSession->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-""));
-
-        formLayout_2_Session->setWidget(0, QFormLayout::LabelRole, conferenceSession);
-
-        journalSession = new QRadioButton(formLayoutWidget_Session);
-        journalSession->setObjectName("journalSession");
-        journalSession->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-""));
-
-        formLayout_2_Session->setWidget(0, QFormLayout::FieldRole, journalSession);
-
-
-        formLayout_Session->setLayout(4, QFormLayout::FieldRole, formLayout_2_Session);
-
         label_S_ListPub = new QLabel(formLayoutWidget_Session);
         label_S_ListPub->setObjectName("label_S_ListPub");
 
         formLayout_Session->setWidget(5, QFormLayout::LabelRole, label_S_ListPub);
-
-        mot_cleSession = new QLineEdit(formLayoutWidget_Session);
-        mot_cleSession->setObjectName("mot_cleSession");
-        mot_cleSession->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-
-        formLayout_Session->setWidget(5, QFormLayout::FieldRole, mot_cleSession);
 
         label_S_ListRev = new QLabel(formLayoutWidget_Session);
         label_S_ListRev->setObjectName("label_S_ListRev");
 
         formLayout_Session->setWidget(6, QFormLayout::LabelRole, label_S_ListRev);
 
-        statutSession = new QLineEdit(formLayoutWidget_Session);
-        statutSession->setObjectName("statutSession");
-        statutSession->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-
-        formLayout_Session->setWidget(6, QFormLayout::FieldRole, statutSession);
-
         dateSession = new QDateEdit(formLayoutWidget_Session);
         dateSession->setObjectName("dateSession");
         dateSession->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
 
         formLayout_Session->setWidget(2, QFormLayout::FieldRole, dateSession);
+
+        horizontalLayout_Role_2 = new QHBoxLayout();
+        horizontalLayout_Role_2->setObjectName("horizontalLayout_Role_2");
+        radioButton_Admin_5 = new QRadioButton(formLayoutWidget_Session);
+        radioButton_Admin_5->setObjectName("radioButton_Admin_5");
+        radioButton_Admin_5->setStyleSheet(QString::fromUtf8("color: white; font-weight: bold;"));
+
+        horizontalLayout_Role_2->addWidget(radioButton_Admin_5);
+
+        radioButton_Admin_6 = new QRadioButton(formLayoutWidget_Session);
+        radioButton_Admin_6->setObjectName("radioButton_Admin_6");
+        radioButton_Admin_6->setStyleSheet(QString::fromUtf8("color: white; font-weight: bold;"));
+
+        horizontalLayout_Role_2->addWidget(radioButton_Admin_6);
+
+        radioButton_Chercheur_2 = new QRadioButton(formLayoutWidget_Session);
+        radioButton_Chercheur_2->setObjectName("radioButton_Chercheur_2");
+        radioButton_Chercheur_2->setStyleSheet(QString::fromUtf8("color: white; font-weight: bold;"));
+
+        horizontalLayout_Role_2->addWidget(radioButton_Chercheur_2);
+
+
+        formLayout_Session->setLayout(4, QFormLayout::FieldRole, horizontalLayout_Role_2);
+
+        listWidget = new QListWidget(formLayoutWidget_Session);
+        listWidget->setObjectName("listWidget");
+        listWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+
+        formLayout_Session->setWidget(5, QFormLayout::FieldRole, listWidget);
+
+        listWidget_2 = new QListWidget(formLayoutWidget_Session);
+        listWidget_2->setObjectName("listWidget_2");
+        listWidget_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+
+        formLayout_Session->setWidget(6, QFormLayout::FieldRole, listWidget_2);
 
         enregistrerSession = new QPushButton(groupBox_Session_Form);
         enregistrerSession->setObjectName("enregistrerSession");
@@ -1536,7 +1567,7 @@ public:
 ""));
         groupBox_Session_List = new QGroupBox(tab_session);
         groupBox_Session_List->setObjectName("groupBox_Session_List");
-        groupBox_Session_List->setGeometry(QRect(470, 10, 711, 541));
+        groupBox_Session_List->setGeometry(QRect(460, 10, 721, 541));
         groupBox_Session_List->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
 "border: #A8D3F0;\n"
 "/* Style pour tous les GroupBox */\n"
@@ -1576,11 +1607,6 @@ public:
         quitterSession->setGeometry(QRect(480, 490, 150, 31));
         quitterSession->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
 ""));
-        tableViewSession = new QTableView(groupBox_Session_List);
-        tableViewSession->setObjectName("tableViewSession");
-        tableViewSession->setGeometry(QRect(10, 80, 691, 341));
-        tableViewSession->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-""));
         expoSession = new QPushButton(groupBox_Session_List);
         expoSession->setObjectName("expoSession");
         expoSession->setGeometry(QRect(390, 450, 150, 31));
@@ -1590,10 +1616,10 @@ public:
         comboBox_5->addItem(QString());
         comboBox_5->addItem(QString());
         comboBox_5->setObjectName("comboBox_5");
-        comboBox_5->setGeometry(QRect(610, 40, 76, 26));
+        comboBox_5->setGeometry(QRect(550, 40, 141, 26));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette4.setBrush(QPalette::Active, QPalette::Button, brush7);
+        palette4.setBrush(QPalette::Active, QPalette::Button, brush1);
         palette4.setBrush(QPalette::Active, QPalette::Light, brush1);
         palette4.setBrush(QPalette::Active, QPalette::Midlight, brush1);
         palette4.setBrush(QPalette::Active, QPalette::Dark, brush2);
@@ -1601,8 +1627,8 @@ public:
         palette4.setBrush(QPalette::Active, QPalette::Text, brush);
         palette4.setBrush(QPalette::Active, QPalette::BrightText, brush1);
         palette4.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette4.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette4.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette4.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette4.setBrush(QPalette::Active, QPalette::Window, brush1);
         palette4.setBrush(QPalette::Active, QPalette::Shadow, brush);
         palette4.setBrush(QPalette::Active, QPalette::AlternateBase, brush1);
         palette4.setBrush(QPalette::Active, QPalette::ToolTipBase, brush4);
@@ -1612,7 +1638,7 @@ public:
 #endif
         palette4.setBrush(QPalette::Active, QPalette::Accent, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette4.setBrush(QPalette::Inactive, QPalette::Button, brush7);
+        palette4.setBrush(QPalette::Inactive, QPalette::Button, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::Light, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::Midlight, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::Dark, brush2);
@@ -1620,8 +1646,8 @@ public:
         palette4.setBrush(QPalette::Inactive, QPalette::Text, brush);
         palette4.setBrush(QPalette::Inactive, QPalette::BrightText, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-        palette4.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette4.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette4.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette4.setBrush(QPalette::Inactive, QPalette::Window, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
         palette4.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush1);
         palette4.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush4);
@@ -1631,7 +1657,7 @@ public:
 #endif
         palette4.setBrush(QPalette::Inactive, QPalette::Accent, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        palette4.setBrush(QPalette::Disabled, QPalette::Button, brush7);
+        palette4.setBrush(QPalette::Disabled, QPalette::Button, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::Light, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::Midlight, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::Dark, brush2);
@@ -1639,8 +1665,8 @@ public:
         palette4.setBrush(QPalette::Disabled, QPalette::Text, brush2);
         palette4.setBrush(QPalette::Disabled, QPalette::BrightText, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        palette4.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette4.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        palette4.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette4.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
         palette4.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
         palette4.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush4);
@@ -1650,12 +1676,17 @@ public:
 #endif
         palette4.setBrush(QPalette::Disabled, QPalette::Accent, brush1);
         comboBox_5->setPalette(palette4);
+        comboBox_5->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        tableWidget_5 = new QTableWidget(groupBox_Session_List);
+        tableWidget_5->setObjectName("tableWidget_5");
+        tableWidget_5->setGeometry(QRect(20, 110, 641, 241));
+        tableWidget_5->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab_session, QString());
         tab_paiement = new QWidget();
         tab_paiement->setObjectName("tab_paiement");
         groupBox_Paiement_Form = new QGroupBox(tab_paiement);
         groupBox_Paiement_Form->setObjectName("groupBox_Paiement_Form");
-        groupBox_Paiement_Form->setGeometry(QRect(10, 10, 431, 541));
+        groupBox_Paiement_Form->setGeometry(QRect(0, 10, 451, 541));
         groupBox_Paiement_Form->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168); border: #A8D3F0;\n"
 "QGroupBox { border: 2px solid #2c3e50; border-radius: 15px; margin-top: 20px; font-weight: bold; color: #2c3e50; }\n"
 "QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; padding: 0 10px; }"));
@@ -1767,6 +1798,7 @@ public:
 
         dateEdit = new QDateEdit(formLayoutWidget_Utilisateur_2);
         dateEdit->setObjectName("dateEdit");
+        dateEdit->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
 
         formLayout_Utilisateur_4->setWidget(6, QFormLayout::FieldRole, dateEdit);
 
@@ -1782,40 +1814,61 @@ public:
         btn_Annuler_Utilisateur_2->setObjectName("btn_Annuler_Utilisateur_2");
         btn_Annuler_Utilisateur_2->setGeometry(QRect(150, 460, 150, 41));
         btn_Annuler_Utilisateur_2->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
-        groupBox_Paiement_List = new QGroupBox(tab_paiement);
-        groupBox_Paiement_List->setObjectName("groupBox_Paiement_List");
-        groupBox_Paiement_List->setGeometry(QRect(450, 10, 721, 541));
-        groupBox_Paiement_List->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168); border: #A8D3F0;\n"
-"QGroupBox { border: 2px solid #2c3e50; border-radius: 15px; margin-top: 20px; font-weight: bold; color: #2c3e50; }\n"
-"QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; padding: 0 10px; }"));
-        lineEdit_recherche_paie = new QLineEdit(groupBox_Paiement_List);
-        lineEdit_recherche_paie->setObjectName("lineEdit_recherche_paie");
-        lineEdit_recherche_paie->setGeometry(QRect(20, 60, 251, 31));
-        lineEdit_recherche_paie->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        pushButton_recherche_paie = new QPushButton(groupBox_Paiement_List);
-        pushButton_recherche_paie->setObjectName("pushButton_recherche_paie");
-        pushButton_recherche_paie->setGeometry(QRect(280, 60, 91, 31));
-        pushButton_recherche_paie->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        pushButton_pdf_paie = new QPushButton(groupBox_Paiement_List);
-        pushButton_pdf_paie->setObjectName("pushButton_pdf_paie");
-        pushButton_pdf_paie->setGeometry(QRect(480, 480, 101, 31));
-        pushButton_pdf_paie->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        pushButton_stat_paie = new QPushButton(groupBox_Paiement_List);
-        pushButton_stat_paie->setObjectName("pushButton_stat_paie");
-        pushButton_stat_paie->setGeometry(QRect(590, 480, 101, 31));
-        pushButton_stat_paie->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);"));
-        tableView_Utilisateur_2 = new QTableView(groupBox_Paiement_List);
-        tableView_Utilisateur_2->setObjectName("tableView_Utilisateur_2");
-        tableView_Utilisateur_2->setGeometry(QRect(20, 100, 691, 341));
-        tableView_Utilisateur_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        comboBox_6 = new QComboBox(groupBox_Paiement_List);
+        groupBox_Session_List_2 = new QGroupBox(tab_paiement);
+        groupBox_Session_List_2->setObjectName("groupBox_Session_List_2");
+        groupBox_Session_List_2->setGeometry(QRect(460, 10, 721, 541));
+        groupBox_Session_List_2->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 36, 168);\n"
+"border: #A8D3F0;\n"
+"/* Style pour tous les GroupBox */\n"
+"QGroupBox {\n"
+"    border: 2px solid #2c3e50; /* Couleur de la bordure */\n"
+"    border-radius: 15px;      /* M\303\252me arrondi que les boutons */\n"
+"    margin-top: 20px;         /* Espace pour le titre en haut */\n"
+"    font-weight: bold;\n"
+"    color: #2c3e50;\n"
+"}\n"
+"/* Style sp\303\251cifique pour le titre du GroupBox */\n"
+"QGroupBox::title {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top center; /* Place le titre en haut au centre */\n"
+"    padding: 0 10px;\n"
+"}"));
+        rechSession_2 = new QLineEdit(groupBox_Session_List_2);
+        rechSession_2->setObjectName("rechSession_2");
+        rechSession_2->setGeometry(QRect(10, 40, 161, 26));
+        rechSession_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        rechercheSession_2 = new QPushButton(groupBox_Session_List_2);
+        rechercheSession_2->setObjectName("rechercheSession_2");
+        rechercheSession_2->setGeometry(QRect(180, 38, 150, 31));
+        rechercheSession_2->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        statSession_2 = new QPushButton(groupBox_Session_List_2);
+        statSession_2->setObjectName("statSession_2");
+        statSession_2->setGeometry(QRect(550, 450, 150, 31));
+        statSession_2->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        SuppSession_2 = new QPushButton(groupBox_Session_List_2);
+        SuppSession_2->setObjectName("SuppSession_2");
+        SuppSession_2->setGeometry(QRect(40, 440, 150, 41));
+        SuppSession_2->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);"));
+        quitterSession_2 = new QPushButton(groupBox_Session_List_2);
+        quitterSession_2->setObjectName("quitterSession_2");
+        quitterSession_2->setGeometry(QRect(480, 490, 150, 31));
+        quitterSession_2->setStyleSheet(QString::fromUtf8("background-color: rgb(209, 14, 0);\n"
+""));
+        expoSession_2 = new QPushButton(groupBox_Session_List_2);
+        expoSession_2->setObjectName("expoSession_2");
+        expoSession_2->setGeometry(QRect(390, 450, 150, 31));
+        expoSession_2->setStyleSheet(QString::fromUtf8("background-color: rgb(16, 151, 255);\n"
+""));
+        comboBox_6 = new QComboBox(groupBox_Session_List_2);
         comboBox_6->addItem(QString());
         comboBox_6->addItem(QString());
         comboBox_6->setObjectName("comboBox_6");
-        comboBox_6->setGeometry(QRect(630, 50, 76, 26));
+        comboBox_6->setGeometry(QRect(550, 40, 141, 26));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette5.setBrush(QPalette::Active, QPalette::Button, brush7);
+        palette5.setBrush(QPalette::Active, QPalette::Button, brush1);
         palette5.setBrush(QPalette::Active, QPalette::Light, brush1);
         palette5.setBrush(QPalette::Active, QPalette::Midlight, brush1);
         palette5.setBrush(QPalette::Active, QPalette::Dark, brush2);
@@ -1823,8 +1876,8 @@ public:
         palette5.setBrush(QPalette::Active, QPalette::Text, brush);
         palette5.setBrush(QPalette::Active, QPalette::BrightText, brush1);
         palette5.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette5.setBrush(QPalette::Active, QPalette::Base, brush7);
-        palette5.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette5.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette5.setBrush(QPalette::Active, QPalette::Window, brush1);
         palette5.setBrush(QPalette::Active, QPalette::Shadow, brush);
         palette5.setBrush(QPalette::Active, QPalette::AlternateBase, brush1);
         palette5.setBrush(QPalette::Active, QPalette::ToolTipBase, brush4);
@@ -1834,7 +1887,7 @@ public:
 #endif
         palette5.setBrush(QPalette::Active, QPalette::Accent, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette5.setBrush(QPalette::Inactive, QPalette::Button, brush7);
+        palette5.setBrush(QPalette::Inactive, QPalette::Button, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::Light, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::Midlight, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::Dark, brush2);
@@ -1842,8 +1895,8 @@ public:
         palette5.setBrush(QPalette::Inactive, QPalette::Text, brush);
         palette5.setBrush(QPalette::Inactive, QPalette::BrightText, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-        palette5.setBrush(QPalette::Inactive, QPalette::Base, brush7);
-        palette5.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette5.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette5.setBrush(QPalette::Inactive, QPalette::Window, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
         palette5.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush1);
         palette5.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush4);
@@ -1853,7 +1906,7 @@ public:
 #endif
         palette5.setBrush(QPalette::Inactive, QPalette::Accent, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        palette5.setBrush(QPalette::Disabled, QPalette::Button, brush7);
+        palette5.setBrush(QPalette::Disabled, QPalette::Button, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::Light, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::Midlight, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::Dark, brush2);
@@ -1861,8 +1914,8 @@ public:
         palette5.setBrush(QPalette::Disabled, QPalette::Text, brush2);
         palette5.setBrush(QPalette::Disabled, QPalette::BrightText, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        palette5.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette5.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        palette5.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette5.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
         palette5.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
         palette5.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush4);
@@ -1872,6 +1925,11 @@ public:
 #endif
         palette5.setBrush(QPalette::Disabled, QPalette::Accent, brush1);
         comboBox_6->setPalette(palette5);
+        comboBox_6->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        tableWidget_6 = new QTableWidget(groupBox_Session_List_2);
+        tableWidget_6->setObjectName("tableWidget_6");
+        tableWidget_6->setGeometry(QRect(20, 110, 641, 241));
+        tableWidget_6->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         tabWidget->addTab(tab_paiement, QString());
         TableaudeBoard = new QLabel(groupBox_4);
         TableaudeBoard->setObjectName("TableaudeBoard");
@@ -1924,14 +1982,14 @@ public:
         btn_Enregistrer_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         btn_Modifier_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         btn_Annuler_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
-        groupBox_Utilisateur_List->setTitle(QString());
-        btn_Recherche_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
-        btn_Supprimer_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
-        btn_Exportation_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
-        btn_Statistique_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Statistique", nullptr));
-        btn_Quitter_Utilisateur->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
+        groupBox_Session_List_6->setTitle(QString());
+        rechercheSession_6->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
+        statSession_6->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
+        SuppSession_6->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
+        quitterSession_6->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
+        expoSession_6->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
+        comboBox_10->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
+        comboBox_10->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
 
         tabWidget->setTabText(tabWidget->indexOf(tab_utilisateur), QCoreApplication::translate("SmartResearch", "Gestion Utilisateur", nullptr));
         groupBox_2->setTitle(QString());
@@ -1949,14 +2007,14 @@ public:
         enregistrer->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         modif->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         annuler->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
-        groupBox_3->setTitle(QString());
-        recherchePub->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
-        statPub->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
-        SuppPub->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
-        quitterPub->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
-        expoPub->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
-        comboBox_2->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
-        comboBox_2->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
+        groupBox_Session_List_5->setTitle(QString());
+        rechercheSession_5->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
+        statSession_5->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
+        SuppSession_5->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
+        quitterSession_5->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
+        expoSession_5->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
+        comboBox_9->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
+        comboBox_9->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
 
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("SmartResearch", "Gestion Publication", nullptr));
         groupBox_Journal_Form->setTitle(QString());
@@ -1973,14 +2031,14 @@ public:
         enregistrer1->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         modif1->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         annuler1->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
-        groupBox_Journal_List->setTitle(QString());
-        recherchePub1->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
-        statPub1->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
-        SuppPub1->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
-        quitterPub1->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
-        expoPub1->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
-        comboBox_3->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
-        comboBox_3->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
+        groupBox_Session_List_4->setTitle(QString());
+        rechercheSession_4->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
+        statSession_4->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
+        SuppSession_4->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
+        quitterSession_4->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
+        expoSession_4->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
+        comboBox_8->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
+        comboBox_8->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
 
         tabWidget->setTabText(tabWidget->indexOf(tab_journal), QCoreApplication::translate("SmartResearch", "Gestion Journal/Conf\303\251rence", nullptr));
         groupBox_Reviewer_Form->setTitle(QString());
@@ -1995,25 +2053,27 @@ public:
         enregistrerReviewer->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         modifierReviewer->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         annulerReviewer->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
-        groupBox_Reviewer_List->setTitle(QString());
-        rechercherButton->setText(QCoreApplication::translate("SmartResearch", "Rechercher", nullptr));
-        supprimerReviewerButton->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
-        assignerPublicationButton->setText(QCoreApplication::translate("SmartResearch", "Assigner", nullptr));
-        rapportButton->setText(QCoreApplication::translate("SmartResearch", "Statistique", nullptr));
-        comboBox_4->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
-        comboBox_4->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
+        groupBox_Session_List_3->setTitle(QString());
+        rechercheSession_3->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
+        statSession_3->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
+        SuppSession_3->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
+        quitterSession_3->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
+        expoSession_3->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
+        comboBox_7->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
+        comboBox_7->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
 
         tabWidget->setTabText(tabWidget->indexOf(tab_reviewer), QCoreApplication::translate("SmartResearch", "Gestion Reviewer", nullptr));
         groupBox_Session_Form->setTitle(QString());
         label_S_ID->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">ID</span></p></body></html>", nullptr));
         label_S_Titre->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Titre:</span></p></body></html>", nullptr));
-        label_S_Date->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-weight:700;\">Date:</span></p></body></html>", nullptr));
+        label_S_Date->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-weight:700; color:#ffffff;\">Date:</span></p></body></html>", nullptr));
         label_S_Lieu->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Lieu</span></p></body></html>", nullptr));
         label_S_Type->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Type</span></p></body></html>", nullptr));
-        conferenceSession->setText(QCoreApplication::translate("SmartResearch", "Conf\303\251rence", nullptr));
-        journalSession->setText(QCoreApplication::translate("SmartResearch", "Journal", nullptr));
         label_S_ListPub->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Liste des publication:</span></p></body></html>", nullptr));
         label_S_ListRev->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Liste des reviewes:</span></p></body></html>", nullptr));
+        radioButton_Admin_5->setText(QCoreApplication::translate("SmartResearch", "conference", nullptr));
+        radioButton_Admin_6->setText(QCoreApplication::translate("SmartResearch", "presentation", nullptr));
+        radioButton_Chercheur_2->setText(QCoreApplication::translate("SmartResearch", "atlier", nullptr));
         enregistrerSession->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         modifSession->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         annulerSession->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
@@ -2042,11 +2102,12 @@ public:
         btn_Enregistrer_Utilisateur_2->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         btn_Modifier_Utilisateur_2->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         btn_Annuler_Utilisateur_2->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
-        groupBox_Paiement_List->setTitle(QString());
-        lineEdit_recherche_paie->setPlaceholderText(QCoreApplication::translate("SmartResearch", "Rechercher...", nullptr));
-        pushButton_recherche_paie->setText(QCoreApplication::translate("SmartResearch", "Rechercher", nullptr));
-        pushButton_pdf_paie->setText(QCoreApplication::translate("SmartResearch", "PDF", nullptr));
-        pushButton_stat_paie->setText(QCoreApplication::translate("SmartResearch", "Statistiques", nullptr));
+        groupBox_Session_List_2->setTitle(QString());
+        rechercheSession_2->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
+        statSession_2->setText(QCoreApplication::translate("SmartResearch", "Statistique ", nullptr));
+        SuppSession_2->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
+        quitterSession_2->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
+        expoSession_2->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
         comboBox_6->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
         comboBox_6->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
 
