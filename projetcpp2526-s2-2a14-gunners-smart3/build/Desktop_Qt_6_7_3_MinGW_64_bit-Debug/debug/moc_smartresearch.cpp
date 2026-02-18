@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../smartresearch.h"
+#include "../../../../smart/smart_research3/smartresearch.h"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>

@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../gestionsession.h"
+#include "../../../../smart/smart_research3/gestionsession.h"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
@@ -36,7 +36,7 @@ namespace {
 struct qt_meta_stringdata_CLASSGestionSessionENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSGestionSessionENDCLASS = QtMocHelpers::stringData(
     "GestionSession",
-    "on_btn_Quitter_Session_clicked",
+    "on_quitterSession_clicked",
     ""
 );
 #else  // !QT_MOC_HAS_STRINGDATA
@@ -58,7 +58,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGestionSessionENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   20,    2, 0x08,    1 /* Private */,
+       1,    0,   20,    2, 0x0a,    1 /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -67,7 +67,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGestionSessionENDCLASS[] = {
 };
 
 Q_CONSTINIT const QMetaObject GestionSession::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
     qt_meta_stringdata_CLASSGestionSessionENDCLASS.offsetsAndSizes,
     qt_meta_data_CLASSGestionSessionENDCLASS,
     qt_static_metacall,
@@ -75,7 +75,7 @@ Q_CONSTINIT const QMetaObject GestionSession::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSGestionSessionENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<GestionSession, std::true_type>,
-        // method 'on_btn_Quitter_Session_clicked'
+        // method 'on_quitterSession_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -87,7 +87,7 @@ void GestionSession::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<GestionSession *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_btn_Quitter_Session_clicked(); break;
+        case 0: _t->on_quitterSession_clicked(); break;
         default: ;
         }
     }
@@ -104,12 +104,12 @@ void *GestionSession::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_CLASSGestionSessionENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QObject::qt_metacast(_clname);
 }
 
 int GestionSession::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
