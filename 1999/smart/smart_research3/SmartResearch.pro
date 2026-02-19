@@ -9,18 +9,15 @@ SOURCES += \
     connection.cpp \
     main.cpp \
     smartresearch.cpp \
-    gestionsession.cpp \
-    login.cpp
+    gestionsession.cpp
 
 HEADERS += \
     connection.h \
     smartresearch.h \
-    gestionsession.h \
-    login.h
+    gestionsession.h
 
 FORMS += \
-    smartresearch.ui \
-    login.ui
+    smartresearch.ui
 
 RESOURCES += \
     ../ressources.qrc \

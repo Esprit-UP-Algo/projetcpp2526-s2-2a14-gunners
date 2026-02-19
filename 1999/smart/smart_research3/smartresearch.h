@@ -27,6 +27,7 @@ private slots:
   void on_GestionReviewer_clicked();
 
   void on_GestionSession_2_clicked();
+  void on_btnLogin_main_clicked();
 
 private:
   Ui::SmartResearch *ui;

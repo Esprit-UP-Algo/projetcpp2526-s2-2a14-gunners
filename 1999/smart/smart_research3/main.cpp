@@ -1,5 +1,5 @@
 #include "smartresearch.h"
-#include "login.h"
+
 #include "connection.h"
 #include <QApplication>
 #include <QObject>
@@ -32,16 +32,8 @@ int main(int argc, char *argv[]) {
         a.setPalette(palette);
 
         // 3. Gestion des fenêtres
-        Login *login = new Login();
         SmartResearch *w = new SmartResearch();
-
-        // Connexion du signal de succès du login pour afficher la fenêtre principale
-        QObject::connect(login, &Login::loginSuccessful, w, [=]() {
-            w->show();
-            login->close(); // Ferme proprement la fenêtre de login
-        });
-
-        login->show();
+        w->show();
 
         return a.exec();
 
