@@ -1,5 +1,4 @@
 hello
-
 #include "smartresearch.h"
 
 #include "connection.h"
