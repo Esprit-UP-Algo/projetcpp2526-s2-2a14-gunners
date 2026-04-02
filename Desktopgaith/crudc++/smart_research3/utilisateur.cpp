@@ -100,9 +100,11 @@ bool Utilisateur::supprimer(int id)
 bool Utilisateur::modifier(int id)
 {
     QSqlQuery query;
-    query.prepare("UPDATE TABLE_UTILISATEUR SET NOM_UTILISATEUR=:nom, EMAIL_UTILISATEUR=:email, MDP_UTILISATEUR=:mdp, ROLE_UTILISATEUR=:role, NUM_UTILISATEUR=:num, INSTITUTION_UTILISATEUR=:inst, PRENOM=:prenom WHERE ID_UTILISATEUR=:id");
+    // Current ID is updated to the id_utilisateur member, filter by the original id
+    query.prepare("UPDATE TABLE_UTILISATEUR SET ID_UTILISATEUR=:newId, NOM_UTILISATEUR=:nom, EMAIL_UTILISATEUR=:email, MDP_UTILISATEUR=:mdp, ROLE_UTILISATEUR=:role, NUM_UTILISATEUR=:num, INSTITUTION_UTILISATEUR=:inst, PRENOM=:prenom WHERE ID_UTILISATEUR=:oldId");
     
-    query.bindValue(":id", id);
+    query.bindValue(":oldId", id);
+    query.bindValue(":newId", id_utilisateur);
     query.bindValue(":nom", nom_utilisateur);
     query.bindValue(":email", email_utilisateur);
     query.bindValue(":mdp", mdp_utilisateur);
@@ -112,4 +114,39 @@ bool Utilisateur::modifier(int id)
     query.bindValue(":prenom", prenom);
     
     return query.exec();
+}
+
+bool Utilisateur::verifierId(int id)
+{
+    QSqlQuery query;
+    query.prepare("SELECT ID_UTILISATEUR FROM TABLE_UTILISATEUR WHERE ID_UTILISATEUR = :id");
+    query.bindValue(":id", id);
+    if (query.exec() && query.next()) {
+        return true; // Exists
+    }
+    return false; // Not found
+}
+
+QMap<QString, int> Utilisateur::getStatistics()
+{
+    QMap<QString, int> stats;
+    QSqlQuery query;
+    
+    // Total count
+    query.prepare("SELECT COUNT(*) FROM TABLE_UTILISATEUR");
+    if (query.exec() && query.next()) {
+        stats["total"] = query.value(0).toInt();
+    }
+    
+    // Count per role
+    QStringList roles = {"Admin", "manager", "editer", "reviewer"};
+    for (const QString &role : roles) {
+        query.prepare("SELECT COUNT(*) FROM TABLE_UTILISATEUR WHERE ROLE_UTILISATEUR = :role");
+        query.bindValue(":role", role);
+        if (query.exec() && query.next()) {
+            stats[role] = query.value(0).toInt();
+        }
+    }
+    
+    return stats;
 }

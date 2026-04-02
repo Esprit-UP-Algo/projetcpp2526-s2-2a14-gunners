@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QMap>
 #include <QDate>
 
 class Publication
@@ -39,7 +40,9 @@ public:
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(int);
-    bool modifier(int);
+    bool modifier(int); // The argument is the original ID (for the WHERE clause)
+    static bool verifierId(int); // Check if ID exists
+    static QMap<QString, int> getStatistics();
 };
 
 #endif // PUBLICATION_H

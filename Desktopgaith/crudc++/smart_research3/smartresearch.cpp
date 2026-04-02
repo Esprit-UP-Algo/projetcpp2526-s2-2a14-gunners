@@ -14,6 +14,10 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QButtonGroup>
+#include <QMap>
+#include <QStringList>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 SmartResearch::SmartResearch(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::SmartResearch) {
@@ -76,7 +80,9 @@ SmartResearch::SmartResearch(QWidget *parent)
   ui->tableWidget_10->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui->tableWidget_10->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  // Implicit connections are used here as well for Utilisateur components
+  // Validation for other fields continue here...
+  updateUtilisateurStats();
+  updatePublicationStats();
 }
 
 SmartResearch::~SmartResearch() {
@@ -167,16 +173,29 @@ void SmartResearch::on_enregistrer_clicked() {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Titre' est obligatoire.");
         return;
     }
+    QRegularExpression rePub("^[a-zA-ZÀ-ÿ\\s]+$");
+    if (!rePub.match(titre).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Titre' ne doit contenir que des lettres et des espaces.");
+        return;
+    }
 
     // 3. Contrôle Auteurs
     if (auteurs.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Auteurs' est obligatoire.");
         return;
     }
+    if (!rePub.match(auteurs).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Auteurs' ne doit contenir que des lettres et des espaces.");
+        return;
+    }
 
     // 4. Contrôle Abstract
     if (abstract.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Abstract' est obligatoire.");
+        return;
+    }
+    if (!rePub.match(abstract).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Abstract' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
@@ -189,6 +208,10 @@ void SmartResearch::on_enregistrer_clicked() {
     // 6. Contrôle Mots clés
     if (mots_cles.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Mots clés' est obligatoire.");
+        return;
+    }
+    if (!rePub.match(mots_cles).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Mots clés' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
@@ -204,6 +227,7 @@ void SmartResearch::on_enregistrer_clicked() {
         ui->tableWidget_9->setModel(Ptmp.afficher()); // Refresh
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Ajout effectué."), QMessageBox::Ok);
+        updatePublicationStats();
         on_annulerajout_client_clicked(); // Clear fields
     } else {
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -236,9 +260,22 @@ void SmartResearch::on_modif_clicked() {
         return;
     }
 
+    // Check if ID is changed and already exists
+    if (selectedPublicationId != -1 && id_val != selectedPublicationId) {
+        if (Publication::verifierId(id_val)) {
+            QMessageBox::warning(this, "Erreur de saisie", "Cet ID est déjà utilisé par une autre publication. Veuillez en choisir un autre.");
+            return;
+        }
+    }
+
     // 2. Contrôle Titre
     if (titre.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Titre' est obligatoire.");
+        return;
+    }
+    QRegularExpression rePubMod("^[a-zA-ZÀ-ÿ\\s]+$");
+    if (!rePubMod.match(titre).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Titre' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
@@ -247,10 +284,18 @@ void SmartResearch::on_modif_clicked() {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Auteurs' est obligatoire.");
         return;
     }
+    if (!rePubMod.match(auteurs).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Auteurs' ne doit contenir que des lettres et des espaces.");
+        return;
+    }
 
     // 4. Contrôle Abstract
     if (abstract.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Abstract' est obligatoire.");
+        return;
+    }
+    if (!rePubMod.match(abstract).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Abstract' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
@@ -265,6 +310,10 @@ void SmartResearch::on_modif_clicked() {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Mots clés' est obligatoire.");
         return;
     }
+    if (!rePubMod.match(mots_cles).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Mots clés' ne doit contenir que des lettres et des espaces.");
+        return;
+    }
 
     // 7. Contrôle Statut
     if (statut.isEmpty()) {
@@ -272,12 +321,14 @@ void SmartResearch::on_modif_clicked() {
         return;
     }
 
-    Publication p(id, titre, auteurs, abstract, type, mots_cles, statut, date);
-    bool test = p.modifier(id);
+    Publication p(id_val, titre, auteurs, abstract, type, mots_cles, statut, date);
+    // Use the original selected ID to find the row, even if the ID in the object is different
+    bool test = p.modifier(selectedPublicationId != -1 ? selectedPublicationId : id_val);
     if (test) {
         ui->tableWidget_9->setModel(Ptmp.afficher()); // Refresh
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Modification effectuée."), QMessageBox::Ok);
+        updatePublicationStats();
         on_annulerajout_client_clicked();
     } else {
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -287,6 +338,7 @@ void SmartResearch::on_modif_clicked() {
 
 void SmartResearch::on_annulerajout_client_clicked() {
     ui->Id_utilisateur->clear();
+    this->selectedPublicationId = -1;
     ui->titrePub->clear();
     ui->auteurPub->clear();
     ui->abstractPub->clear();
@@ -313,6 +365,7 @@ void SmartResearch::on_pushButton_supprimer_client_clicked() {
         ui->tableWidget_9->setModel(Ptmp.afficher());
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Suppression effectuée\nClick Cancel to exit."), QMessageBox::Cancel);
+        updatePublicationStats();
         on_annulerajout_client_clicked();
     } else {
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -335,6 +388,7 @@ void SmartResearch::on_tableWidget_9_clicked(const QModelIndex &index) {
     QDate date = ui->tableWidget_9->model()->index(row, 7).data().toDate();
 
     ui->Id_utilisateur->setText(id);
+    this->selectedPublicationId = id.toInt();
     ui->titrePub->setText(titre);
     ui->auteurPub->setText(auteurs);
     ui->abstractPub->setText(abstract);
@@ -406,14 +460,14 @@ void SmartResearch::on_expoSession_5_clicked() {
         <<  QString("<title>%1</title>\n").arg("Liste des Publications")
         <<  "</head>\n"
         "<body bgcolor=#ffffff link=#5000A0>\n"
-        "<h1 style=\"text-align: center;\"><strong> *** LISTE DES PUBLICATIONS *** </strong></h1>"
-        "<table border=1 cellspacing=0 cellpadding=2>\n";
+        "<center> <h1 style=\"color: #1e293b; font-family: Arial, sans-serif;\"><strong> *** LISTE DES PUBLICATIONS *** </strong></h1> </center>\n"
+        "<table border=1 cellspacing=0 cellpadding=8 width=\"100%\" style=\"border-collapse: collapse; border: 1px solid #1e293b; font-family: Arial, sans-serif;\">\n";
 
     // headers
-    out << "<thead><tr bgcolor=#f0f0f0>";
+    out << "<thead><tr bgcolor=#1e293b style=\"color: #ffffff; font-weight: bold;\">";
     for (int column = 0; column < columnCount; column++)
         if (!ui->tableWidget_9->isColumnHidden(column))
-            out << QString("<th>%1</th>").arg(ui->tableWidget_9->model()->headerData(column, Qt::Horizontal).toString());
+            out << QString("<th style=\"border: 1px solid #1e293b; padding: 10px;\">%1</th>").arg(ui->tableWidget_9->model()->headerData(column, Qt::Horizontal).toString());
     out << "</tr></thead>\n";
 
     // data table
@@ -422,7 +476,7 @@ void SmartResearch::on_expoSession_5_clicked() {
         for (int column = 0; column < columnCount; column++) {
             if (!ui->tableWidget_9->isColumnHidden(column)) {
                 QString data = ui->tableWidget_9->model()->data(ui->tableWidget_9->model()->index(row, column)).toString().simplified();
-                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                out << QString("<td style=\"border: 1px solid #1e293b; text-align: center; padding: 8px;\">%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
             }
         }
         out << "</tr>\n";
@@ -435,15 +489,22 @@ void SmartResearch::on_expoSession_5_clicked() {
     document->setHtml(strStream);
 
     QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Exporter en PDF", QString(), "*.pdf");
+    if (fileName.isEmpty()) {
+        delete document;
+        return;
+    }
     if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
 
     QPdfWriter *printer = new QPdfWriter(fileName);
     printer->setPageSize(QPageSize(QPageSize::A4));
+    printer->setPageOrientation(QPageLayout::Landscape);
     printer->setPageMargins(QMarginsF(15, 15, 15, 15));
 
     document->print(printer);
     delete document;
     delete printer;
+
+    QMessageBox::information(this, "Exportation PDF", "La liste des publications a été exportée avec succès.");
 }
 
 // --- Gestion Utilisateur Slots ---
@@ -479,10 +540,19 @@ void SmartResearch::on_btn_Enregistrer_Utilisateur_clicked() {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Nom' est obligatoire. Veuillez le renseigner.");
         return;
     }
+    QRegularExpression reUser("^[a-zA-ZÀ-ÿ\\s]+$");
+    if (!reUser.match(nom).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Nom' ne doit contenir que des lettres et des espaces.");
+        return;
+    }
 
     // 3. Contrôle Prénom
     if (prenom.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Prénom' est obligatoire. Veuillez le renseigner.");
+        return;
+    }
+    if (!reUser.match(prenom).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Prénom' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
@@ -517,6 +587,10 @@ void SmartResearch::on_btn_Enregistrer_Utilisateur_clicked() {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Numéro' est obligatoire. Veuillez le renseigner.");
         return;
     }
+    if (num.length() != 8) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le 'Numéro' doit contenir exactement 8 chiffres.");
+        return;
+    }
     long long num_val = num.toLongLong(&ok);
     if (!ok || num_val <= 0) {
         QMessageBox::warning(this, "Erreur de saisie", "Le 'Numéro' saisi est invalide. Il doit être composé uniquement de chiffres positifs.");
@@ -535,6 +609,7 @@ void SmartResearch::on_btn_Enregistrer_Utilisateur_clicked() {
         ui->tableWidget_10->setModel(Utmp.afficher()); // Refresh
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Ajout utilisateur effectué."), QMessageBox::Ok);
+        updateUtilisateurStats();
         on_annulerajout_client_3_clicked(); // Clear fields
     } else {
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -568,15 +643,33 @@ void SmartResearch::on_modif_3_clicked() {
         return;
     }
 
+    // Check if ID is changed and already exists
+    if (selectedUtilisateurId != -1 && id != selectedUtilisateurId) {
+        if (Utilisateur::verifierId(id)) {
+            QMessageBox::warning(this, "Erreur de saisie", "Cet ID est déjà utilisé par un autre utilisateur. Veuillez en choisir un autre.");
+            return;
+        }
+    }
+
+    // ... (rest of validation)
     // 2. Contrôle Nom
     if (nom.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Nom' est obligatoire. Veuillez le renseigner.");
+        return;
+    }
+    QRegularExpression reMod("^[a-zA-ZÀ-ÿ\\s]+$");
+    if (!reMod.match(nom).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Nom' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
     // 3. Contrôle Prénom
     if (prenom.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Prénom' est obligatoire. Veuillez le renseigner.");
+        return;
+    }
+    if (!reMod.match(prenom).hasMatch()) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Prénom' ne doit contenir que des lettres et des espaces.");
         return;
     }
 
@@ -611,6 +704,10 @@ void SmartResearch::on_modif_3_clicked() {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Numéro' est obligatoire. Veuillez le renseigner.");
         return;
     }
+    if (num.length() != 8) {
+        QMessageBox::warning(this, "Erreur de saisie", "Le 'Numéro' doit contenir exactement 8 chiffres.");
+        return;
+    }
     long long num_val = num.toLongLong(&ok);
     if (!ok || num_val <= 0) {
         QMessageBox::warning(this, "Erreur de saisie", "Le 'Numéro' saisi est invalide. Il doit être composé uniquement de chiffres positifs.");
@@ -624,11 +721,13 @@ void SmartResearch::on_modif_3_clicked() {
     }
 
     Utilisateur u(id, nom, prenom, email, mdp, role, num, inst);
-    bool test = u.modifier(id);
+    // Use the original selected ID to find the row, even if the ID in the object is different
+    bool test = u.modifier(selectedUtilisateurId != -1 ? selectedUtilisateurId : id);
     if (test) {
         ui->tableWidget_10->setModel(Utmp.afficher()); // Refresh
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Modification utilisateur effectuée."), QMessageBox::Ok);
+        updateUtilisateurStats();
         on_annulerajout_client_3_clicked();
     } else {
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -638,6 +737,7 @@ void SmartResearch::on_modif_3_clicked() {
 
 void SmartResearch::on_annulerajout_client_3_clicked() {
     ui->lineEdit_ID_Utilisateur->clear();
+    this->selectedUtilisateurId = -1;
     ui->lineEdit_Nom_Utilisateur->clear();
     ui->lineEdit_Prenom_Utilisateur->clear();
     ui->lineEdit_Email_Utilisateur->clear();
@@ -659,6 +759,7 @@ void SmartResearch::on_pushButton_supprimer_client_2_clicked() {
         ui->tableWidget_10->setModel(Utmp.afficher());
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Suppression utilisateur effectuée."), QMessageBox::Ok);
+        updateUtilisateurStats();
         on_annulerajout_client_3_clicked();
     } else {
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -679,6 +780,7 @@ void SmartResearch::on_tableWidget_10_clicked(const QModelIndex &index) {
     QString inst = ui->tableWidget_10->model()->index(row, 7).data().toString();
 
     ui->lineEdit_ID_Utilisateur->setText(id);
+    this->selectedUtilisateurId = id.toInt();
     ui->lineEdit_Nom_Utilisateur->setText(nom);
     ui->lineEdit_Prenom_Utilisateur->setText(prenom);
     ui->lineEdit_Email_Utilisateur->setText(email);
@@ -690,6 +792,66 @@ void SmartResearch::on_tableWidget_10_clicked(const QModelIndex &index) {
     else if (role == "manager") ui->radioButton_Admin_2->setChecked(true);
     else if (role == "editer") ui->radioButton_Admin->setChecked(true);
     else if (role == "reviewer") ui->radioButton_Chercheur->setChecked(true);
+}
+
+void SmartResearch::on_pushButton_pdfclient_clicked() {
+    QString strStream;
+    QTextStream out(&strStream);
+
+    const int rowCount = ui->tableWidget_10->model()->rowCount();
+    const int columnCount = ui->tableWidget_10->model()->columnCount();
+
+    out <<  "<html>\n"
+        "<head>\n"
+        "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+        <<  QString("<title>%1</title>\n").arg("Liste des Utilisateurs")
+        <<  "</head>\n"
+        "<body bgcolor=#ffffff link=#5000A0>\n"
+        "<center> <h1 style=\"color: #1e293b; font-family: Arial, sans-serif;\"><strong> *** LISTE DES UTILISATEURS *** </strong></h1> </center>\n"
+        "<table border=1 cellspacing=0 cellpadding=8 width=\"100%\" style=\"border-collapse: collapse; border: 1px solid #1e293b; font-family: Arial, sans-serif;\">\n";
+
+    // headers
+    out << "<thead><tr bgcolor=#1e293b style=\"color: #ffffff; font-weight: bold;\">";
+    for (int column = 0; column < columnCount; column++)
+        if (!ui->tableWidget_10->isColumnHidden(column))
+            out << QString("<th style=\"border: 1px solid #1e293b; padding: 10px;\">%1</th>").arg(ui->tableWidget_10->model()->headerData(column, Qt::Horizontal).toString());
+    out << "</tr></thead>\n";
+
+    // data table
+    for (int row = 0; row < rowCount; row++) {
+        out << "<tr>";
+        for (int column = 0; column < columnCount; column++) {
+            if (!ui->tableWidget_10->isColumnHidden(column)) {
+                QString data = ui->tableWidget_10->model()->data(ui->tableWidget_10->model()->index(row, column)).toString().simplified();
+                out << QString("<td style=\"border: 1px solid #1e293b; text-align: center; padding: 8px;\">%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+            }
+        }
+        out << "</tr>\n";
+    }
+    out <<  "</table>\n"
+        "</body>\n"
+        "</html>\n";
+
+    QTextDocument *document = new QTextDocument();
+    document->setHtml(strStream);
+
+    QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Exporter en PDF", QString(), "*.pdf");
+    if (fileName.isEmpty()) {
+        delete document;
+        return;
+    }
+    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+    QPdfWriter *printer = new QPdfWriter(fileName);
+    printer->setPageSize(QPageSize(QPageSize::A4));
+    printer->setPageOrientation(QPageLayout::Landscape);
+    printer->setPageMargins(QMarginsF(15, 15, 15, 15));
+
+    document->print(printer);
+    delete document;
+    delete printer;
+    
+    QMessageBox::information(this, "Exportation PDF", "La liste des utilisateurs a été exportée avec succès.");
 }
 
 void SmartResearch::on_pushButton_recherche_4_clicked() {
@@ -722,4 +884,111 @@ void SmartResearch::on_pushButton_recherche_4_clicked() {
 void SmartResearch::on_comboBox_11_currentIndexChanged(int index) {
     Q_UNUSED(index);
     on_pushButton_recherche_4_clicked();
+}
+
+void SmartResearch::updateUtilisateurStats() {
+    QMap<QString, int> stats = Utilisateur::getStatistics();
+
+    // Prepare data for Chart
+    QMap<QString, int> chartData;
+    chartData["Admins"] = stats["Admin"];
+    chartData["Managers"] = stats["manager"];
+    chartData["Editors"] = stats["editer"];
+    chartData["Reviewers"] = stats["reviewer"];
+    
+    drawBarChart(ui->label_Chart_Utilisateur, chartData, QColor("#10b981"));
+}
+
+void SmartResearch::updatePublicationStats() {
+    QMap<QString, int> stats = Publication::getStatistics();
+
+    // Prepare data for Chart
+    QMap<QString, int> chartData;
+    chartData["Attente"] = stats["status_En attente"];
+    chartData["Accepté"] = stats["status_Accepté"];
+    chartData["Rejeté"] = stats["status_Rejeté"];
+    chartData["Journal"] = stats["type_Journal"];
+    chartData["Conférence"] = stats["type_Conférence"];
+    
+    drawBarChart(ui->label_Chart_Publication, chartData, QColor("#10b981"));
+}
+
+void SmartResearch::drawBarChart(QLabel *label, const QMap<QString, int> &data, const QColor &barColor) {
+    if (!label) return;
+    
+    int w = label->width();
+    int h = label->height();
+    if (w <= 0 || h <= 0) return;
+
+    QPixmap pixmap(w, h);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    int margin = 35;
+    int chartW = w - 2 * margin;
+    int chartH = h - 2 * margin;
+
+    // Find max value
+    int maxVal = 0;
+    for (int val : data.values()) {
+        if (val > maxVal) maxVal = val;
+    }
+    if (maxVal == 0) maxVal = 5; 
+
+    // --- Background Grid Lines ---
+    painter.setPen(QPen(QColor(255, 255, 255, 30), 1, Qt::DashLine));
+    int steps = 4;
+    for (int j = 0; j <= steps; j++) {
+        int y_grid = margin + chartH - (j * chartH / steps);
+        painter.drawLine(margin, y_grid, margin + chartW, y_grid);
+    }
+
+    int barCount = data.count();
+    if (barCount == 0) return;
+    
+    int barSpacing = 30;
+    int barWidth = (chartW - (barCount - 1) * barSpacing) / barCount;
+
+    int i = 0;
+    QMapIterator<QString, int> it(data);
+    while (it.hasNext()) {
+        it.next();
+        QString category = it.key();
+        int value = it.value();
+
+        int barH = (static_cast<double>(value) / maxVal) * chartH;
+        int x = margin + i * (barWidth + barSpacing);
+        int y = h - margin - barH;
+
+        // --- Premium Gradient for bars ---
+        QLinearGradient gradient(x, y, x, y + barH);
+        gradient.setColorAt(0, barColor.lighter(110));
+        gradient.setColorAt(1, barColor.darker(150));
+
+        // Draw bar
+        painter.setBrush(gradient);
+        painter.setPen(QPen(barColor.lighter(130), 1));
+        painter.drawRoundedRect(x, y, barWidth, barH, 6, 6);
+
+        // --- Exact Value on top ---
+        painter.setPen(Qt::white);
+        QFont valueFont = painter.font();
+        valueFont.setBold(true);
+        valueFont.setPointSize(10);
+        painter.setFont(valueFont);
+        painter.drawText(QRect(x, y - 25, barWidth, 20), Qt::AlignCenter, QString::number(value));
+
+        // --- Category Name below ---
+        painter.setPen(QColor(148, 163, 184)); // Slate-Gray
+        QFont catFont = painter.font();
+        catFont.setBold(false);
+        catFont.setPointSize(9);
+        painter.setFont(catFont);
+        painter.drawText(QRect(x, h - margin + 8, barWidth, 30), Qt::AlignCenter, category);
+
+        i++;
+    }
+
+    label->setPixmap(pixmap);
 }

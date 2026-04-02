@@ -91,9 +91,11 @@ bool Publication::supprimer(int id)
 bool Publication::modifier(int id)
 {
     QSqlQuery query;
-    query.prepare("UPDATE PUBLICATION SET TITRE_PUB=:titre, AUTEURS_PUB=:auteurs, ABSTRACT_PUB=:abstract, TYPE_PUB=:type, MOTS_CLES_PUB=:mots, STATUT_PUB=:statut, DATE_PUB=:date WHERE ID_PUB=:id");
+    // Current ID is updated to the id_pub member, filter by the original id
+    query.prepare("UPDATE PUBLICATION SET ID_PUB=:newId, TITRE_PUB=:titre, AUTEURS_PUB=:auteurs, ABSTRACT_PUB=:abstract, TYPE_PUB=:type, MOTS_CLES_PUB=:mots, STATUT_PUB=:statut, DATE_PUB=:date WHERE ID_PUB=:oldId");
     
-    query.bindValue(":id", id);
+    query.bindValue(":oldId", id);
+    query.bindValue(":newId", id_pub);
     query.bindValue(":titre", titre_pub);
     query.bindValue(":auteurs", auteurs_pub);
     query.bindValue(":abstract", abstract_pub);
@@ -103,4 +105,50 @@ bool Publication::modifier(int id)
     query.bindValue(":date", date_pub);
     
     return query.exec();
+}
+
+bool Publication::verifierId(int id)
+{
+    QSqlQuery query;
+    query.prepare("SELECT ID_PUB FROM PUBLICATION WHERE ID_PUB = :id");
+    query.bindValue(":id", id);
+    if (query.exec() && query.next()) {
+        return true; // Exists
+    }
+    return false; // Not found
+}
+
+QMap<QString, int> Publication::getStatistics()
+{
+    QMap<QString, int> stats;
+    QSqlQuery query;
+    
+    // Total count
+    query.prepare("SELECT COUNT(*) FROM PUBLICATION");
+    if (query.exec() && query.next()) {
+        stats["total"] = query.value(0).toInt();
+    }
+    
+    
+    // Count per status
+    QStringList statuses = {"En attente", "Accepté", "Rejeté"};
+    for (const QString &status : statuses) {
+        query.prepare("SELECT COUNT(*) FROM PUBLICATION WHERE STATUT_PUB = :status");
+        query.bindValue(":status", status);
+        if (query.exec() && query.next()) {
+            stats["status_" + status] = query.value(0).toInt();
+        }
+    }
+
+    // Count per type
+    QStringList types = {"Journal", "Conférence"};
+    for (const QString &type : types) {
+        query.prepare("SELECT COUNT(*) FROM PUBLICATION WHERE TYPE_PUB = :type");
+        query.bindValue(":type", type);
+        if (query.exec() && query.next()) {
+            stats["type_" + type] = query.value(0).toInt();
+        }
+    }
+    
+    return stats;
 }

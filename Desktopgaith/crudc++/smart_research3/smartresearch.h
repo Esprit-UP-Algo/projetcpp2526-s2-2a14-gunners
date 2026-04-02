@@ -2,6 +2,11 @@
 #define SMARTRESEARCH_H
 
 #include <QMainWindow>
+#include <QPainter>
+#include <QPixmap>
+#include <QColor>
+#include <QMap>
+#include <QLabel>
 
 class GestionSession;
 #include "publication.h"
@@ -49,12 +54,19 @@ private slots:
     void on_tableWidget_10_clicked(const QModelIndex &index);
     void on_pushButton_recherche_4_clicked();
     void on_comboBox_11_currentIndexChanged(int index);
+    void on_pushButton_pdfclient_clicked(); // Export as PDF
 
 private:
   Ui::SmartResearch *ui;
   GestionSession *sessionController = nullptr;
   Publication Ptmp;
   Utilisateur Utmp;
+
+  void updateUtilisateurStats();
+  void updatePublicationStats();
+  void drawBarChart(QLabel *label, const QMap<QString, int> &data, const QColor &barColor);
+  int selectedUtilisateurId = -1;
+  int selectedPublicationId = -1;
 };
 
 #endif // SMARTRESEARCH_H
