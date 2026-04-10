@@ -18,6 +18,7 @@
 #include <QDebug>
 #include <QButtonGroup>
 #include <QMap>
+#include <algorithm>
 #include <QStringList>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
@@ -87,6 +88,75 @@ SmartResearch::SmartResearch(QWidget *parent)
   ui->type->addItem("Journal");
   ui->type->addItem("Conférence");
   ui->type->setCurrentIndex(-1); // Show empty by default
+  ui->domaine_scientifique->addItems({
+      "-- Sélectionner un domaine --",
+      "Computer Science (Informatique)",
+      "  - Artificial Intelligence (Intelligence Artificielle)",
+      "  - Machine Learning (Apprentissage Automatique)",
+      "  - Cybersecurity (Sécurité Informatique)",
+      "  - Computer Vision (Vision par Ordinateur)",
+      "  - Computer Networks (Réseaux Informatiques)",
+      "Mathematics (Mathématiques)",
+      "  - Algebra (Algèbre)",
+      "  - Analysis (Analyse)",
+      "  - Geometry (Géométrie)",
+      "  - Statistics (Statistiques)",
+      "Logic (Logique)",
+      "Natural Sciences (Sciences Naturelles)",
+      "Physics (Physique)",
+      "  - Astrophysics (Astrophysique)",
+      "  - Quantum Physics (Physique Quantique)",
+      "  - Thermodynamics (Thermodynamique)",
+      "  - Optics (Optique)",
+      "Chemistry (Chimie)",
+      "  - Organic Chemistry (Chimie Organique)",
+      "  - Analytical Chemistry (Chimie Analytique)",
+      "  - Biochemistry (Biochimie)",
+      "Biology (Biologie)",
+      "  - Genetics (Génétique)",
+      "  - Molecular Biology (Biologie Moléculaire)",
+      "  - Ecology (Écologie)",
+      "  - Neuroscience (Neurosciences)",
+      "  - Botany (Botanique)",
+      "Earth Sciences (Sciences de la Terre)",
+      "  - Geology (Géologie)",
+      "  - Climatology (Climatologie)",
+      "  - Oceanography (Océanographie)",
+      "Social and Human Sciences (Sciences Sociales et Humaines)",
+      "Economics (Économie)",
+      "Psychology (Psychologie)",
+      "Sociology (Sociologie)",
+      "History (Histoire)",
+      "Political Science (Sciences Politiques)",
+      "Linguistics (Linguistique)",
+      "Anthropology (Anthropologie)",
+      "Applied Sciences & Engineering (Sciences Appliquées et Ingénierie)",
+      "Medicine (Médecine)",
+      "  - Cardiology (Cardiologie)",
+      "  - Oncology (Oncologie)",
+      "  - Neurology (Neurologie)",
+      "  - Pediatrics (Pédiatrie)",
+      "Civil Engineering (Génie Civil)",
+      "Electrical Engineering (Génie Électrique)",
+      "Mechanical Engineering (Génie Mécanique)",
+      "Biotechnology (Biotechnologie)",
+      "Agronomy / Agricultural Science (Agronomie)"
+  });
+  ui->classement->addItems({
+      "-- Sélectionner un classement --",
+      "Q1 (Quartile 1): The top 25% of journals in the field",
+      "Q2 (Quartile 2): The journals in the 25% to 50% group",
+      "Q3 (Quartile 3): The journals in the 50% to 75% group",
+      "Q4 (Quartile 4): The bottom 25% of journals in the field"
+  });
+  ui->periodicite->addItems({
+      "-- Sélectionner la périodicité --",
+      "Annuelle",
+      "Semestrielle",
+      "Trimestrielle",
+      "Mensuelle",
+      "Continue"
+  });
   refreshJournalTable();
 
   updateUtilisateurStats();
@@ -1000,6 +1070,106 @@ void SmartResearch::drawBarChart(QLabel *label, const QMap<QString, int> &data, 
     label->setPixmap(pixmap);
 }
 
+void SmartResearch::drawDoubleBarChart(QLabel *label, const QMap<QString, int> &data1, const QString &title1, const QColor &color1, const QMap<QString, int> &data2, const QString &title2, const QColor &color2) {
+    if (!label) return;
+    
+    int w = label->width();
+    int h = label->height();
+    if (w <= 0 || h <= 0) return;
+
+    QPixmap pixmap(w, h);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    int margin = 35;
+    int chartW = w - 2 * margin;
+    int chartH = h - 2 * margin - 15; // little more margin for title
+
+    int maxVal = 0;
+    for (int val : data1.values()) if (val > maxVal) maxVal = val;
+    for (int val : data2.values()) if (val > maxVal) maxVal = val;
+    if (maxVal == 0) maxVal = 5;
+
+    // Background Grid Lines
+    painter.setPen(QPen(QColor(255, 255, 255, 30), 1, Qt::DashLine));
+    int steps = 4;
+    for (int j = 0; j <= steps; j++) {
+        int y_grid = margin + 15 + chartH - (j * chartH / steps);
+        painter.drawLine(margin, y_grid, margin + chartW, y_grid);
+    }
+    
+    // Titles
+    painter.setPen(Qt::white);
+    QFont titleFont = painter.font();
+    titleFont.setBold(true);
+    titleFont.setPointSize(11);
+    painter.setFont(titleFont);
+    painter.drawText(QRect(margin, 5, chartW / 2, 25), Qt::AlignCenter, title1);
+    painter.drawText(QRect(margin + chartW / 2, 5, chartW / 2, 25), Qt::AlignCenter, title2);
+
+    auto drawBars = [&](const QMap<QString, int> &data, int startX, int width, QColor color) {
+        int barCount = data.count();
+        if (barCount == 0) return;
+        int barSpacing = 15;
+        int barWidth = (width - (barCount + 1) * barSpacing) / barCount;
+        if (barWidth < 15) barWidth = 15;
+        if (barWidth > 60) barWidth = 60; // max width
+
+        int i = 0;
+        QMapIterator<QString, int> it(data);
+        while (it.hasNext()) {
+            it.next();
+            QString category = it.key();
+            int value = it.value();
+
+            int barH = (static_cast<double>(value) / maxVal) * chartH;
+            
+            int totalBarsWidth = barCount * barWidth + (barCount - 1) * barSpacing;
+            int offset = startX + (width - totalBarsWidth) / 2;
+            int x = offset + i * (barWidth + barSpacing);
+            int y = h - margin - barH;
+
+            QLinearGradient gradient(x, y, x, y + barH);
+            gradient.setColorAt(0, color.lighter(110));
+            gradient.setColorAt(1, color.darker(150));
+
+            painter.setBrush(gradient);
+            painter.setPen(QPen(color.lighter(130), 1));
+            painter.drawRoundedRect(x, y, barWidth, barH, 6, 6);
+
+            painter.setPen(Qt::white);
+            QFont valueFont = painter.font();
+            valueFont.setBold(true);
+            valueFont.setPointSize(9);
+            painter.setFont(valueFont);
+            painter.drawText(QRect(x - 5, y - 25, barWidth + 10, 20), Qt::AlignCenter, QString::number(value));
+
+            painter.setPen(QColor(148, 163, 184));
+            QFont catFont = painter.font();
+            catFont.setBold(false);
+            catFont.setPointSize(8);
+            painter.setFont(catFont);
+            QFontMetrics metrics(catFont);
+            QString elidedName = metrics.elidedText(category, Qt::ElideRight, barWidth + 15);
+            painter.drawText(QRect(x - 10, h - margin + 8, barWidth + 20, 30), Qt::AlignCenter, elidedName);
+
+            i++;
+        }
+    };
+
+    drawBars(data1, margin, chartW / 2, color1);
+    
+    // Separator line
+    painter.setPen(QPen(QColor(255, 255, 255, 50), 2, Qt::SolidLine));
+    painter.drawLine(margin + chartW / 2, margin, margin + chartW / 2, h - margin + 10);
+    
+    drawBars(data2, margin + chartW / 2, chartW / 2, color2);
+
+    label->setPixmap(pixmap);
+}
+
+
 // ============================================================
 // === GESTION JOURNAL / CONFERENCE ===========================
 // ============================================================
@@ -1039,22 +1209,48 @@ void SmartResearch::refreshJournalTable()
 void SmartResearch::updateJournalStats() {
     QMap<QString, int> stats = Journal::getStatistics();
 
-    // Count distinct pays entries (total records that have a pays)
-    int paysCount = 0;
-    for(auto it = stats.begin(); it != stats.end(); ++it) {
-        if(it.key().startsWith("pays_") && !it.key().mid(5).isEmpty()) {
-            paysCount += it.value();
+    QMap<QString, int> confData;
+    QMap<QString, int> jourData;
+
+    for (auto it = stats.begin(); it != stats.end(); ++it) {
+        if (it.key().startsWith("pays_Conférence_")) {
+            QString country = it.key().mid(16);
+            if (!country.isEmpty() && it.value() > 0) confData[country] = it.value();
+        } else if (it.key().startsWith("pays_Journal_")) {
+            QString country = it.key().mid(13);
+            if (!country.isEmpty() && it.value() > 0) jourData[country] = it.value();
         }
     }
 
-    // Exactly 3 fixed bars
-    QMap<QString, int> chartData;
-    chartData["Journal"]     = stats.value("type_Journal", 0);
-    chartData["Conférence"] = stats.value("type_Conférence", 0);
-    chartData["Pays"]        = paysCount;
+    auto getTop10 = [](const QMap<QString, int>& data) {
+        QList<QPair<int, QString>> sorted;
+        for (auto it = data.begin(); it != data.end(); ++it)
+            sorted.append(qMakePair(it.value(), it.key()));
+        std::sort(sorted.begin(), sorted.end(), [](const QPair<int,QString> &a, const QPair<int,QString> &b){
+            return a.first > b.first; 
+        });
 
-    drawBarChart(ui->label_Chart_Journal, chartData, QColor("#10b981"));
+        QMap<QString, int> chartData;
+        int limit = qMin(sorted.size(), 5); // reduce limit to max 5 per side so they fit
+        for (int i = 0; i < limit; ++i)
+            chartData[sorted[i].second] = sorted[i].first;
+        return chartData;
+    };
+
+    QMap<QString, int> confChart = getTop10(confData);
+    QMap<QString, int> jourChart = getTop10(jourData);
+
+    if (!confChart.isEmpty() || !jourChart.isEmpty()) {
+        drawDoubleBarChart(ui->label_Chart_Journal, confChart, "Conférence", QColor("#f59e0b"), jourChart, "Journal", QColor("#3b82f6"));
+    } else {
+        // Fall back to types if nowhere has a country set
+        QMap<QString, int> chartData;
+        chartData["Journal"]     = stats.value("type_Journal", 0);
+        chartData["Conférence"]  = stats.value("type_Conférence", 0);
+        drawBarChart(ui->label_Chart_Journal, chartData, QColor("#10b981"));
+    }
 }
+
 
 // --- Enregistrer (Ajouter) ---
 void SmartResearch::on_enregistrer1_clicked()
@@ -1062,12 +1258,16 @@ void SmartResearch::on_enregistrer1_clicked()
     QString id_str  = ui->id->text();
     QString nom_val = ui->nom->text();
     QString type_val= ui->type->currentText();
-    QString domaine = ui->domaine_scientifique->text();
+    QString domaine = ui->domaine_scientifique->currentText();
+    if (domaine == "-- Sélectionner un domaine --") domaine = "";
     QString facteur = ui->facteur_impact->text();
-    QString clas    = ui->classement->text();
-    QString pays_val= ui->pays->text();
+    QString clas    = ui->classement->currentText();
+    if (clas == "-- Sélectionner un classement --") clas = "";
+    QString pays_val= ui->pays->currentText();
+    if (pays_val == "-- Sélectionner un pays --") pays_val = "";
     QString org     = ui->organisation->text();
-    QString peri    = ui->periodicite->text();
+    QString peri    = ui->periodicite->currentText();
+    if (peri == "-- Sélectionner la périodicité --") peri = "";
     QString site    = ui->siteweb->text();
 
     // --- Validations ---
@@ -1102,11 +1302,6 @@ void SmartResearch::on_enregistrer1_clicked()
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'Domaine Scientifique' est obligatoire.");
         return;
     }
-    QRegularExpression reAlpha("^[a-zA-ZÀ-ÿ\\s]+$");
-    if (!reAlpha.match(domaine).hasMatch()) {
-        QMessageBox::warning(this, "Erreur de saisie", "Le 'Domaine Scientifique' ne doit contenir que des lettres.");
-        return;
-    }
     if (!facteur.isEmpty()) {
         bool okFacteur;
         double f = facteur.toDouble(&okFacteur);
@@ -1115,10 +1310,7 @@ void SmartResearch::on_enregistrer1_clicked()
             return;
         }
     }
-    if (!pays_val.isEmpty() && !reAlpha.match(pays_val).hasMatch()) {
-        QMessageBox::warning(this, "Erreur de saisie", "Le 'Pays' ne doit contenir que des lettres.");
-        return;
-    }
+    // pays_val is validated by the ComboBox: no extra check needed
     if (!site.isEmpty()) {
         QRegularExpression reUrl("^(http:\\/\\/|https:\\/\\/)?(www\\.)?[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,}(\\/\\S*)?$");
         if (!reUrl.match(site).hasMatch()) {
@@ -1143,12 +1335,16 @@ void SmartResearch::on_modif1_clicked()
     QString id_str  = ui->id->text();
     QString nom_val = ui->nom->text();
     QString type_val= ui->type->currentText();
-    QString domaine = ui->domaine_scientifique->text();
+    QString domaine = ui->domaine_scientifique->currentText();
+    if (domaine == "-- Sélectionner un domaine --") domaine = "";
     QString facteur = ui->facteur_impact->text();
-    QString clas    = ui->classement->text();
-    QString pays_val= ui->pays->text();
+    QString clas    = ui->classement->currentText();
+    if (clas == "-- Sélectionner un classement --") clas = "";
+    QString pays_val= ui->pays->currentText();
+    if (pays_val == "-- Sélectionner un pays --") pays_val = "";
     QString org     = ui->organisation->text();
-    QString peri    = ui->periodicite->text();
+    QString peri    = ui->periodicite->currentText();
+    if (peri == "-- Sélectionner la périodicité --") peri = "";
     QString site    = ui->siteweb->text();
 
     if (id_str.isEmpty()) {
@@ -1197,10 +1393,7 @@ void SmartResearch::on_modif1_clicked()
             return;
         }
     }
-    if (!pays_val.isEmpty() && !reAlpha.match(pays_val).hasMatch()) {
-        QMessageBox::warning(this, "Erreur de saisie", "Le 'Pays' ne doit contenir que des lettres.");
-        return;
-    }
+    // pays_val is validated by the ComboBox: no extra check needed
     if (!site.isEmpty()) {
         QRegularExpression reUrl("^(http:\\/\\/|https:\\/\\/)?(www\\.)?[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,}(\\/\\S*)?$");
         if (!reUrl.match(site).hasMatch()) {
@@ -1226,12 +1419,12 @@ void SmartResearch::on_annuler_clicked()
     ui->id->clear();
     ui->nom->clear();
     ui->type->setCurrentIndex(-1);
-    ui->domaine_scientifique->clear();
+    ui->domaine_scientifique->setCurrentIndex(0);
     ui->facteur_impact->clear();
-    ui->classement->clear();
-    ui->pays->clear();
+    ui->classement->setCurrentIndex(0);
+    ui->pays->setCurrentIndex(0);
     ui->organisation->clear();
-    ui->periodicite->clear();
+    ui->periodicite->setCurrentIndex(0);
     ui->siteweb->clear();
     selectedJournalId = -1;
 }
@@ -1280,12 +1473,12 @@ void SmartResearch::on_tableWidget_8_cellClicked(int row, int column)
     selectedJournalId = cellText(0).toInt();
     ui->nom->setText(cellText(1));
     ui->type->setCurrentText(cellText(2));
-    ui->domaine_scientifique->setText(cellText(3));
+    ui->domaine_scientifique->setCurrentText(cellText(3));
     ui->facteur_impact->setText(cellText(4));
-    ui->classement->setText(cellText(5));
-    ui->pays->setText(cellText(6));
+    ui->classement->setCurrentText(cellText(5));
+    ui->pays->setCurrentText(cellText(6));
     ui->organisation->setText(cellText(7));
-    ui->periodicite->setText(cellText(8));
+    ui->periodicite->setCurrentText(cellText(8));
     ui->siteweb->setText(cellText(9));
 }
 

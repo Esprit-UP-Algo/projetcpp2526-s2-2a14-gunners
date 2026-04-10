@@ -185,12 +185,15 @@ QMap<QString, int> Journal::getStatistics() {
         stats["type_" + type] = count;
     }
     
-    // --- Graphique pour les pays ---
-    query.exec("SELECT PAYS_JOURNAL, COUNT(*) FROM TABLE_JOURNAL_CONF GROUP BY PAYS_JOURNAL");
+    // --- Graphique pour les pays par type ---
+    query.exec("SELECT TYPE_JOURNAL, PAYS_JOURNAL, COUNT(*) FROM TABLE_JOURNAL_CONF GROUP BY TYPE_JOURNAL, PAYS_JOURNAL");
     while (query.next()) {
-        QString pays = query.value(0).toString();
-        int count = query.value(1).toInt();
-        stats["pays_" + pays] = count;
+        QString type = query.value(0).toString();
+        QString pays = query.value(1).toString();
+        int count = query.value(2).toInt();
+        if (!pays.isEmpty()) {
+            stats["pays_" + type + "_" + pays] = count;
+        }
     }
     
     return stats;

@@ -78,6 +78,7 @@ private:
   void refreshJournalTable();
   void updateJournalStats();
   void drawBarChart(QLabel *label, const QMap<QString, int> &data, const QColor &barColor);
+  void drawDoubleBarChart(QLabel *label, const QMap<QString, int> &data1, const QString &title1, const QColor &color1, const QMap<QString, int> &data2, const QString &title2, const QColor &color2);
   int selectedUtilisateurId = -1;
   int selectedPublicationId = -1;
   int selectedJournalId     = -1;

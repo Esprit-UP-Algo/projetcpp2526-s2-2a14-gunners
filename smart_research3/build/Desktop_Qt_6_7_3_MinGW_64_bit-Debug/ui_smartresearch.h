@@ -147,17 +147,17 @@ public:
     QLabel *label_Journal_type;
     QComboBox *type;
     QLabel *label_Journal_domaine;
-    QLineEdit *domaine_scientifique;
+    QComboBox *domaine_scientifique;
     QLabel *label_Journal_facteur;
     QLineEdit *facteur_impact;
     QLabel *label_Journal_classement;
-    QLineEdit *classement;
+    QComboBox *classement;
     QLabel *label_Journal_pays;
-    QLineEdit *pays;
+    QComboBox *pays;
     QLabel *label_Journal_organisation;
     QLineEdit *organisation;
     QLabel *label_Journal_periodicite;
-    QLineEdit *periodicite;
+    QComboBox *periodicite;
     QLabel *label_Journal_siteweb;
     QLineEdit *siteweb;
     QPushButton *enregistrer1;
@@ -1452,9 +1452,34 @@ public:
 
         formLayout_Journal->setWidget(3, QFormLayout::LabelRole, label_Journal_domaine);
 
-        domaine_scientifique = new QLineEdit(formLayoutWidget_Journal);
+        domaine_scientifique = new QComboBox(formLayoutWidget_Journal);
         domaine_scientifique->setObjectName("domaine_scientifique");
-        domaine_scientifique->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        domaine_scientifique->setStyleSheet(QString::fromUtf8("QComboBox {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #334155;\n"
+"    border-radius: 8px;\n"
+"    padding: 2px 10px;\n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #3b82f6;\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 25px;\n"
+"    border-left: 1px solid #334155;\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #3b82f6;\n"
+"    selection-background-color: #3b82f6;\n"
+"    selection-color: white;\n"
+"    color: white;\n"
+"}"));
 
         formLayout_Journal->setWidget(3, QFormLayout::FieldRole, domaine_scientifique);
 
@@ -1474,9 +1499,34 @@ public:
 
         formLayout_Journal->setWidget(5, QFormLayout::LabelRole, label_Journal_classement);
 
-        classement = new QLineEdit(formLayoutWidget_Journal);
+        classement = new QComboBox(formLayoutWidget_Journal);
         classement->setObjectName("classement");
-        classement->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        classement->setStyleSheet(QString::fromUtf8("QComboBox {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #334155;\n"
+"    border-radius: 8px;\n"
+"    padding: 2px 10px;\n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #3b82f6;\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 25px;\n"
+"    border-left: 1px solid #334155;\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #3b82f6;\n"
+"    selection-background-color: #3b82f6;\n"
+"    selection-color: white;\n"
+"    color: white;\n"
+"}"));
 
         formLayout_Journal->setWidget(5, QFormLayout::FieldRole, classement);
 
@@ -1485,9 +1535,231 @@ public:
 
         formLayout_Journal->setWidget(6, QFormLayout::LabelRole, label_Journal_pays);
 
-        pays = new QLineEdit(formLayoutWidget_Journal);
+        pays = new QComboBox(formLayoutWidget_Journal);
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
+        pays->addItem(QString());
         pays->setObjectName("pays");
-        pays->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        pays->setStyleSheet(QString::fromUtf8("QComboBox {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #334155;\n"
+"    border-radius: 8px;\n"
+"    padding: 2px 10px;\n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #3b82f6;\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 25px;\n"
+"    border-left: 1px solid #334155;\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #3b82f6;\n"
+"    selection-background-color: #3b82f6;\n"
+"    selection-color: white;\n"
+"    color: white;\n"
+"}"));
 
         formLayout_Journal->setWidget(6, QFormLayout::FieldRole, pays);
 
@@ -1507,9 +1779,34 @@ public:
 
         formLayout_Journal->setWidget(8, QFormLayout::LabelRole, label_Journal_periodicite);
 
-        periodicite = new QLineEdit(formLayoutWidget_Journal);
+        periodicite = new QComboBox(formLayoutWidget_Journal);
         periodicite->setObjectName("periodicite");
-        periodicite->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        periodicite->setStyleSheet(QString::fromUtf8("QComboBox {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #334155;\n"
+"    border-radius: 8px;\n"
+"    padding: 2px 10px;\n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #3b82f6;\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 25px;\n"
+"    border-left: 1px solid #334155;\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #3b82f6;\n"
+"    selection-background-color: #3b82f6;\n"
+"    selection-color: white;\n"
+"    color: white;\n"
+"}"));
 
         formLayout_Journal->setWidget(8, QFormLayout::FieldRole, periodicite);
 
@@ -2533,7 +2830,7 @@ public:
         GestionPublications->setText(QCoreApplication::translate("SmartResearch", "Gestion Publication", nullptr));
         GestionReviewer->setText(QCoreApplication::translate("SmartResearch", "Gestion Reviewer", nullptr));
         GestionJournalconference->setText(QCoreApplication::translate("SmartResearch", "Gestion Journal/\n"
-"Conf\303\203\302\251rence", nullptr));
+"Conf\303\251rence", nullptr));
         GestionSession->setText(QCoreApplication::translate("SmartResearch", "Gestion Session", nullptr));
         GestionSession_2->setText(QCoreApplication::translate("SmartResearch", "Gestion Paiement", nullptr));
         label_10->setText(QString());
@@ -2603,17 +2900,215 @@ public:
         label_Journal_facteur->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Facteur d'impact</span></p></body></html>", nullptr));
         label_Journal_classement->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Classement</span></p></body></html>", nullptr));
         label_Journal_pays->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Pays</span></p></body></html>", nullptr));
+        pays->setItemText(0, QCoreApplication::translate("SmartResearch", "-- S\303\251lectionner un pays --", nullptr));
+        pays->setItemText(1, QCoreApplication::translate("SmartResearch", "Afghanistan", nullptr));
+        pays->setItemText(2, QCoreApplication::translate("SmartResearch", "Albania", nullptr));
+        pays->setItemText(3, QCoreApplication::translate("SmartResearch", "Algeria", nullptr));
+        pays->setItemText(4, QCoreApplication::translate("SmartResearch", "Andorra", nullptr));
+        pays->setItemText(5, QCoreApplication::translate("SmartResearch", "Angola", nullptr));
+        pays->setItemText(6, QCoreApplication::translate("SmartResearch", "Antigua and Barbuda", nullptr));
+        pays->setItemText(7, QCoreApplication::translate("SmartResearch", "Argentina", nullptr));
+        pays->setItemText(8, QCoreApplication::translate("SmartResearch", "Armenia", nullptr));
+        pays->setItemText(9, QCoreApplication::translate("SmartResearch", "Australia", nullptr));
+        pays->setItemText(10, QCoreApplication::translate("SmartResearch", "Austria", nullptr));
+        pays->setItemText(11, QCoreApplication::translate("SmartResearch", "Azerbaijan", nullptr));
+        pays->setItemText(12, QCoreApplication::translate("SmartResearch", "Bahamas", nullptr));
+        pays->setItemText(13, QCoreApplication::translate("SmartResearch", "Bahrain", nullptr));
+        pays->setItemText(14, QCoreApplication::translate("SmartResearch", "Bangladesh", nullptr));
+        pays->setItemText(15, QCoreApplication::translate("SmartResearch", "Barbados", nullptr));
+        pays->setItemText(16, QCoreApplication::translate("SmartResearch", "Belarus", nullptr));
+        pays->setItemText(17, QCoreApplication::translate("SmartResearch", "Belgium", nullptr));
+        pays->setItemText(18, QCoreApplication::translate("SmartResearch", "Belize", nullptr));
+        pays->setItemText(19, QCoreApplication::translate("SmartResearch", "Benin", nullptr));
+        pays->setItemText(20, QCoreApplication::translate("SmartResearch", "Bhutan", nullptr));
+        pays->setItemText(21, QCoreApplication::translate("SmartResearch", "Bolivia", nullptr));
+        pays->setItemText(22, QCoreApplication::translate("SmartResearch", "Bosnia and Herzegovina", nullptr));
+        pays->setItemText(23, QCoreApplication::translate("SmartResearch", "Botswana", nullptr));
+        pays->setItemText(24, QCoreApplication::translate("SmartResearch", "Brazil", nullptr));
+        pays->setItemText(25, QCoreApplication::translate("SmartResearch", "Brunei", nullptr));
+        pays->setItemText(26, QCoreApplication::translate("SmartResearch", "Bulgaria", nullptr));
+        pays->setItemText(27, QCoreApplication::translate("SmartResearch", "Burkina Faso", nullptr));
+        pays->setItemText(28, QCoreApplication::translate("SmartResearch", "Burundi", nullptr));
+        pays->setItemText(29, QCoreApplication::translate("SmartResearch", "Cabo Verde", nullptr));
+        pays->setItemText(30, QCoreApplication::translate("SmartResearch", "Cambodia", nullptr));
+        pays->setItemText(31, QCoreApplication::translate("SmartResearch", "Cameroon", nullptr));
+        pays->setItemText(32, QCoreApplication::translate("SmartResearch", "Canada", nullptr));
+        pays->setItemText(33, QCoreApplication::translate("SmartResearch", "Central African Republic", nullptr));
+        pays->setItemText(34, QCoreApplication::translate("SmartResearch", "Chad", nullptr));
+        pays->setItemText(35, QCoreApplication::translate("SmartResearch", "Chile", nullptr));
+        pays->setItemText(36, QCoreApplication::translate("SmartResearch", "China", nullptr));
+        pays->setItemText(37, QCoreApplication::translate("SmartResearch", "Colombia", nullptr));
+        pays->setItemText(38, QCoreApplication::translate("SmartResearch", "Comoros", nullptr));
+        pays->setItemText(39, QCoreApplication::translate("SmartResearch", "Congo (Brazzaville)", nullptr));
+        pays->setItemText(40, QCoreApplication::translate("SmartResearch", "Congo (Kinshasa)", nullptr));
+        pays->setItemText(41, QCoreApplication::translate("SmartResearch", "Costa Rica", nullptr));
+        pays->setItemText(42, QCoreApplication::translate("SmartResearch", "Croatia", nullptr));
+        pays->setItemText(43, QCoreApplication::translate("SmartResearch", "Cuba", nullptr));
+        pays->setItemText(44, QCoreApplication::translate("SmartResearch", "Cyprus", nullptr));
+        pays->setItemText(45, QCoreApplication::translate("SmartResearch", "Czech Republic", nullptr));
+        pays->setItemText(46, QCoreApplication::translate("SmartResearch", "Denmark", nullptr));
+        pays->setItemText(47, QCoreApplication::translate("SmartResearch", "Djibouti", nullptr));
+        pays->setItemText(48, QCoreApplication::translate("SmartResearch", "Dominica", nullptr));
+        pays->setItemText(49, QCoreApplication::translate("SmartResearch", "Dominican Republic", nullptr));
+        pays->setItemText(50, QCoreApplication::translate("SmartResearch", "Ecuador", nullptr));
+        pays->setItemText(51, QCoreApplication::translate("SmartResearch", "Egypt", nullptr));
+        pays->setItemText(52, QCoreApplication::translate("SmartResearch", "El Salvador", nullptr));
+        pays->setItemText(53, QCoreApplication::translate("SmartResearch", "Equatorial Guinea", nullptr));
+        pays->setItemText(54, QCoreApplication::translate("SmartResearch", "Eritrea", nullptr));
+        pays->setItemText(55, QCoreApplication::translate("SmartResearch", "Estonia", nullptr));
+        pays->setItemText(56, QCoreApplication::translate("SmartResearch", "Eswatini", nullptr));
+        pays->setItemText(57, QCoreApplication::translate("SmartResearch", "Ethiopia", nullptr));
+        pays->setItemText(58, QCoreApplication::translate("SmartResearch", "Fiji", nullptr));
+        pays->setItemText(59, QCoreApplication::translate("SmartResearch", "Finland", nullptr));
+        pays->setItemText(60, QCoreApplication::translate("SmartResearch", "France", nullptr));
+        pays->setItemText(61, QCoreApplication::translate("SmartResearch", "Gabon", nullptr));
+        pays->setItemText(62, QCoreApplication::translate("SmartResearch", "Gambia", nullptr));
+        pays->setItemText(63, QCoreApplication::translate("SmartResearch", "Georgia", nullptr));
+        pays->setItemText(64, QCoreApplication::translate("SmartResearch", "Germany", nullptr));
+        pays->setItemText(65, QCoreApplication::translate("SmartResearch", "Ghana", nullptr));
+        pays->setItemText(66, QCoreApplication::translate("SmartResearch", "Greece", nullptr));
+        pays->setItemText(67, QCoreApplication::translate("SmartResearch", "Grenada", nullptr));
+        pays->setItemText(68, QCoreApplication::translate("SmartResearch", "Guatemala", nullptr));
+        pays->setItemText(69, QCoreApplication::translate("SmartResearch", "Guinea", nullptr));
+        pays->setItemText(70, QCoreApplication::translate("SmartResearch", "Guinea-Bissau", nullptr));
+        pays->setItemText(71, QCoreApplication::translate("SmartResearch", "Guyana", nullptr));
+        pays->setItemText(72, QCoreApplication::translate("SmartResearch", "Haiti", nullptr));
+        pays->setItemText(73, QCoreApplication::translate("SmartResearch", "Honduras", nullptr));
+        pays->setItemText(74, QCoreApplication::translate("SmartResearch", "Hungary", nullptr));
+        pays->setItemText(75, QCoreApplication::translate("SmartResearch", "Iceland", nullptr));
+        pays->setItemText(76, QCoreApplication::translate("SmartResearch", "India", nullptr));
+        pays->setItemText(77, QCoreApplication::translate("SmartResearch", "Indonesia", nullptr));
+        pays->setItemText(78, QCoreApplication::translate("SmartResearch", "Iran", nullptr));
+        pays->setItemText(79, QCoreApplication::translate("SmartResearch", "Iraq", nullptr));
+        pays->setItemText(80, QCoreApplication::translate("SmartResearch", "Ireland", nullptr));
+        pays->setItemText(81, QCoreApplication::translate("SmartResearch", "Israel", nullptr));
+        pays->setItemText(82, QCoreApplication::translate("SmartResearch", "Italy", nullptr));
+        pays->setItemText(83, QCoreApplication::translate("SmartResearch", "Ivory Coast", nullptr));
+        pays->setItemText(84, QCoreApplication::translate("SmartResearch", "Jamaica", nullptr));
+        pays->setItemText(85, QCoreApplication::translate("SmartResearch", "Japan", nullptr));
+        pays->setItemText(86, QCoreApplication::translate("SmartResearch", "Jordan", nullptr));
+        pays->setItemText(87, QCoreApplication::translate("SmartResearch", "Kazakhstan", nullptr));
+        pays->setItemText(88, QCoreApplication::translate("SmartResearch", "Kenya", nullptr));
+        pays->setItemText(89, QCoreApplication::translate("SmartResearch", "Kiribati", nullptr));
+        pays->setItemText(90, QCoreApplication::translate("SmartResearch", "Kuwait", nullptr));
+        pays->setItemText(91, QCoreApplication::translate("SmartResearch", "Kyrgyzstan", nullptr));
+        pays->setItemText(92, QCoreApplication::translate("SmartResearch", "Laos", nullptr));
+        pays->setItemText(93, QCoreApplication::translate("SmartResearch", "Latvia", nullptr));
+        pays->setItemText(94, QCoreApplication::translate("SmartResearch", "Lebanon", nullptr));
+        pays->setItemText(95, QCoreApplication::translate("SmartResearch", "Lesotho", nullptr));
+        pays->setItemText(96, QCoreApplication::translate("SmartResearch", "Liberia", nullptr));
+        pays->setItemText(97, QCoreApplication::translate("SmartResearch", "Libya", nullptr));
+        pays->setItemText(98, QCoreApplication::translate("SmartResearch", "Liechtenstein", nullptr));
+        pays->setItemText(99, QCoreApplication::translate("SmartResearch", "Lithuania", nullptr));
+        pays->setItemText(100, QCoreApplication::translate("SmartResearch", "Luxembourg", nullptr));
+        pays->setItemText(101, QCoreApplication::translate("SmartResearch", "Madagascar", nullptr));
+        pays->setItemText(102, QCoreApplication::translate("SmartResearch", "Malawi", nullptr));
+        pays->setItemText(103, QCoreApplication::translate("SmartResearch", "Malaysia", nullptr));
+        pays->setItemText(104, QCoreApplication::translate("SmartResearch", "Maldives", nullptr));
+        pays->setItemText(105, QCoreApplication::translate("SmartResearch", "Mali", nullptr));
+        pays->setItemText(106, QCoreApplication::translate("SmartResearch", "Malta", nullptr));
+        pays->setItemText(107, QCoreApplication::translate("SmartResearch", "Marshall Islands", nullptr));
+        pays->setItemText(108, QCoreApplication::translate("SmartResearch", "Mauritania", nullptr));
+        pays->setItemText(109, QCoreApplication::translate("SmartResearch", "Mauritius", nullptr));
+        pays->setItemText(110, QCoreApplication::translate("SmartResearch", "Mexico", nullptr));
+        pays->setItemText(111, QCoreApplication::translate("SmartResearch", "Micronesia", nullptr));
+        pays->setItemText(112, QCoreApplication::translate("SmartResearch", "Moldova", nullptr));
+        pays->setItemText(113, QCoreApplication::translate("SmartResearch", "Monaco", nullptr));
+        pays->setItemText(114, QCoreApplication::translate("SmartResearch", "Mongolia", nullptr));
+        pays->setItemText(115, QCoreApplication::translate("SmartResearch", "Montenegro", nullptr));
+        pays->setItemText(116, QCoreApplication::translate("SmartResearch", "Morocco", nullptr));
+        pays->setItemText(117, QCoreApplication::translate("SmartResearch", "Mozambique", nullptr));
+        pays->setItemText(118, QCoreApplication::translate("SmartResearch", "Myanmar", nullptr));
+        pays->setItemText(119, QCoreApplication::translate("SmartResearch", "Namibia", nullptr));
+        pays->setItemText(120, QCoreApplication::translate("SmartResearch", "Nauru", nullptr));
+        pays->setItemText(121, QCoreApplication::translate("SmartResearch", "Nepal", nullptr));
+        pays->setItemText(122, QCoreApplication::translate("SmartResearch", "Netherlands", nullptr));
+        pays->setItemText(123, QCoreApplication::translate("SmartResearch", "New Zealand", nullptr));
+        pays->setItemText(124, QCoreApplication::translate("SmartResearch", "Nicaragua", nullptr));
+        pays->setItemText(125, QCoreApplication::translate("SmartResearch", "Niger", nullptr));
+        pays->setItemText(126, QCoreApplication::translate("SmartResearch", "Nigeria", nullptr));
+        pays->setItemText(127, QCoreApplication::translate("SmartResearch", "North Korea", nullptr));
+        pays->setItemText(128, QCoreApplication::translate("SmartResearch", "North Macedonia", nullptr));
+        pays->setItemText(129, QCoreApplication::translate("SmartResearch", "Norway", nullptr));
+        pays->setItemText(130, QCoreApplication::translate("SmartResearch", "Oman", nullptr));
+        pays->setItemText(131, QCoreApplication::translate("SmartResearch", "Pakistan", nullptr));
+        pays->setItemText(132, QCoreApplication::translate("SmartResearch", "Palau", nullptr));
+        pays->setItemText(133, QCoreApplication::translate("SmartResearch", "Palestine", nullptr));
+        pays->setItemText(134, QCoreApplication::translate("SmartResearch", "Panama", nullptr));
+        pays->setItemText(135, QCoreApplication::translate("SmartResearch", "Papua New Guinea", nullptr));
+        pays->setItemText(136, QCoreApplication::translate("SmartResearch", "Paraguay", nullptr));
+        pays->setItemText(137, QCoreApplication::translate("SmartResearch", "Peru", nullptr));
+        pays->setItemText(138, QCoreApplication::translate("SmartResearch", "Philippines", nullptr));
+        pays->setItemText(139, QCoreApplication::translate("SmartResearch", "Poland", nullptr));
+        pays->setItemText(140, QCoreApplication::translate("SmartResearch", "Portugal", nullptr));
+        pays->setItemText(141, QCoreApplication::translate("SmartResearch", "Qatar", nullptr));
+        pays->setItemText(142, QCoreApplication::translate("SmartResearch", "Romania", nullptr));
+        pays->setItemText(143, QCoreApplication::translate("SmartResearch", "Russia", nullptr));
+        pays->setItemText(144, QCoreApplication::translate("SmartResearch", "Rwanda", nullptr));
+        pays->setItemText(145, QCoreApplication::translate("SmartResearch", "Saint Kitts and Nevis", nullptr));
+        pays->setItemText(146, QCoreApplication::translate("SmartResearch", "Saint Lucia", nullptr));
+        pays->setItemText(147, QCoreApplication::translate("SmartResearch", "Saint Vincent and the Grenadines", nullptr));
+        pays->setItemText(148, QCoreApplication::translate("SmartResearch", "Samoa", nullptr));
+        pays->setItemText(149, QCoreApplication::translate("SmartResearch", "San Marino", nullptr));
+        pays->setItemText(150, QCoreApplication::translate("SmartResearch", "Sao Tome and Principe", nullptr));
+        pays->setItemText(151, QCoreApplication::translate("SmartResearch", "Saudi Arabia", nullptr));
+        pays->setItemText(152, QCoreApplication::translate("SmartResearch", "Senegal", nullptr));
+        pays->setItemText(153, QCoreApplication::translate("SmartResearch", "Serbia", nullptr));
+        pays->setItemText(154, QCoreApplication::translate("SmartResearch", "Seychelles", nullptr));
+        pays->setItemText(155, QCoreApplication::translate("SmartResearch", "Sierra Leone", nullptr));
+        pays->setItemText(156, QCoreApplication::translate("SmartResearch", "Singapore", nullptr));
+        pays->setItemText(157, QCoreApplication::translate("SmartResearch", "Slovakia", nullptr));
+        pays->setItemText(158, QCoreApplication::translate("SmartResearch", "Slovenia", nullptr));
+        pays->setItemText(159, QCoreApplication::translate("SmartResearch", "Solomon Islands", nullptr));
+        pays->setItemText(160, QCoreApplication::translate("SmartResearch", "Somalia", nullptr));
+        pays->setItemText(161, QCoreApplication::translate("SmartResearch", "South Africa", nullptr));
+        pays->setItemText(162, QCoreApplication::translate("SmartResearch", "South Korea", nullptr));
+        pays->setItemText(163, QCoreApplication::translate("SmartResearch", "South Sudan", nullptr));
+        pays->setItemText(164, QCoreApplication::translate("SmartResearch", "Spain", nullptr));
+        pays->setItemText(165, QCoreApplication::translate("SmartResearch", "Sri Lanka", nullptr));
+        pays->setItemText(166, QCoreApplication::translate("SmartResearch", "Sudan", nullptr));
+        pays->setItemText(167, QCoreApplication::translate("SmartResearch", "Suriname", nullptr));
+        pays->setItemText(168, QCoreApplication::translate("SmartResearch", "Sweden", nullptr));
+        pays->setItemText(169, QCoreApplication::translate("SmartResearch", "Switzerland", nullptr));
+        pays->setItemText(170, QCoreApplication::translate("SmartResearch", "Syria", nullptr));
+        pays->setItemText(171, QCoreApplication::translate("SmartResearch", "Taiwan", nullptr));
+        pays->setItemText(172, QCoreApplication::translate("SmartResearch", "Tajikistan", nullptr));
+        pays->setItemText(173, QCoreApplication::translate("SmartResearch", "Tanzania", nullptr));
+        pays->setItemText(174, QCoreApplication::translate("SmartResearch", "Thailand", nullptr));
+        pays->setItemText(175, QCoreApplication::translate("SmartResearch", "Timor-Leste", nullptr));
+        pays->setItemText(176, QCoreApplication::translate("SmartResearch", "Togo", nullptr));
+        pays->setItemText(177, QCoreApplication::translate("SmartResearch", "Tonga", nullptr));
+        pays->setItemText(178, QCoreApplication::translate("SmartResearch", "Trinidad and Tobago", nullptr));
+        pays->setItemText(179, QCoreApplication::translate("SmartResearch", "Tunisia", nullptr));
+        pays->setItemText(180, QCoreApplication::translate("SmartResearch", "Turkey", nullptr));
+        pays->setItemText(181, QCoreApplication::translate("SmartResearch", "Turkmenistan", nullptr));
+        pays->setItemText(182, QCoreApplication::translate("SmartResearch", "Tuvalu", nullptr));
+        pays->setItemText(183, QCoreApplication::translate("SmartResearch", "Uganda", nullptr));
+        pays->setItemText(184, QCoreApplication::translate("SmartResearch", "Ukraine", nullptr));
+        pays->setItemText(185, QCoreApplication::translate("SmartResearch", "United Arab Emirates", nullptr));
+        pays->setItemText(186, QCoreApplication::translate("SmartResearch", "United Kingdom", nullptr));
+        pays->setItemText(187, QCoreApplication::translate("SmartResearch", "United States", nullptr));
+        pays->setItemText(188, QCoreApplication::translate("SmartResearch", "Uruguay", nullptr));
+        pays->setItemText(189, QCoreApplication::translate("SmartResearch", "Uzbekistan", nullptr));
+        pays->setItemText(190, QCoreApplication::translate("SmartResearch", "Vanuatu", nullptr));
+        pays->setItemText(191, QCoreApplication::translate("SmartResearch", "Vatican City", nullptr));
+        pays->setItemText(192, QCoreApplication::translate("SmartResearch", "Venezuela", nullptr));
+        pays->setItemText(193, QCoreApplication::translate("SmartResearch", "Vietnam", nullptr));
+        pays->setItemText(194, QCoreApplication::translate("SmartResearch", "Yemen", nullptr));
+        pays->setItemText(195, QCoreApplication::translate("SmartResearch", "Zambia", nullptr));
+        pays->setItemText(196, QCoreApplication::translate("SmartResearch", "Zimbabwe", nullptr));
+
         label_Journal_organisation->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Organisation</span></p></body></html>", nullptr));
         label_Journal_periodicite->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">P\303\251riodicit\303\251</span></p></body></html>", nullptr));
         label_Journal_siteweb->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Site Web</span></p></body></html>", nullptr));
         enregistrer1->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         modif1->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
-        annuler->setText(QCoreApplication::translate("SmartResearch", "Annuler", nullptr));
+        annuler->setText(QString());
         groupBox_Session_List_4->setTitle(QString());
         rechercheSession_4->setText(QCoreApplication::translate("SmartResearch", "Recherche", nullptr));
-        SuppSession_4->setText(QCoreApplication::translate("SmartResearch", "Supprimer", nullptr));
+        SuppSession_4->setText(QString());
         quitterSession_4->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
-        expoSession_4->setText(QCoreApplication::translate("SmartResearch", "Exportation", nullptr));
+        expoSession_4->setText(QCoreApplication::translate("SmartResearch", "Exporter format pdf", nullptr));
         comboBox_8->setItemText(0, QCoreApplication::translate("SmartResearch", "order croissant", nullptr));
         comboBox_8->setItemText(1, QCoreApplication::translate("SmartResearch", "order decroissant", nullptr));
 
