@@ -1,0 +1,10 @@
+debug/connection.o
+debug/main.o
+debug/smartresearch.o
+debug/gestionsession.o
+debug/publication.o
+debug/utilisateur.o
+debug/journal.o
+debug/qrc_ressources.o
+debug/moc_smartresearch.o
+debug/moc_gestionsession.o
