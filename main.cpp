@@ -1,4 +1,4 @@
-#include "smartresearch.h"
+#include "smartesearch.h"
 
 #include "connection.h"
 #include <QApplication>
