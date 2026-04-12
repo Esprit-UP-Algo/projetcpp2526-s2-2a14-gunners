@@ -1,0 +1,11 @@
+release/connection.o
+release/main.o
+release/smartresearch.o
+release/gestionsession.o
+release/publication.o
+release/utilisateur.o
+release/journal.o
+release/session.o
+release/qrc_ressources.o
+release/moc_smartresearch.o
+release/moc_gestionsession.o
