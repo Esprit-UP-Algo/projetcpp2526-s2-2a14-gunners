@@ -1,0 +1,45 @@
+QT += core gui widgets sql network charts
+
+CONFIG += c++11
+
+TEMPLATE = app
+TARGET = SmartResearch
+
+SOURCES += \
+    ../../../../../Qt/6.7.3/Src/qtbase/src/entrypoint/qtentrypoint_win.cpp \
+    connection.cpp \
+    main.cpp \
+    smartresearch.cpp \
+    gestionsession.cpp \
+    publication.cpp \
+    utilisateur.cpp \
+    journal.cpp \
+    session.cpp \
+    smtp.cpp \
+    login.cpp \
+    reviewer.cpp \
+    gestionreviewer.cpp \
+    smsservice.cpp
+
+HEADERS += \
+    connection.h \
+    smartresearch.h \
+    gestionsession.h \
+    publication.h \
+    utilisateur.h \
+    journal.h \
+    session.h \
+    smtp.h \
+    login.h \
+    reviewer.h \
+    gestionreviewer.h \
+    smsservice.h
+
+FORMS += \
+    smartresearch.ui \
+    login.ui
+
+RESOURCES += \
+    ressources.qrc
+
+UI_DIR = .
