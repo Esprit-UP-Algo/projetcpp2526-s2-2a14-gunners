@@ -6,7 +6,6 @@ TEMPLATE = app
 TARGET = SmartResearch
 
 SOURCES += \
-    ../../../../../Qt/6.7.3/Src/qtbase/src/entrypoint/qtentrypoint_win.cpp \
     connection.cpp \
     main.cpp \
     smartresearch.cpp \
