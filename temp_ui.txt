@@ -1,0 +1,254 @@
+﻿
+> smartresearch.ui:974:       <widget class="QComboBox" name="comboBox_11">
+  smartresearch.ui:975:        <property name="geometry">
+  smartresearch.ui:976:         <rect>
+  smartresearch.ui:977:          <x>520</x>
+  smartresearch.ui:978:          <y>30</y>
+  smartresearch.ui:979:          <width>181</width>
+  smartresearch.ui:980:          <height>41</height>
+  smartresearch.ui:981:         </rect>
+  smartresearch.ui:982:        </property>
+  smartresearch.ui:983:        <property name="palette">
+  smartresearch.ui:984:         <palette>
+  smartresearch.ui:985:          <active>
+  smartresearch.ui:986:           <colorrole role="WindowText">
+  smartresearch.ui:987:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:988:             <color alpha="255">
+  smartresearch.ui:989:              <red>255</red>
+  smartresearch.ui:990:              <green>255</green>
+  smartresearch.ui:991:              <blue>255</blue>
+  smartresearch.ui:992:             </color>
+  smartresearch.ui:993:            </brush>
+  smartresearch.ui:994:           </colorrole>
+  smartresearch.ui:995:           <colorrole role="Button">
+  smartresearch.ui:996:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:997:             <color alpha="255">
+  smartresearch.ui:998:              <red>30</red>
+  smartresearch.ui:999:              <green>41</green>
+  smartresearch.ui:1000:              <blue>59</blue>
+  smartresearch.ui:1001:             </color>
+  smartresearch.ui:1002:            </brush>
+  smartresearch.ui:1003:           </colorrole>
+  smartresearch.ui:1004:           <colorrole role="Light">
+  smartresearch.ui:1005:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1006:             <color alpha="255">
+  smartresearch.ui:1007:              <red>255</red>
+  smartresearch.ui:1008:              <green>255</green>
+  smartresearch.ui:1009:              <blue>255</blue>
+  smartresearch.ui:1010:             </color>
+  smartresearch.ui:1011:            </brush>
+  smartresearch.ui:1012:           </colorrole>
+  smartresearch.ui:1013:           <colorrole role="Midlight">
+  smartresearch.ui:1014:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1015:             <color alpha="255">
+  smartresearch.ui:1016:              <red>255</red>
+  smartresearch.ui:1017:              <green>255</green>
+  smartresearch.ui:1018:              <blue>255</blue>
+  smartresearch.ui:1019:             </color>
+  smartresearch.ui:1020:            </brush>
+  smartresearch.ui:1021:           </colorrole>
+  smartresearch.ui:1022:           <colorrole role="Dark">
+  smartresearch.ui:1023:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1024:             <color alpha="255">
+  smartresearch.ui:1025:              <red>127</red>
+  smartresearch.ui:1026:              <green>127</green>
+  smartresearch.ui:1027:              <blue>127</blue>
+  smartresearch.ui:1028:             </color>
+  smartresearch.ui:1029:            </brush>
+  smartresearch.ui:1030:           </colorrole>
+  smartresearch.ui:1031:           <colorrole role="Mid">
+  smartresearch.ui:1032:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1033:             <color alpha="255">
+  smartresearch.ui:1034:              <red>170</red>
+  smartresearch.ui:1035:              <green>170</green>
+  smartresearch.ui:1036:              <blue>170</blue>
+  smartresearch.ui:1037:             </color>
+  smartresearch.ui:1038:            </brush>
+  smartresearch.ui:1039:           </colorrole>
+  smartresearch.ui:1040:           <colorrole role="Text">
+  smartresearch.ui:1041:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1042:             <color alpha="255">
+  smartresearch.ui:1043:              <red>255</red>
+  smartresearch.ui:1044:              <green>255</green>
+  smartresearch.ui:1045:              <blue>255</blue>
+  smartresearch.ui:1046:             </color>
+  smartresearch.ui:1047:            </brush>
+  smartresearch.ui:1048:           </colorrole>
+  smartresearch.ui:1049:           <colorrole role="BrightText">
+  smartresearch.ui:1050:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1051:             <color alpha="255">
+  smartresearch.ui:1052:              <red>255</red>
+  smartresearch.ui:1053:              <green>255</green>
+  smartresearch.ui:1054:              <blue>255</blue>
+  smartresearch.ui:1055:             </color>
+  smartresearch.ui:1056:            </brush>
+  smartresearch.ui:1057:           </colorrole>
+  smartresearch.ui:1058:           <colorrole role="ButtonText">
+  smartresearch.ui:1059:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1060:             <color alpha="255">
+  smartresearch.ui:1061:              <red>255</red>
+  smartresearch.ui:1062:              <green>255</green>
+  smartresearch.ui:1063:              <blue>255</blue>
+  smartresearch.ui:1064:             </color>
+  smartresearch.ui:1065:            </brush>
+  smartresearch.ui:1066:           </colorrole>
+  smartresearch.ui:1067:           <colorrole role="Base">
+  smartresearch.ui:1068:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1069:             <color alpha="255">
+  smartresearch.ui:1070:              <red>30</red>
+  smartresearch.ui:1071:              <green>41</green>
+  smartresearch.ui:1072:              <blue>59</blue>
+  smartresearch.ui:1073:             </color>
+  smartresearch.ui:1074:            </brush>
+  smartresearch.ui:1075:           </colorrole>
+  smartresearch.ui:1076:           <colorrole role="Window">
+  smartresearch.ui:1077:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1078:             <color alpha="255">
+  smartresearch.ui:1079:              <red>30</red>
+  smartresearch.ui:1080:              <green>41</green>
+  smartresearch.ui:1081:              <blue>59</blue>
+  smartresearch.ui:1082:             </color>
+  smartresearch.ui:1083:            </brush>
+  smartresearch.ui:1084:           </colorrole>
+  smartresearch.ui:1085:           <colorrole role="Shadow">
+  smartresearch.ui:1086:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1087:             <color alpha="255">
+  smartresearch.ui:1088:              <red>0</red>
+  smartresearch.ui:1089:              <green>0</green>
+  smartresearch.ui:1090:              <blue>0</blue>
+  smartresearch.ui:1091:             </color>
+  smartresearch.ui:1092:            </brush>
+  smartresearch.ui:1093:           </colorrole>
+  smartresearch.ui:1094:           <colorrole role="AlternateBase">
+  smartresearch.ui:1095:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1096:             <color alpha="255">
+  smartresearch.ui:1097:              <red>255</red>
+  smartresearch.ui:1098:              <green>255</green>
+  smartresearch.ui:1099:              <blue>255</blue>
+  smartresearch.ui:1100:             </color>
+  smartresearch.ui:1101:            </brush>
+  smartresearch.ui:1102:           </colorrole>
+  smartresearch.ui:1103:           <colorrole role="ToolTipBase">
+  smartresearch.ui:1104:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1105:             <color alpha="255">
+  smartresearch.ui:1106:              <red>255</red>
+  smartresearch.ui:1107:              <green>255</green>
+  smartresearch.ui:1108:              <blue>220</blue>
+  smartresearch.ui:1109:             </color>
+  smartresearch.ui:1110:            </brush>
+  smartresearch.ui:1111:           </colorrole>
+  smartresearch.ui:1112:           <colorrole role="ToolTipText">
+  smartresearch.ui:1113:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1114:             <color alpha="255">
+  smartresearch.ui:1115:              <red>0</red>
+  smartresearch.ui:1116:              <green>0</green>
+  smartresearch.ui:1117:              <blue>0</blue>
+  smartresearch.ui:1118:             </color>
+  smartresearch.ui:1119:            </brush>
+  smartresearch.ui:1120:           </colorrole>
+  smartresearch.ui:1121:           <colorrole role="PlaceholderText">
+  smartresearch.ui:1122:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1123:             <color alpha="128">
+  smartresearch.ui:1124:              <red>255</red>
+  smartresearch.ui:1125:              <green>255</green>
+  smartresearch.ui:1126:              <blue>255</blue>
+  smartresearch.ui:1127:             </color>
+  smartresearch.ui:1128:            </brush>
+  smartresearch.ui:1129:           </colorrole>
+  smartresearch.ui:1130:           <colorrole role="Accent">
+  smartresearch.ui:1131:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1132:             <color alpha="255">
+  smartresearch.ui:1133:              <red>255</red>
+  smartresearch.ui:1134:              <green>255</green>
+  smartresearch.ui:1135:              <blue>255</blue>
+  smartresearch.ui:1136:             </color>
+  smartresearch.ui:1137:            </brush>
+  smartresearch.ui:1138:           </colorrole>
+  smartresearch.ui:1139:          </active>
+  smartresearch.ui:1140:          <inactive>
+  smartresearch.ui:1141:           <colorrole role="WindowText">
+  smartresearch.ui:1142:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1143:             <color alpha="255">
+  smartresearch.ui:1144:              <red>255</red>
+  smartresearch.ui:1145:              <green>255</green>
+  smartresearch.ui:1146:              <blue>255</blue>
+  smartresearch.ui:1147:             </color>
+  smartresearch.ui:1148:            </brush>
+  smartresearch.ui:1149:           </colorrole>
+  smartresearch.ui:1150:           <colorrole role="Button">
+  smartresearch.ui:1151:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1152:             <color alpha="255">
+  smartresearch.ui:1153:              <red>30</red>
+  smartresearch.ui:1154:              <green>41</green>
+  smartresearch.ui:1155:              <blue>59</blue>
+  smartresearch.ui:1156:             </color>
+  smartresearch.ui:1157:            </brush>
+  smartresearch.ui:1158:           </colorrole>
+  smartresearch.ui:1159:           <colorrole role="Light">
+  smartresearch.ui:1160:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1161:             <color alpha="255">
+  smartresearch.ui:1162:              <red>255</red>
+  smartresearch.ui:1163:              <green>255</green>
+  smartresearch.ui:1164:              <blue>255</blue>
+  smartresearch.ui:1165:             </color>
+  smartresearch.ui:1166:            </brush>
+  smartresearch.ui:1167:           </colorrole>
+  smartresearch.ui:1168:           <colorrole role="Midlight">
+  smartresearch.ui:1169:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1170:             <color alpha="255">
+  smartresearch.ui:1171:              <red>255</red>
+  smartresearch.ui:1172:              <green>255</green>
+  smartresearch.ui:1173:              <blue>255</blue>
+  smartresearch.ui:1174:             </color>
+  smartresearch.ui:1175:            </brush>
+  smartresearch.ui:1176:           </colorrole>
+  smartresearch.ui:1177:           <colorrole role="Dark">
+  smartresearch.ui:1178:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1179:             <color alpha="255">
+  smartresearch.ui:1180:              <red>127</red>
+  smartresearch.ui:1181:              <green>127</green>
+  smartresearch.ui:1182:              <blue>127</blue>
+  smartresearch.ui:1183:             </color>
+  smartresearch.ui:1184:            </brush>
+  smartresearch.ui:1185:           </colorrole>
+  smartresearch.ui:1186:           <colorrole role="Mid">
+  smartresearch.ui:1187:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1188:             <color alpha="255">
+  smartresearch.ui:1189:              <red>170</red>
+  smartresearch.ui:1190:              <green>170</green>
+  smartresearch.ui:1191:              <blue>170</blue>
+  smartresearch.ui:1192:             </color>
+  smartresearch.ui:1193:            </brush>
+  smartresearch.ui:1194:           </colorrole>
+  smartresearch.ui:1195:           <colorrole role="Text">
+  smartresearch.ui:1196:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1197:             <color alpha="255">
+  smartresearch.ui:1198:              <red>255</red>
+  smartresearch.ui:1199:              <green>255</green>
+  smartresearch.ui:1200:              <blue>255</blue>
+  smartresearch.ui:1201:             </color>
+  smartresearch.ui:1202:            </brush>
+  smartresearch.ui:1203:           </colorrole>
+  smartresearch.ui:1204:           <colorrole role="BrightText">
+  smartresearch.ui:1205:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1206:             <color alpha="255">
+  smartresearch.ui:1207:              <red>255</red>
+  smartresearch.ui:1208:              <green>255</green>
+  smartresearch.ui:1209:              <blue>255</blue>
+  smartresearch.ui:1210:             </color>
+  smartresearch.ui:1211:            </brush>
+  smartresearch.ui:1212:           </colorrole>
+  smartresearch.ui:1213:           <colorrole role="ButtonText">
+  smartresearch.ui:1214:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1215:             <color alpha="255">
+  smartresearch.ui:1216:              <red>255</red>
+  smartresearch.ui:1217:              <green>255</green>
+  smartresearch.ui:1218:              <blue>255</blue>
+  smartresearch.ui:1219:             </color>
+  smartresearch.ui:1220:            </brush>
+  smartresearch.ui:1221:           </colorrole>
+  smartresearch.ui:1222:           <colorrole role="Base">
+  smartresearch.ui:1223:            <brush brushstyle="SolidPattern">
+  smartresearch.ui:1224:             <color alpha="255">
+
+
