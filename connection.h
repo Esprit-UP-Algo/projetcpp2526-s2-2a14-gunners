@@ -10,6 +10,8 @@ public:
     static Connection* instance(); // Accès à l'instance unique
     bool createConnect(); // Méthode pour créer la connexion
     void closeConnection(); // Fermer la connexion
+    void setupTables(); // Assurer l'existence des tables de liaison
+
 
 private:
     Connection(); // Constructeur privé

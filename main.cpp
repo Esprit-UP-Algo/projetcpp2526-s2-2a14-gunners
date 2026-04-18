@@ -16,6 +16,8 @@ int main(int argc, char *argv[]) {
     bool test = Connection::instance()->createConnect();
 
     if (test) {
+        Connection::instance()->setupTables();
+
         QMessageBox::information(nullptr, QObject::tr("Database is open"),
                                  QObject::tr("Connection successful.\n"
                                              "Click OK to continue."), QMessageBox::Ok);

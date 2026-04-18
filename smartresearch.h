@@ -55,14 +55,7 @@ private slots:
     void on_tableWidget_8_cellClicked(int row, int column);
     void on_expoSession_4_clicked();
 
-    // Session Slots
-    void on_enregistrerSession_clicked();
-    void on_modifSession_clicked();
-    void on_annulerajout_client_Session_clicked();
-    void on_SuppSession_clicked();
-    void on_rechercheSession_clicked();
-    void on_tableWidget_5_clicked(const QModelIndex &index);
-    void on_expoSession_clicked();
+    // Session Slots handled by GestionSession controller
 
     // Publication Slots
     void on_enregistrer_clicked();
@@ -112,17 +105,9 @@ private:
     void drawBarChart(QLabel *label, const QMap<QString, int> &data, const QColor &barColor);
     void drawDoubleBarChart(QLabel *label, const QMap<QString, int> &data1, const QString &title1, const QColor &color1, const QMap<QString, int> &data2, const QString &title2, const QColor &color2);
 
-    // Session Validation Helpers
-    bool validerID(int id);
-    bool validerTitre(QString titre);
-    bool validerDate(QDate date, bool isUpdate);
-    bool validerLieu(QString lieu);
-    bool validerType();
-    void setFieldStyle(QWidget *w, bool isValid);
-    void applySessionColoring();
+    // Session features moved to GestionSession
     int selectedUtilisateurId = -1;
     int selectedPublicationId = -1;
     int selectedJournalId     = -1;
-    int selectedSessionId     = -1;
 };
 #endif // SMARTRESEARCH_H
