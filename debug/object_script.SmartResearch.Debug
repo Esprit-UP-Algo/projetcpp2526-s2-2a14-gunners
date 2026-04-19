@@ -1,6 +1,12 @@
-debug/qtentrypoint_win.o
 debug/connection.o
+debug/excel.o
+debug/exportexcel.o
 debug/main.o
+debug/paiement.o
+debug/qrcode.o
+debug/qrcodegeneratordem.o
+debug/qrcodegeneratorworker.o
+debug/qrwidget.o
 debug/smartresearch.o
 debug/gestionsession.o
 debug/publication.o
@@ -13,6 +19,9 @@ debug/reviewer.o
 debug/gestionreviewer.o
 debug/smsservice.o
 debug/qrc_ressources.o
+debug/moc_excel.o
+debug/moc_exportexcel.o
+debug/moc_qrwidget.o
 debug/moc_smartresearch.o
 debug/moc_gestionsession.o
 debug/moc_smtp.o

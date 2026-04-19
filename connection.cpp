@@ -54,9 +54,28 @@ void Connection::setupTables()
 
     QSqlQuery query;
     
-    // Create session_publications table
-    // Using a block to catch errors silently if tables exist (ODBC/Oracle specific behavior usually requires separate checks, 
-    // but standard SQL 'CREATE TABLE' is safer here).
+    // 1. Ensure TABLE_UTILISATEUR has the security columns
+    // We try to add them one by one. If they exist, the error is ignored.
+    query.exec("ALTER TABLE TABLE_UTILISATEUR ADD (NOM_PERE VARCHAR2(100))");
+    query.exec("ALTER TABLE TABLE_UTILISATEUR ADD (NOM_MERE VARCHAR2(100))");
+    query.exec("ALTER TABLE TABLE_UTILISATEUR ADD (AGE NUMBER)");
+    query.exec("ALTER TABLE TABLE_UTILISATEUR ADD (FRERES NUMBER)");
+
+    // 2. Auto-Seed Super Admin
+    query.exec("SELECT COUNT(*) FROM TABLE_UTILISATEUR");
+    if (query.next() && query.value(0).toInt() == 0) {
+        qDebug() << "TABLE_UTILISATEUR is empty. Seeding default Super Admin...";
+        // Password is 'admin', Email is 'admin@smartresearch.com'
+        QString seedSql = "INSERT INTO TABLE_UTILISATEUR (ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR, NOM_PERE, NOM_MERE, AGE, FRERES) "
+                          "VALUES (1, 'Admin', 'Super', 'admin@smartresearch.com', 'admin', 'Admin', 0, 'SmartResearch HQ', 'Root', 'System', 99, 0)";
+        if (!query.exec(seedSql)) {
+            qDebug() << "Failed to seed admin:" << query.lastError().text();
+        } else {
+            qDebug() << "Super Admin seeded successfully.";
+        }
+    }
+
+    // 3. Create session relation tables
     query.exec("CREATE TABLE session_publications ("
                "id_session INT, "
                "id_pub INT, "
@@ -65,7 +84,6 @@ void Connection::setupTables()
                "FOREIGN KEY (id_pub) REFERENCES PUBLICATION(ID_PUB) ON DELETE CASCADE"
                ")");
 
-    // Create session_reviewers table
     query.exec("CREATE TABLE session_reviewers ("
                "id_session INT, "
                "id_reviewer INT, "

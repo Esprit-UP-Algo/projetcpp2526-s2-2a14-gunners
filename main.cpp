@@ -36,12 +36,6 @@ int main(int argc, char *argv[]) {
         palette.setColor(QPalette::HighlightedText, Qt::white);
         a.setPalette(palette);
 
-        // Création automatique de la table "log" pour la connexion/inscription
-        QSqlQuery query;
-        // On essaie de créer la table. Si elle existe déjà, la base Oracle retournera une erreur qu'on peut ignorer.
-        if (!query.exec("CREATE TABLE log (USERNAME VARCHAR2(100) PRIMARY KEY, PASSWORD VARCHAR2(100), NOM_PERE VARCHAR2(100), NOM_MERE VARCHAR2(100), AGE NUMBER, FRERES NUMBER)")) {
-             qDebug() << "La table log existe déjà ou erreur :" << query.lastError().text();
-        }
 
         // 3. Gestion des fenêtres : On affiche Login en premier
         Login *loginWindow = new Login();

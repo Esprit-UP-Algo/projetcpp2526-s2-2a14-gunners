@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>SmartResearch</class>
  <widget class="QMainWindow" name="SmartResearch">
@@ -322,7 +322,7 @@ QPushButton:hover {
 }</string>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_login">
       <layout class="QVBoxLayout" name="verticalLayout_login">
@@ -488,7 +488,7 @@ QGroupBox::title {
           <x>20</x>
           <y>40</y>
           <width>451</width>
-          <height>261</height>
+          <height>367</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_Utilisateur">
@@ -644,6 +644,74 @@ QGroupBox::title {
            </property>
           </widget>
          </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_Pere">
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700; color:#ffffff;&quot;&gt;Nom Père&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QLineEdit" name="lineEdit_Pere">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="label_Mere">
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700; color:#ffffff;&quot;&gt;Nom Mère&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="lineEdit_Mere">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="label_Age">
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700; color:#ffffff;&quot;&gt;Âge&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1">
+          <widget class="QSpinBox" name="spinBox_Age">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>120</number>
+           </property>
+           <property name="value">
+            <number>18</number>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0">
+          <widget class="QLabel" name="label_Freres">
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:700; color:#ffffff;&quot;&gt;Nb Frères&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QSpinBox" name="spinBox_Freres">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
+           </property>
+           <property name="maximum">
+            <number>50</number>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
        <widget class="QPushButton" name="btn_Enregistrer_Utilisateur">
@@ -712,7 +780,7 @@ QPushButton:hover {
          <string>Modifier</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="annulerajout_client_Session">
+       <widget class="QPushButton" name="annulerajout_client_3">
         <property name="geometry">
          <rect>
           <x>120</x>
@@ -809,6 +877,9 @@ QGroupBox::title {
            <width>670</width>
            <height>160</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: transparent; border: none;</string>
          </property>
          <property name="text">
           <string/>
@@ -6928,7 +6999,7 @@ font: 300 9pt &quot;Segoe UI&quot;;
      <x>0</x>
      <y>0</y>
      <width>1488</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

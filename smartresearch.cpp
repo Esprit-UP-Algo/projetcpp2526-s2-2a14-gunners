@@ -31,6 +31,12 @@
 #include <QStringList>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
+#include <QtCharts>
+#include <QChartView>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QBarCategoryAxis>
+#include <QValueAxis>
 
 using qrcodegen::QrCode;
 using qrcodegen::QrSegment;
@@ -596,6 +602,11 @@ void SmartResearch::on_quitterSession_2_clicked()
     if (reply == QMessageBox::Yes) QApplication::quit();
 }
 
+void SmartResearch::on_quitterSession_7_clicked()
+{
+    on_quitterSession_2_clicked();
+}
+
 void SmartResearch::on_expoSession_2_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this,
@@ -1156,6 +1167,11 @@ void SmartResearch::on_btn_Enregistrer_Utilisateur_clicked() {
     else if (ui->radioButton_Admin->isChecked()) role = "editer";
     else if (ui->radioButton_Chercheur->isChecked()) role = "reviewer";
 
+    QString pere = ui->lineEdit_Pere->text();
+    QString mere = ui->lineEdit_Mere->text();
+    int age_val = ui->spinBox_Age->value();
+    int freres_val = ui->spinBox_Freres->value();
+
     // 1. Contrôle ID
     if (id_str.isEmpty()) {
         QMessageBox::warning(this, "Erreur de saisie", "Le champ 'ID' est obligatoire. Veuillez le renseigner.");
@@ -1236,7 +1252,28 @@ void SmartResearch::on_btn_Enregistrer_Utilisateur_clicked() {
         return;
     }
 
-    Utilisateur u(id, nom, prenom, email, mdp, role, num, inst);
+    // Validation Nom Père
+    if (pere.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Le champ 'Nom Père' est obligatoire.");
+        return;
+    }
+    QRegularExpression reName("^[a-zA-ZÀ-ÿ\\s]+$");
+    if (!reName.match(pere).hasMatch()) {
+        QMessageBox::warning(this, "Erreur", "Le champ 'Nom Père' ne doit contenir que des lettres.");
+        return;
+    }
+
+    // Validation Nom Mère
+    if (mere.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Le champ 'Nom Mère' est obligatoire.");
+        return;
+    }
+    if (!reName.match(mere).hasMatch()) {
+        QMessageBox::warning(this, "Erreur", "Le champ 'Nom Mère' ne doit contenir que des lettres.");
+        return;
+    }
+
+    Utilisateur u(id, nom, prenom, email, mdp, role, num, inst, pere, mere, age_val, freres_val);
     bool test = u.ajouter();
     if (test) {
         ui->tableWidget_10->setModel(Utmp.afficher()); // Refresh
@@ -1288,6 +1325,11 @@ void SmartResearch::on_modif_3_clicked() {
     else if (ui->radioButton_Admin_2->isChecked()) role = "manager";
     else if (ui->radioButton_Admin->isChecked()) role = "editer";
     else if (ui->radioButton_Chercheur->isChecked()) role = "reviewer";
+
+    QString pere = ui->lineEdit_Pere->text();
+    QString mere = ui->lineEdit_Mere->text();
+    int age_val = ui->spinBox_Age->value();
+    int freres_val = ui->spinBox_Freres->value();
 
     // 1. Contrôle ID
     if (id_str.isEmpty()) {
@@ -1378,7 +1420,17 @@ void SmartResearch::on_modif_3_clicked() {
         return;
     }
 
-    Utilisateur u(id, nom, prenom, email, mdp, role, num, inst);
+    if (pere.isEmpty() || mere.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Les champs 'Nom Père' et 'Nom Mère' sont obligatoires.");
+        return;
+    }
+    QRegularExpression reName("^[a-zA-ZÀ-ÿ\\s]+$");
+    if (!reName.match(pere).hasMatch() || !reName.match(mere).hasMatch()) {
+        QMessageBox::warning(this, "Erreur", "Les noms du Père et de la Mère ne doivent contenir que des lettres.");
+        return;
+    }
+
+    Utilisateur u(id, nom, prenom, email, mdp, role, num, inst, pere, mere, age_val, freres_val);
     // Use the original selected ID to find the row, even if the ID in the object is different
     bool test = u.modifier(selectedUtilisateurId != -1 ? selectedUtilisateurId : id);
     if (test) {
@@ -1408,6 +1460,11 @@ void SmartResearch::on_annulerajout_client_3_clicked() {
     ui->radioButton_Admin->setChecked(false);
     ui->radioButton_Chercheur->setChecked(false);
     if (ui->radioButton_Admin_7->group()) ui->radioButton_Admin_7->group()->setExclusive(true);
+
+    ui->lineEdit_Pere->clear();
+    ui->lineEdit_Mere->clear();
+    ui->spinBox_Age->setValue(18);
+    ui->spinBox_Freres->setValue(0);
 }
 
 void SmartResearch::on_pushButton_supprimer_client_2_clicked() {
@@ -1450,6 +1507,11 @@ void SmartResearch::on_tableWidget_10_clicked(const QModelIndex &index) {
     else if (role == "manager") ui->radioButton_Admin_2->setChecked(true);
     else if (role == "editer") ui->radioButton_Admin->setChecked(true);
     else if (role == "reviewer") ui->radioButton_Chercheur->setChecked(true);
+
+    ui->lineEdit_Pere->setText(ui->tableWidget_10->model()->index(row, 8).data().toString());
+    ui->lineEdit_Mere->setText(ui->tableWidget_10->model()->index(row, 9).data().toString());
+    ui->spinBox_Age->setValue(ui->tableWidget_10->model()->index(row, 10).data().toInt());
+    ui->spinBox_Freres->setValue(ui->tableWidget_10->model()->index(row, 11).data().toInt());
 }
 
 void SmartResearch::on_pushButton_pdfclient_clicked() {
@@ -1522,9 +1584,9 @@ void SmartResearch::on_pushButton_recherche_4_clicked() {
 
     QSqlQueryModel * model = new QSqlQueryModel();
     if (val.isEmpty()) {
-        model->setQuery("SELECT ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR FROM TABLE_UTILISATEUR ORDER BY ID_UTILISATEUR " + ordre);
+        model->setQuery("SELECT ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR, NOM_PERE, NOM_MERE, AGE, FRERES FROM TABLE_UTILISATEUR ORDER BY ID_UTILISATEUR " + ordre);
     } else {
-        model->setQuery("SELECT ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR FROM TABLE_UTILISATEUR WHERE ID_UTILISATEUR = '" + val + "' ORDER BY ID_UTILISATEUR " + ordre);
+        model->setQuery("SELECT ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR, NOM_PERE, NOM_MERE, AGE, FRERES FROM TABLE_UTILISATEUR WHERE ID_UTILISATEUR = '" + val + "' ORDER BY ID_UTILISATEUR " + ordre);
     }
     
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
@@ -1535,6 +1597,10 @@ void SmartResearch::on_pushButton_recherche_4_clicked() {
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Rôle"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Numéro"));
     model->setHeaderData(7, Qt::Horizontal, QObject::tr("Institution"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Père"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("Mère"));
+    model->setHeaderData(10, Qt::Horizontal, QObject::tr("Âge"));
+    model->setHeaderData(11, Qt::Horizontal, QObject::tr("Frères"));
     
     ui->tableWidget_10->setModel(model);
 }
@@ -1547,28 +1613,163 @@ void SmartResearch::on_comboBox_11_currentIndexChanged(int index) {
 void SmartResearch::updateUtilisateurStats() {
     QMap<QString, int> stats = Utilisateur::getStatistics();
 
-    // Prepare data for Chart
-    QMap<QString, int> chartData;
-    chartData["Admins"] = stats["Admin"];
-    chartData["Managers"] = stats["manager"];
-    chartData["Editors"] = stats["editer"];
-    chartData["Reviewers"] = stats["reviewer"];
+    QBarSet *set0 = new QBarSet("Rôles");
     
-    drawBarChart(ui->label_Chart_Utilisateur, chartData, QColor("#10b981"));
+    // --- Premium Gradient for bars ---
+    QLinearGradient gradient(0, 0, 0, 400); // vertical gradient
+    gradient.setColorAt(0.0, QColor("#34d399")); // lighter emerald
+    gradient.setColorAt(1.0, QColor("#059669")); // darker emerald
+    set0->setBrush(QBrush(gradient));
+    set0->setBorderColor(QColor("#10b981").lighter(130)); // slightly brighter border for pop
+    
+    *set0 << stats["Admin"] << stats["manager"] << stats["editer"] << stats["reviewer"];
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set0);
+    series->setBarWidth(0.5); // make bars slightly slimmer for a more elegant look
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Statistiques des Répartitions par Rôle");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setBackgroundBrush(QBrush(Qt::transparent));
+    
+    // --- Custom Title Font & Color ---
+    QFont titleFont("Inter", 13, QFont::Bold);
+    chart->setTitleFont(titleFont);
+    chart->setTitleBrush(QBrush(QColor("#F8FAFC"))); // bright slate logic color
+    
+    // Remove redundant legend
+    chart->legend()->setVisible(false);
+
+    QStringList categories;
+    categories << "Admins" << "Managers" << "Editors" << "Reviewers";
+    
+    // --- X Axis Styling ---
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append(categories);
+    axisX->setLabelsBrush(QBrush(QColor("#94A3B8"))); // slate-gray text
+    QFont axisFont("Inter", 10, QFont::Medium);
+    axisX->setLabelsFont(axisFont);
+    axisX->setLinePen(QPen(QColor(255, 255, 255, 50), 1));
+    axisX->setGridLineVisible(false); // remove vertical grid lines
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    // --- Y Axis Styling ---
+    QValueAxis *axisY = new QValueAxis();
+    axisY->applyNiceNumbers();
+    axisY->setLabelsBrush(QBrush(QColor("#94A3B8")));
+    axisY->setLabelsFont(axisFont);
+    axisY->setLinePen(QPen(Qt::transparent)); // hide thick axis line
+    axisY->setGridLinePen(QPen(QColor(255, 255, 255, 30), 1, Qt::DashLine)); // subtle dash lines
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+    
+    // Hide default text label from the UI to show chart view
+    ui->label_Chart_Utilisateur->hide();
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setStyleSheet("background: transparent;");
+
+    // Clean up old layouts if present (for refresh)
+    if (ui->groupBox_Stats_Utilisateur->layout() != nullptr) {
+        QLayoutItem *item;
+        while ((item = ui->groupBox_Stats_Utilisateur->layout()->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete ui->groupBox_Stats_Utilisateur->layout();
+    }
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setContentsMargins(10, 10, 10, 10);
+    layout->addWidget(chartView);
+    ui->groupBox_Stats_Utilisateur->setLayout(layout);
 }
 
 void SmartResearch::updatePublicationStats() {
     QMap<QString, int> stats = Publication::getStatistics();
 
-    // Prepare data for Chart
-    QMap<QString, int> chartData;
-    chartData["Attente"] = stats["status_En attente"];
-    chartData["Accepté"] = stats["status_Accepté"];
-    chartData["Rejeté"] = stats["status_Rejeté"];
-    chartData["Journal"] = stats["type_Journal"];
-    chartData["Conférence"] = stats["type_Conférence"];
+    QBarSet *set0 = new QBarSet("Publications");
     
-    drawBarChart(ui->label_Chart_Publication, chartData, QColor("#10b981"));
+    // --- Premium Gradient for bars ---
+    QLinearGradient gradient(0, 0, 0, 400); // vertical gradient
+    gradient.setColorAt(0.0, QColor("#34d399")); // lighter emerald
+    gradient.setColorAt(1.0, QColor("#059669")); // darker emerald
+    set0->setBrush(QBrush(gradient));
+    set0->setBorderColor(QColor("#10b981").lighter(130)); // slightly brighter border for pop
+    
+    *set0 << stats["status_En attente"] 
+          << stats["status_Accepté"] 
+          << stats["status_Rejeté"] 
+          << stats["type_Journal"] 
+          << stats["type_Conférence"];
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set0);
+    series->setBarWidth(0.5); // make bars slightly slimmer for elegant look
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Statistiques des Publications");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setBackgroundBrush(QBrush(Qt::transparent));
+    
+    // --- Custom Title Font & Color ---
+    QFont titleFont("Inter", 13, QFont::Bold);
+    chart->setTitleFont(titleFont);
+    chart->setTitleBrush(QBrush(QColor("#F8FAFC"))); // bright slate logic color
+    
+    // Remove redundant legend
+    chart->legend()->setVisible(false);
+
+    QStringList categories;
+    categories << "Attente" << "Accepté" << "Rejeté" << "Journal" << "Conférence";
+    
+    // --- X Axis Styling ---
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append(categories);
+    axisX->setLabelsBrush(QBrush(QColor("#94A3B8"))); // slate-gray text
+    QFont axisFont("Inter", 10, QFont::Medium);
+    axisX->setLabelsFont(axisFont);
+    axisX->setLinePen(QPen(QColor(255, 255, 255, 50), 1));
+    axisX->setGridLineVisible(false); // remove vertical grid lines
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    // --- Y Axis Styling ---
+    QValueAxis *axisY = new QValueAxis();
+    axisY->applyNiceNumbers();
+    axisY->setLabelsBrush(QBrush(QColor("#94A3B8")));
+    axisY->setLabelsFont(axisFont);
+    axisY->setLinePen(QPen(Qt::transparent)); // hide thick axis line
+    axisY->setGridLinePen(QPen(QColor(255, 255, 255, 30), 1, Qt::DashLine)); // subtle dash lines
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+    
+    // Hide default text label from the UI to show chart view
+    ui->label_Chart_Publication->hide();
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setStyleSheet("background: transparent;");
+
+    // Clean up old layouts if present (for refresh)
+    if (ui->groupBox_Stats_Publication->layout() != nullptr) {
+        QLayoutItem *item;
+        while ((item = ui->groupBox_Stats_Publication->layout()->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete ui->groupBox_Stats_Publication->layout();
+    }
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setContentsMargins(10, 10, 10, 10);
+    layout->addWidget(chartView);
+    ui->groupBox_Stats_Publication->setLayout(layout);
 }
 
 void SmartResearch::drawBarChart(QLabel *label, const QMap<QString, int> &data, const QColor &barColor) {

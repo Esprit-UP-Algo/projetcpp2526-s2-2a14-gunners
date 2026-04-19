@@ -85,6 +85,7 @@ private slots:
     void on_lineEdit_recherchPaiement_textChanged(const QString &arg1);
     void on_pushButton_supprimer_paiement_clicked();
     void on_quitterSession_2_clicked();
+    void on_quitterSession_7_clicked();
     void on_expoSession_2_clicked();
     void on_expoSession_2_linkActivated(const QString &link);
 private:

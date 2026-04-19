@@ -8,13 +8,14 @@
 
 class Utilisateur
 {
-    int id_utilisateur;
+    int id_utilisateur, age, nb_freres;
     QString nom_utilisateur, prenom, email_utilisateur, mdp_utilisateur, role_utilisateur, num_utilisateur, institution_utilisateur;
+    QString nom_pere, nom_mere;
 
 public:
     // Constructeurs
     Utilisateur();
-    Utilisateur(int, QString, QString, QString, QString, QString, QString, QString);
+    Utilisateur(int, QString, QString, QString, QString, QString, QString, QString, QString, QString, int, int);
 
     // Getters
     int get_id_utilisateur();
@@ -25,6 +26,10 @@ public:
     QString get_role_utilisateur();
     QString get_num_utilisateur();
     QString get_institution_utilisateur();
+    QString get_nom_pere();
+    QString get_nom_mere();
+    int get_age();
+    int get_nb_freres();
 
     // Setters
     void set_id_utilisateur(int);
@@ -35,6 +40,10 @@ public:
     void set_role_utilisateur(QString);
     void set_num_utilisateur(QString);
     void set_institution_utilisateur(QString);
+    void set_nom_pere(QString);
+    void set_nom_mere(QString);
+    void set_age(int);
+    void set_nb_freres(int);
 
     // CRUD
     bool ajouter();

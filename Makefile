@@ -124,8 +124,6 @@ Makefile: SmartResearch.pro C:/Qt/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf C:
 		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent.pri \
 		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core.pri \
-		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core5compat.pri \
-		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core5compat_private.pri \
 		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core_private.pri \
 		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_datavisualization.pri \
 		C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
@@ -410,8 +408,10 @@ Makefile: SmartResearch.pro C:/Qt/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf C:
 		SmartResearch.pro \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6Charts.prl \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6OpenGLWidgets.prl \
+		C:/Qt/6.7.3/mingw_64/lib/Qt6PrintSupport.prl \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6Widgets.prl \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6OpenGL.prl \
+		C:/Qt/6.7.3/mingw_64/lib/Qt6Svg.prl \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6Gui.prl \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6Sql.prl \
 		C:/Qt/6.7.3/mingw_64/lib/Qt6Network.prl \
@@ -474,8 +474,6 @@ C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_chartsqml_private.pri:
 C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent.pri:
 C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core.pri:
-C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core5compat.pri:
-C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core5compat_private.pri:
 C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_core_private.pri:
 C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_datavisualization.pri:
 C:/Qt/6.7.3/mingw_64/mkspecs/modules/qt_lib_datavisualization_private.pri:
@@ -760,8 +758,10 @@ C:/Qt/6.7.3/mingw_64/mkspecs/features/lex.prf:
 SmartResearch.pro:
 C:/Qt/6.7.3/mingw_64/lib/Qt6Charts.prl:
 C:/Qt/6.7.3/mingw_64/lib/Qt6OpenGLWidgets.prl:
+C:/Qt/6.7.3/mingw_64/lib/Qt6PrintSupport.prl:
 C:/Qt/6.7.3/mingw_64/lib/Qt6Widgets.prl:
 C:/Qt/6.7.3/mingw_64/lib/Qt6OpenGL.prl:
+C:/Qt/6.7.3/mingw_64/lib/Qt6Svg.prl:
 C:/Qt/6.7.3/mingw_64/lib/Qt6Gui.prl:
 C:/Qt/6.7.3/mingw_64/lib/Qt6Sql.prl:
 C:/Qt/6.7.3/mingw_64/lib/Qt6Network.prl:

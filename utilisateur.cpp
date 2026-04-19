@@ -20,9 +20,13 @@ Utilisateur::Utilisateur()
     role_utilisateur = "";
     num_utilisateur = "";
     institution_utilisateur = "";
+    nom_pere = "";
+    nom_mere = "";
+    age = 0;
+    nb_freres = 0;
 }
 
-Utilisateur::Utilisateur(int id, QString nom, QString prenom_val, QString email, QString mdp, QString role, QString num, QString institution)
+Utilisateur::Utilisateur(int id, QString nom, QString prenom_val, QString email, QString mdp, QString role, QString num, QString institution, QString pere, QString mere, int a, int f)
 {
     this->id_utilisateur = id;
     this->nom_utilisateur = nom;
@@ -32,6 +36,10 @@ Utilisateur::Utilisateur(int id, QString nom, QString prenom_val, QString email,
     this->role_utilisateur = role;
     this->num_utilisateur = num;
     this->institution_utilisateur = institution;
+    this->nom_pere = pere;
+    this->nom_mere = mere;
+    this->age = a;
+    this->nb_freres = f;
 }
 
 // Getters
@@ -43,6 +51,10 @@ QString Utilisateur::get_mdp_utilisateur() { return mdp_utilisateur; }
 QString Utilisateur::get_role_utilisateur() { return role_utilisateur; }
 QString Utilisateur::get_num_utilisateur() { return num_utilisateur; }
 QString Utilisateur::get_institution_utilisateur() { return institution_utilisateur; }
+QString Utilisateur::get_nom_pere() { return nom_pere; }
+QString Utilisateur::get_nom_mere() { return nom_mere; }
+int Utilisateur::get_age() { return age; }
+int Utilisateur::get_nb_freres() { return nb_freres; }
 
 // Setters
 void Utilisateur::set_id_utilisateur(int id) { this->id_utilisateur = id; }
@@ -53,6 +65,10 @@ void Utilisateur::set_mdp_utilisateur(QString mdp) { this->mdp_utilisateur = mdp
 void Utilisateur::set_role_utilisateur(QString role) { this->role_utilisateur = role; }
 void Utilisateur::set_num_utilisateur(QString num) { this->num_utilisateur = num; }
 void Utilisateur::set_institution_utilisateur(QString inst) { this->institution_utilisateur = inst; }
+void Utilisateur::set_nom_pere(QString p) { this->nom_pere = p; }
+void Utilisateur::set_nom_mere(QString m) { this->nom_mere = m; }
+void Utilisateur::set_age(int a) { this->age = a; }
+void Utilisateur::set_nb_freres(int f) { this->nb_freres = f; }
 
 // CRUD Methods
 
@@ -63,8 +79,9 @@ bool Utilisateur::ajouter()
 
     QString sql = QString(
         "INSERT INTO TABLE_UTILISATEUR (ID_UTILISATEUR, NOM_UTILISATEUR, EMAIL_UTILISATEUR, "
-        "MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR, PRENOM) "
-        "VALUES (%1, '%2', '%3', '%4', '%5', %6, '%7', '%8')")
+        "MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR, PRENOM, "
+        "NOM_PERE, NOM_MERE, AGE, FRERES) "
+        "VALUES (%1, '%2', '%3', '%4', '%5', %6, '%7', '%8', '%9', '%10', %11, %12)")
         .arg(id_utilisateur)
         .arg(esc(nom_utilisateur))
         .arg(esc(email_utilisateur))
@@ -72,7 +89,11 @@ bool Utilisateur::ajouter()
         .arg(esc(role_utilisateur))
         .arg(num_val)
         .arg(esc(institution_utilisateur))
-        .arg(esc(prenom));
+        .arg(esc(prenom))
+        .arg(esc(nom_pere))
+        .arg(esc(nom_mere))
+        .arg(age)
+        .arg(nb_freres);
 
     QSqlQuery query;
     if (!query.exec(sql)) {
@@ -87,7 +108,8 @@ QSqlQueryModel * Utilisateur::afficher()
 {
     QSqlQueryModel * model = new QSqlQueryModel();
     // Correction : PRENOM_UTILISATEUR -> PRENOM
-    model->setQuery("SELECT ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR FROM TABLE_UTILISATEUR ORDER BY ID_UTILISATEUR ASC");
+    // Fetch all columns
+    model->setQuery("SELECT ID_UTILISATEUR, NOM_UTILISATEUR, PRENOM, EMAIL_UTILISATEUR, MDP_UTILISATEUR, ROLE_UTILISATEUR, NUM_UTILISATEUR, INSTITUTION_UTILISATEUR, NOM_PERE, NOM_MERE, AGE, FRERES FROM TABLE_UTILISATEUR ORDER BY ID_UTILISATEUR ASC");
     if (model->lastError().isValid()) {
         qDebug() << "Erreur lors de l'affichage des utilisateurs :" << model->lastError().text();
     }
@@ -100,6 +122,10 @@ QSqlQueryModel * Utilisateur::afficher()
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Rôle"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Numéro"));
     model->setHeaderData(7, Qt::Horizontal, QObject::tr("Institution"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Père"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("Mère"));
+    model->setHeaderData(10, Qt::Horizontal, QObject::tr("Âge"));
+    model->setHeaderData(11, Qt::Horizontal, QObject::tr("Frères"));
     return model;
 }
 
@@ -123,8 +149,12 @@ bool Utilisateur::modifier(int id)
         "ROLE_UTILISATEUR = '%5', "
         "NUM_UTILISATEUR = %6, "
         "INSTITUTION_UTILISATEUR = '%7', "
-        "PRENOM = '%8' "
-        "WHERE ID_UTILISATEUR = %9")
+        "PRENOM = '%8', "
+        "NOM_PERE = '%9', "
+        "NOM_MERE = '%10', "
+        "AGE = %11, "
+        "FRERES = %12 "
+        "WHERE ID_UTILISATEUR = %13")
         .arg(id_utilisateur)
         .arg(esc(nom_utilisateur))
         .arg(esc(email_utilisateur))
@@ -133,6 +163,10 @@ bool Utilisateur::modifier(int id)
         .arg(num_val)
         .arg(esc(institution_utilisateur))
         .arg(esc(prenom))
+        .arg(esc(nom_pere))
+        .arg(esc(nom_mere))
+        .arg(age)
+        .arg(nb_freres)
         .arg(id);
 
     QSqlQuery query;

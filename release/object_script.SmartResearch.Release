@@ -1,6 +1,12 @@
-release/qtentrypoint_win.o
 release/connection.o
+release/excel.o
+release/exportexcel.o
 release/main.o
+release/paiement.o
+release/qrcode.o
+release/qrcodegeneratordem.o
+release/qrcodegeneratorworker.o
+release/qrwidget.o
 release/smartresearch.o
 release/gestionsession.o
 release/publication.o
@@ -13,6 +19,9 @@ release/reviewer.o
 release/gestionreviewer.o
 release/smsservice.o
 release/qrc_ressources.o
+release/moc_excel.o
+release/moc_exportexcel.o
+release/moc_qrwidget.o
 release/moc_smartresearch.o
 release/moc_gestionsession.o
 release/moc_smtp.o
