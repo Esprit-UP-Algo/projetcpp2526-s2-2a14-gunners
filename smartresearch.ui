@@ -1653,28 +1653,36 @@ border: #A8D3F0;</string>
           </widget>
          </item>
          <item row="4" column="1">
-          <layout class="QFormLayout" name="formLayout_2">
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="radioButton_Admin_3">
-             <property name="styleSheet">
-              <string notr="true">color: white; font-weight: bold;</string>
-             </property>
-             <property name="text">
-              <string>Conférence</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QRadioButton" name="radioButton_Admin_4">
-             <property name="styleSheet">
-              <string notr="true">color: white; font-weight: bold;</string>
-             </property>
-             <property name="text">
-              <string>Journal</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QComboBox" name="comboBox_typePub">
+           <property name="styleSheet">
+            <string notr="true">QComboBox {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 2px 10px;
+    color: white;
+    font-weight: bold;
+}
+QComboBox:hover {
+    border: 1px solid #3b82f6;
+}
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-left: 1px solid #334155;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+QComboBox QAbstractItemView {
+    background-color: #1e293b;
+    border: 1px solid #3b82f6;
+    selection-background-color: #3b82f6;
+    selection-color: white;
+    color: white;
+}</string>
+           </property>
+          </widget>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="label_6">
@@ -1746,6 +1754,25 @@ border: #A8D3F0;</string>
           </widget>
          </item>
         </layout>
+       </widget>
+       <widget class="QLabel" name="label_qr_pub">
+        <property name="geometry">
+         <rect>
+          <x>175</x>
+          <y>265</y>
+          <width>120</width>
+          <height>120</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: white; border-radius: 12px; border: 2px solid #3b82f6;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QPushButton" name="enregistrer">
         <property name="geometry">
@@ -2470,6 +2497,35 @@ QPushButton:hover {
          <iconset theme="QIcon::ThemeIcon::EditFind"/>
         </property>
        </widget>
+       <widget class="QPushButton" name="smartAssistantButton">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>30</y>
+          <width>171</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #059669;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>SmartAssistant</string>
+        </property>
+       </widget>
        <widget class="QLineEdit" name="rechSession_5">
         <property name="geometry">
          <rect>
@@ -2531,6 +2587,33 @@ QPushButton:hover {
         </property>
         <property name="icon">
          <iconset theme="QIcon::ThemeIcon::EditDelete"/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_qr_pub">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>470</y>
+          <width>221</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #6d28d9;
+}</string>
+        </property>
+        <property name="text">
+         <string>Smart Abstract QR</string>
         </property>
        </widget>
        <widget class="QPushButton" name="expoSession_5">

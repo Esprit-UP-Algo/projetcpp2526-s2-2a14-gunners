@@ -120,9 +120,7 @@ public:
     QLabel *label_4;
     QLineEdit *abstractPub;
     QLabel *label_5;
-    QFormLayout *formLayout_2;
-    QRadioButton *radioButton_Admin_3;
-    QRadioButton *radioButton_Admin_4;
+    QComboBox *comboBox_typePub;
     QLabel *label_6;
     QLineEdit *mot_clePub;
     QLabel *label_7;
@@ -132,6 +130,7 @@ public:
     QRadioButton *radioButton_statut_rejete;
     QLabel *label_8;
     QDateEdit *datePub;
+    QLabel *label_qr_pub;
     QPushButton *enregistrer;
     QPushButton *modif;
     QPushButton *annulerajout_client;
@@ -141,8 +140,10 @@ public:
     QGroupBox *groupBox_Stats_Publication;
     QLabel *label_Chart_Publication;
     QPushButton *pushButton_recherche_3;
+    QPushButton *smartAssistantButton;
     QLineEdit *rechSession_5;
     QPushButton *pushButton_supprimer_client;
+    QPushButton *btn_qr_pub;
     QPushButton *expoSession_5;
     QPushButton *quitterSession_5;
     QWidget *stackedWidgetPage3;
@@ -1088,22 +1089,36 @@ public:
 
         formLayout->setWidget(4, QFormLayout::LabelRole, label_5);
 
-        formLayout_2 = new QFormLayout();
-        formLayout_2->setObjectName("formLayout_2");
-        radioButton_Admin_3 = new QRadioButton(formLayoutWidget);
-        radioButton_Admin_3->setObjectName("radioButton_Admin_3");
-        radioButton_Admin_3->setStyleSheet(QString::fromUtf8("color: white; font-weight: bold;"));
+        comboBox_typePub = new QComboBox(formLayoutWidget);
+        comboBox_typePub->setObjectName("comboBox_typePub");
+        comboBox_typePub->setStyleSheet(QString::fromUtf8("QComboBox {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #334155;\n"
+"    border-radius: 8px;\n"
+"    padding: 2px 10px;\n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 1px solid #3b82f6;\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 25px;\n"
+"    border-left: 1px solid #334155;\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #1e293b;\n"
+"    border: 1px solid #3b82f6;\n"
+"    selection-background-color: #3b82f6;\n"
+"    selection-color: white;\n"
+"    color: white;\n"
+"}"));
 
-        formLayout_2->setWidget(0, QFormLayout::LabelRole, radioButton_Admin_3);
-
-        radioButton_Admin_4 = new QRadioButton(formLayoutWidget);
-        radioButton_Admin_4->setObjectName("radioButton_Admin_4");
-        radioButton_Admin_4->setStyleSheet(QString::fromUtf8("color: white; font-weight: bold;"));
-
-        formLayout_2->setWidget(0, QFormLayout::FieldRole, radioButton_Admin_4);
-
-
-        formLayout->setLayout(4, QFormLayout::FieldRole, formLayout_2);
+        formLayout->setWidget(4, QFormLayout::FieldRole, comboBox_typePub);
 
         label_6 = new QLabel(formLayoutWidget);
         label_6->setObjectName("label_6");
@@ -1155,6 +1170,11 @@ public:
 
         formLayout->setWidget(7, QFormLayout::FieldRole, datePub);
 
+        label_qr_pub = new QLabel(groupBox_2);
+        label_qr_pub->setObjectName("label_qr_pub");
+        label_qr_pub->setGeometry(QRect(175, 265, 120, 120));
+        label_qr_pub->setStyleSheet(QString::fromUtf8("background-color: white; border-radius: 12px; border: 2px solid #3b82f6;"));
+        label_qr_pub->setScaledContents(true);
         enregistrer = new QPushButton(groupBox_2);
         enregistrer->setObjectName("enregistrer");
         enregistrer->setGeometry(QRect(40, 400, 150, 41));
@@ -1351,6 +1371,23 @@ public:
 "}\n"
 ""));
         pushButton_recherche_3->setIcon(icon2);
+        smartAssistantButton = new QPushButton(groupBox_Session_List_5);
+        smartAssistantButton->setObjectName("smartAssistantButton");
+        smartAssistantButton->setGeometry(QRect(340, 30, 171, 41));
+        smartAssistantButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    background-color: #10b981;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 20px;\n"
+"    font-size: 14px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #059669;\n"
+"}\n"
+""));
         rechSession_5 = new QLineEdit(groupBox_Session_List_5);
         rechSession_5->setObjectName("rechSession_5");
         rechSession_5->setGeometry(QRect(30, 30, 171, 41));
@@ -1391,6 +1428,21 @@ public:
 "}\n"
 ""));
         pushButton_supprimer_client->setIcon(icon1);
+        btn_qr_pub = new QPushButton(groupBox_Session_List_5);
+        btn_qr_pub->setObjectName("btn_qr_pub");
+        btn_qr_pub->setGeometry(QRect(310, 470, 221, 51));
+        btn_qr_pub->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    background-color: #7c3aed;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 20px;\n"
+"    font-size: 14px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #6d28d9;\n"
+"}"));
         expoSession_5 = new QPushButton(groupBox_Session_List_5);
         expoSession_5->setObjectName("expoSession_5");
         expoSession_5->setGeometry(QRect(100, 470, 191, 51));
@@ -3127,14 +3179,13 @@ public:
         label_3->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Auteurs</span></p></body></html>", nullptr));
         label_4->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Abstract</span></p></body></html>", nullptr));
         label_5->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Type</span></p></body></html>", nullptr));
-        radioButton_Admin_3->setText(QCoreApplication::translate("SmartResearch", "Conf\303\251rence", nullptr));
-        radioButton_Admin_4->setText(QCoreApplication::translate("SmartResearch", "Journal", nullptr));
         label_6->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Mots cl\303\251s</span></p></body></html>", nullptr));
         label_7->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Statut</span></p></body></html>", nullptr));
         radioButton_statut_attente->setText(QCoreApplication::translate("SmartResearch", "En attente", nullptr));
         radioButton_statut_accepte->setText(QCoreApplication::translate("SmartResearch", "Accept\303\251", nullptr));
         radioButton_statut_rejete->setText(QCoreApplication::translate("SmartResearch", "Rejet\303\251", nullptr));
         label_8->setText(QCoreApplication::translate("SmartResearch", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:700; color:#ffffff;\">Date de soumission</span></p></body></html>", nullptr));
+        label_qr_pub->setText(QString());
         enregistrer->setText(QCoreApplication::translate("SmartResearch", "Enregistrer", nullptr));
         modif->setText(QCoreApplication::translate("SmartResearch", "Modifier", nullptr));
         annulerajout_client->setText(QString());
@@ -3145,7 +3196,9 @@ public:
         groupBox_Stats_Publication->setTitle(QString());
         label_Chart_Publication->setText(QString());
         pushButton_recherche_3->setText(QCoreApplication::translate("SmartResearch", "Rechercher:", nullptr));
+        smartAssistantButton->setText(QCoreApplication::translate("SmartResearch", "SmartAssistant", nullptr));
         pushButton_supprimer_client->setText(QString());
+        btn_qr_pub->setText(QCoreApplication::translate("SmartResearch", "Smart Abstract QR", nullptr));
         expoSession_5->setText(QCoreApplication::translate("SmartResearch", "Exporter format PDF", nullptr));
         quitterSession_5->setText(QCoreApplication::translate("SmartResearch", "Quitter", nullptr));
         groupBox_Journal_Form->setTitle(QString());

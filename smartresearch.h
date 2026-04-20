@@ -15,6 +15,7 @@
 class GestionSession;
 class GestionReviewer;
 #include "publication.h"
+#include "chatbot.h"
 #include "utilisateur.h"
 #include "journal.h"
 #include "session.h"
@@ -66,6 +67,8 @@ private slots:
     void on_comboBox_9_currentIndexChanged(int index);
     void on_tableWidget_9_clicked(const QModelIndex &index);
     void on_expoSession_5_clicked();
+    void on_btn_qr_pub_clicked();
+    void on_smartAssistantButton_clicked();
     // Utilisateur Slots
     void on_btn_Enregistrer_Utilisateur_clicked();
     void on_modif_3_clicked();
@@ -100,6 +103,7 @@ private:
     void updateUtilisateurStats();
     void updatePublicationStats();
     void updateSessionStats();
+    void loadPubTypes();
     void refreshJournalTable();
     void updateJournalStats();
     QLabel* label_Chart_Session = nullptr;
@@ -109,6 +113,7 @@ private:
     // Session features moved to GestionSession
     int selectedUtilisateurId = -1;
     int selectedPublicationId = -1;
+    Chatbot *chatbotWidget;
     int selectedJournalId     = -1;
 };
 #endif // SMARTRESEARCH_H

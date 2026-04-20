@@ -26,7 +26,8 @@ SOURCES += \
     login.cpp \
     reviewer.cpp \
     gestionreviewer.cpp \
-    smsservice.cpp
+    smsservice.cpp \
+    chatbot.cpp
 
 HEADERS += \
     connection.h \
@@ -45,7 +46,8 @@ HEADERS += \
     login.h \
     reviewer.h \
     gestionreviewer.h \
-    smsservice.h
+    smsservice.h \
+    chatbot.h
 
 FORMS += \
     smartresearch.ui \

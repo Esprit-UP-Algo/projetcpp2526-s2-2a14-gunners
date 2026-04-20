@@ -45,10 +45,11 @@ SmartResearch::SmartResearch(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::SmartResearch) {
   ui->setupUi(this);
 
-  // --- Groupe des boutons radio pour éviter les interférences ---
-  QButtonGroup *groupType = new QButtonGroup(this);
-  groupType->addButton(ui->radioButton_Admin_3);
-  groupType->addButton(ui->radioButton_Admin_4);
+  // Initialisation du Chatbot
+  chatbotWidget = new Chatbot(this);
+  ui->stackedWidget->addWidget(chatbotWidget);
+
+  loadPubTypes();
 
   QButtonGroup *groupStatut = new QButtonGroup(this);
   groupStatut->addButton(ui->radioButton_statut_attente);
@@ -792,7 +793,7 @@ void SmartResearch::on_enregistrer_clicked() {
     QString titre = ui->titrePub->text();
     QString auteurs = ui->auteurPub->text();
     QString abstract = ui->abstractPub->text();
-    QString type = ui->radioButton_Admin_3->isChecked() ? "Conférence" : "Journal";
+    QString type = ui->comboBox_typePub->currentText();
     QString mots_cles = ui->mot_clePub->text();
     QString statut = "";
     if (ui->radioButton_statut_attente->isChecked()) statut = "En attente";
@@ -844,8 +845,8 @@ void SmartResearch::on_enregistrer_clicked() {
     }
 
     // 5. Contrôle Type
-    if (!ui->radioButton_Admin_3->isChecked() && !ui->radioButton_Admin_4->isChecked()) {
-        QMessageBox::warning(this, "Erreur de saisie", "Veuillez sélectionner le 'Type' (Conférence ou Journal).");
+    if (ui->comboBox_typePub->currentIndex() == -1 || ui->comboBox_typePub->currentText() == "Aucun type disponible") {
+        QMessageBox::warning(this, "Erreur de saisie", "Veuillez sélectionner le 'Type' (Journal ou Conférence).");
         return;
     }
 
@@ -884,7 +885,7 @@ void SmartResearch::on_modif_clicked() {
     QString titre = ui->titrePub->text();
     QString auteurs = ui->auteurPub->text();
     QString abstract = ui->abstractPub->text();
-    QString type = ui->radioButton_Admin_3->isChecked() ? "Conférence" : "Journal";
+    QString type = ui->comboBox_typePub->currentText();
     QString mots_cles = ui->mot_clePub->text();
     QString statut = "";
     if (ui->radioButton_statut_attente->isChecked()) statut = "En attente";
@@ -944,8 +945,8 @@ void SmartResearch::on_modif_clicked() {
     }
 
     // 5. Contrôle Type
-    if (!ui->radioButton_Admin_3->isChecked() && !ui->radioButton_Admin_4->isChecked()) {
-        QMessageBox::warning(this, "Erreur de saisie", "Veuillez sélectionner le 'Type' (Conférence ou Journal).");
+    if (ui->comboBox_typePub->currentIndex() == -1 || ui->comboBox_typePub->currentText() == "Aucun type disponible") {
+        QMessageBox::warning(this, "Erreur de saisie", "Veuillez sélectionner le 'Type' (Journal ou Conférence).");
         return;
     }
 
@@ -996,10 +997,7 @@ void SmartResearch::on_annulerajout_client_clicked() {
     
     ui->datePub->setDate(QDate::currentDate());
     
-    if (ui->radioButton_Admin_3->group()) ui->radioButton_Admin_3->group()->setExclusive(false);
-    ui->radioButton_Admin_3->setChecked(false);
-    ui->radioButton_Admin_4->setChecked(false);
-    if (ui->radioButton_Admin_3->group()) ui->radioButton_Admin_3->group()->setExclusive(true);
+    ui->comboBox_typePub->setCurrentIndex(-1);
 }
 
 void SmartResearch::on_pushButton_supprimer_client_clicked() {
@@ -1051,11 +1049,7 @@ void SmartResearch::on_tableWidget_9_clicked(const QModelIndex &index) {
     
     ui->datePub->setDate(date);
 
-    if (type == "Conférence") {
-        ui->radioButton_Admin_3->setChecked(true);
-    } else {
-        ui->radioButton_Admin_4->setChecked(true);
-    }
+    ui->comboBox_typePub->setCurrentText(type);
 }
 
 void SmartResearch::on_pushButton_recherche_3_clicked() {
@@ -1149,6 +1143,61 @@ void SmartResearch::on_expoSession_5_clicked() {
     delete printer;
 
     QMessageBox::information(this, "Exportation PDF", "La liste des publications a été exportée avec succès.");
+}
+
+void SmartResearch::on_btn_qr_pub_clicked() {
+    int row = ui->tableWidget_9->currentIndex().row();
+    if (row == -1) {
+        QMessageBox::warning(this, "Sélection requise", "Veuillez sélectionner une publication dans le tableau.");
+        return;
+    }
+
+    QString id = ui->tableWidget_9->model()->index(row, 0).data().toString();
+    QString titre = ui->tableWidget_9->model()->index(row, 1).data().toString();
+    QString auteurs = ui->tableWidget_9->model()->index(row, 2).data().toString();
+    QString abstract = ui->tableWidget_9->model()->index(row, 3).data().toString();
+    QString type = ui->tableWidget_9->model()->index(row, 4).data().toString();
+
+    // Construction du message "Smart Abstract Card"
+    QString qrText = "📘 SMART ABSTRACT CARD\n\n";
+    qrText += "📌 TITRE: " + titre + "\n";
+    qrText += "👤 AUTEUR(S): " + auteurs + "\n";
+    qrText += "🏛️ SOURCE: " + type + "\n";
+    qrText += "📄 RESUME: " + abstract.left(100) + (abstract.length() > 100 ? "..." : "") + "\n\n";
+    qrText += "📜 CITATION (BibTeX):\n";
+    qrText += "@article{pub" + id + ",\n  title={" + titre + "},\n  author={" + auteurs + "},\n  journal={" + type + "}\n}\n\n";
+    qrText += "✨ Verified by SmartResearch System";
+
+    try {
+        const QrCode qr = QrCode::encodeText(qrText.toUtf8().constData(), QrCode::Ecc::LOW);
+        
+        std::ofstream myfile("qrcode_pub.svg");
+        myfile << qr.toSvgString(4);
+        myfile.close();
+
+        QSvgRenderer svgRenderer(QString("qrcode_pub.svg"));
+        QPixmap pix(200, 200);
+        pix.fill(Qt::white);
+        QPainter pixPainter(&pix);
+        svgRenderer.render(&pixPainter);
+        pixPainter.end();
+
+        ui->label_qr_pub->setPixmap(pix);
+        ui->label_qr_pub->setScaledContents(true);
+        
+        QMessageBox::information(this, "QR Code Généré", "Le Smart Abstract QR Code a été généré avec succès.");
+
+    } catch (const std::exception &e) {
+        QMessageBox::critical(this, "Erreur QR Code", "Erreur: " + QString(e.what()));
+    }
+}
+
+void SmartResearch::on_smartAssistantButton_clicked()
+{
+    int index = ui->stackedWidget->indexOf(chatbotWidget);
+    if (index != -1) {
+        ui->stackedWidget->setCurrentIndex(index);
+    }
 }
 
 // --- Gestion Utilisateur Slots ---
@@ -2104,6 +2153,7 @@ void SmartResearch::on_enregistrer1_clicked()
     Journal j(id, nom_val, type_val, domaine, facteur, clas, pays_val, org, peri, site);
     if (j.ajouter()) {
         refreshJournalTable();
+        loadPubTypes();
         QMessageBox::information(this, "OK", "Journal/Conférence ajouté avec succès.");
         on_annuler_clicked();
     } else {
@@ -2188,6 +2238,7 @@ void SmartResearch::on_modif1_clicked()
     bool test = j.modifier(selectedJournalId != -1 ? selectedJournalId : id);
     if (test) {
         refreshJournalTable();
+        loadPubTypes();
         QMessageBox::information(this, "OK", "Modification effectuée avec succès.");
         on_annuler_clicked();
     } else {
@@ -2235,6 +2286,7 @@ void SmartResearch::on_SuppSession_4_clicked()
     bool test = Jtmp.supprimer(id);
     if (test) {
         refreshJournalTable();
+        loadPubTypes();
         QMessageBox::information(this, "OK", "Suppression effectuée avec succès.");
         on_annuler_clicked();
     } else {
@@ -2396,4 +2448,16 @@ void SmartResearch::updateSessionStats() {
     chartData["Atelier"] = stats["atlier"];
     
     drawBarChart(label_Chart_Session, chartData, QColor("#10b981")); 
+}
+
+void SmartResearch::loadPubTypes() {
+    ui->comboBox_typePub->clear();
+    QSqlQuery query("SELECT NOM_JOURNAL, TYPE_JOURNAL FROM TABLE_JOURNAL_CONF");
+    while (query.next()) {
+        QString display = query.value(0).toString() + " (" + query.value(1).toString() + ")";
+        ui->comboBox_typePub->addItem(display);
+    }
+    if (ui->comboBox_typePub->count() == 0) {
+        ui->comboBox_typePub->addItem("Aucun type disponible");
+    }
 }

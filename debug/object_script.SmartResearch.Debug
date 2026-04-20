@@ -18,6 +18,7 @@ debug/login.o
 debug/reviewer.o
 debug/gestionreviewer.o
 debug/smsservice.o
+debug/chatbot.o
 debug/qrc_ressources.o
 debug/moc_excel.o
 debug/moc_exportexcel.o
@@ -27,3 +28,4 @@ debug/moc_gestionsession.o
 debug/moc_smtp.o
 debug/moc_login.o
 debug/moc_gestionreviewer.o
+debug/moc_chatbot.o

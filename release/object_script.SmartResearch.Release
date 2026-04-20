@@ -18,6 +18,7 @@ release/login.o
 release/reviewer.o
 release/gestionreviewer.o
 release/smsservice.o
+release/chatbot.o
 release/qrc_ressources.o
 release/moc_excel.o
 release/moc_exportexcel.o
@@ -27,3 +28,4 @@ release/moc_gestionsession.o
 release/moc_smtp.o
 release/moc_login.o
 release/moc_gestionreviewer.o
+release/moc_chatbot.o
