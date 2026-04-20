@@ -1,4 +1,4 @@
-#include "smareearch.h"
+#include "smartresearch.h"
 #include "login.h"
 #include <QSqlQuery>
 #include <QSqlError>
