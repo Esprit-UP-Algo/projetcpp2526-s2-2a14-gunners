@@ -123,30 +123,23 @@ QMap<QString, int> Publication::getStatistics()
     QMap<QString, int> stats;
     QSqlQuery query;
     
-    // Total count
-    query.prepare("SELECT COUNT(*) FROM PUBLICATION");
-    if (query.exec() && query.next()) {
-        stats["total"] = query.value(0).toInt();
-    }
-    
-    
-    // Count per status
-    QStringList statuses = {"En attente", "Accepté", "Rejeté"};
-    for (const QString &status : statuses) {
-        query.prepare("SELECT COUNT(*) FROM PUBLICATION WHERE STATUT_PUB = :status");
-        query.bindValue(":status", status);
-        if (query.exec() && query.next()) {
-            stats["status_" + status] = query.value(0).toInt();
+    // --- Stats par Statut ---
+    query.exec("SELECT STATUT_PUB, COUNT(*) FROM PUBLICATION GROUP BY STATUT_PUB");
+    while (query.next()) {
+        QString status = query.value(0).toString();
+        int count = query.value(1).toInt();
+        if (!status.isEmpty()) {
+            stats["status_" + status] = count;
         }
     }
 
-    // Count per type
-    QStringList types = {"Journal", "Conférence"};
-    for (const QString &type : types) {
-        query.prepare("SELECT COUNT(*) FROM PUBLICATION WHERE TYPE_PUB = :type");
-        query.bindValue(":type", type);
-        if (query.exec() && query.next()) {
-            stats["type_" + type] = query.value(0).toInt();
+    // --- Stats par Type ---
+    query.exec("SELECT TYPE_PUB, COUNT(*) FROM PUBLICATION GROUP BY TYPE_PUB");
+    while (query.next()) {
+        QString type = query.value(0).toString();
+        int count = query.value(1).toInt();
+        if (!type.isEmpty()) {
+            stats["type_" + type] = count;
         }
     }
     

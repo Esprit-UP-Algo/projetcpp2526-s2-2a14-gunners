@@ -1,4 +1,4 @@
-QT += core gui widgets sql network charts
+QT += core gui widgets sql network charts serialport
 QT += printsupport
 QT += svg
 CONFIG += c++11

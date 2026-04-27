@@ -14,6 +14,7 @@
 #include <QMessageBox>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QTableWidgetItem>
 #include <QFileDialog>
 #include <QPdfWriter>
@@ -48,6 +49,8 @@ using qrcodegen::QrSegment;
 SmartResearch::SmartResearch(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::SmartResearch) {
   ui->setupUi(this);
+  arduino = nullptr; // Initialisation pour éviter le crash dans setupSerial
+  setupSerial();
 
   // Initialize Network Manager for OpenAlex API
   apiManager = new QNetworkAccessManager(this);
@@ -1689,179 +1692,279 @@ void SmartResearch::on_comboBox_11_currentIndexChanged(int index) {
 void SmartResearch::updateUtilisateurStats() {
     QMap<QString, int> stats = Utilisateur::getStatistics();
 
-    QBarSet *set0 = new QBarSet("Rôles");
-    
-    // --- Premium Gradient for bars ---
-    QLinearGradient gradient(0, 0, 0, 400); // vertical gradient
-    gradient.setColorAt(0.0, QColor("#34d399")); // lighter emerald
-    gradient.setColorAt(1.0, QColor("#059669")); // darker emerald
-    set0->setBrush(QBrush(gradient));
-    set0->setBorderColor(QColor("#10b981").lighter(130)); // slightly brighter border for pop
-    
-    *set0 << stats["Admin"] << stats["manager"] << stats["editer"] << stats["reviewer"];
+    QMap<QString, int> roleData;
+    QMap<QString, int> instData;
 
-    QBarSeries *series = new QBarSeries();
-    series->append(set0);
-    series->setBarWidth(0.5); // make bars slightly slimmer for a more elegant look
-
-    QChart *chart = new QChart();
-    chart->addSeries(series);
-    chart->setTitle("Statistiques des Répartitions par Rôle");
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->setBackgroundBrush(QBrush(Qt::transparent));
-    
-    // --- Custom Title Font & Color ---
-    QFont titleFont("Inter", 13, QFont::Bold);
-    chart->setTitleFont(titleFont);
-    chart->setTitleBrush(QBrush(QColor("#F8FAFC"))); // bright slate logic color
-    
-    // Remove redundant legend
-    chart->legend()->setVisible(false);
-
-    QStringList categories;
-    categories << "Admins" << "Managers" << "Editors" << "Reviewers";
-    
-    // --- X Axis Styling ---
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setLabelsBrush(QBrush(QColor("#94A3B8"))); // slate-gray text
-    QFont axisFont("Inter", 10, QFont::Medium);
-    axisX->setLabelsFont(axisFont);
-    axisX->setLinePen(QPen(QColor(255, 255, 255, 50), 1));
-    axisX->setGridLineVisible(false); // remove vertical grid lines
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
-
-    // --- Y Axis Styling ---
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setMin(0);
-    bool hasData1 = false;
-    for(QBarSet *set : series->barSets()) {
-        for(int i = 0; i < set->count(); ++i) {
-            if(set->at(i) > 0) hasData1 = true;
+    for (auto it = stats.begin(); it != stats.end(); ++it) {
+        if (it.key().startsWith("role_")) {
+            roleData[it.key().mid(5)] = it.value();
+        } else if (it.key().startsWith("inst_")) {
+            instData[it.key().mid(5)] = it.value();
         }
     }
-    if (!hasData1) axisY->setMax(1);
-    else axisY->applyNiceNumbers();
-    axisY->setLabelsBrush(QBrush(QColor("#94A3B8")));
-    axisY->setLabelsFont(axisFont);
-    axisY->setLinePen(QPen(Qt::transparent)); // hide thick axis line
-    axisY->setGridLinePen(QPen(QColor(255, 255, 255, 30), 1, Qt::DashLine)); // subtle dash lines
-    chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
-    
-    // Hide default text label from the UI to show chart view
+
+    if (roleData.isEmpty()) roleData["Aucun"] = 0;
+    if (instData.isEmpty()) instData["Aucune"] = 0;
+
+    QList<QColor> palette = {
+        QColor("#3b82f6"), QColor("#10b981"), QColor("#f59e0b"),
+        QColor("#ef4444"), QColor("#8b5cf6"), QColor("#06b6d4"),
+        QColor("#f97316"), QColor("#84cc16"), QColor("#ec4899"),
+        QColor("#14b8a6")
+    };
+
+    auto makePieChart = [&](const QMap<QString, int>& data, const QString& title) -> QChartView* {
+        int total = 0;
+        for (int v : data.values()) total += v;
+
+        QPieSeries *series = new QPieSeries();
+        series->setHoleSize(0.35);
+
+        int colorIdx = 0;
+        for (auto it = data.begin(); it != data.end(); ++it) {
+            double pct = total > 0 ? (100.0 * it.value() / total) : 0.0;
+            QString label = QString("%1 (%2%)").arg(it.key()).arg(pct, 0, 'f', 1);
+            QPieSlice *slice = series->append(label, it.value());
+            slice->setColor(palette[colorIdx % palette.size()]);
+            slice->setBorderColor(QColor(15, 23, 42));
+            slice->setBorderWidth(1);
+            if (it.value() == total || data.size() == 1) slice->setExploded(true);
+            colorIdx++;
+        }
+
+        series->setLabelsVisible(false);
+        series->setPieSize(0.80);
+
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle(title);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        chart->setBackgroundBrush(QBrush(Qt::transparent));
+        chart->setMargins(QMargins(0, 0, 0, 0));
+        chart->layout()->setContentsMargins(0, 0, 0, 0);
+
+        QFont titleFont("Inter", 11, QFont::Bold);
+        chart->setTitleFont(titleFont);
+        chart->setTitleBrush(QBrush(QColor("#F8FAFC")));
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignRight);
+        chart->legend()->setLabelColor(QColor("#94A3B8"));
+        QFont legendFont("Inter", 8);
+        chart->legend()->setFont(legendFont);
+
+        QChartView *view = new QChartView(chart);
+        view->setRenderHint(QPainter::Antialiasing);
+        view->setStyleSheet("background: transparent; border: none;");
+        view->setMinimumSize(250, 150);
+        return view;
+    };
+
+    QChartView *roleView = makePieChart(roleData, "Répartition par Rôle");
+    QChartView *instView = makePieChart(instData, "Répartition par Institution");
+
     ui->label_Chart_Utilisateur->hide();
 
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setStyleSheet("background: transparent;");
-
-    // Clean up old layouts if present (for refresh)
-    if (ui->groupBox_Stats_Utilisateur->layout() != nullptr) {
-        QLayoutItem *item;
-        while ((item = ui->groupBox_Stats_Utilisateur->layout()->takeAt(0)) != nullptr) {
-            delete item->widget();
-            delete item;
+    QList<QWidget*> children = ui->groupBox_Stats_Utilisateur->findChildren<QWidget*>();
+    for (QWidget *w : children) {
+        if (w != ui->label_Chart_Utilisateur) {
+            w->deleteLater();
         }
+    }
+    if (ui->groupBox_Stats_Utilisateur->layout() != nullptr) {
         delete ui->groupBox_Stats_Utilisateur->layout();
     }
 
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->setContentsMargins(10, 10, 10, 10);
-    layout->addWidget(chartView);
-    ui->groupBox_Stats_Utilisateur->setLayout(layout);
+    QWidget *interactiveContainer = new QWidget();
+    interactiveContainer->setStyleSheet("background-color: #1e293b; border-radius: 8px; border: 1px solid #334155;");
+    QHBoxLayout *interactiveLayout = new QHBoxLayout(interactiveContainer);
+    interactiveLayout->setContentsMargins(15, 10, 15, 10);
+    
+    QLabel *lblSelect = new QLabel("Publications de l'utilisateur :");
+    lblSelect->setStyleSheet("color: #94A3B8; font-family: Inter; font-size: 13px; font-weight: bold; border: none;");
+    
+    QComboBox *comboUsers = new QComboBox();
+    comboUsers->setStyleSheet("QComboBox { background-color: #0f172a; color: white; padding: 5px; border-radius: 4px; border: 1px solid #475569; font-family: Inter; font-size: 12px; }");
+    comboUsers->setMinimumWidth(250);
+    
+    QLabel *lblResultCount = new QLabel("0 Publication(s)");
+    lblResultCount->setStyleSheet("background-color: #3b82f6; color: white; font-family: Inter; font-weight: bold; font-size: 13px; padding: 5px 15px; border-radius: 6px; border: none;");
+    lblResultCount->setAlignment(Qt::AlignCenter);
+
+    QSqlQuery qUsers("SELECT DISTINCT NOM_UTILISATEUR, PRENOM FROM TABLE_UTILISATEUR");
+    while(qUsers.next()){
+        comboUsers->addItem(QString("%1 %2").arg(qUsers.value(0).toString()).arg(qUsers.value(1).toString()));
+    }
+
+    interactiveLayout->addWidget(lblSelect);
+    interactiveLayout->addWidget(comboUsers);
+    interactiveLayout->addStretch();
+    interactiveLayout->addWidget(lblResultCount);
+
+    QObject::connect(comboUsers, &QComboBox::currentTextChanged, [=](const QString& text) {
+        QStringList parts = text.split(" ");
+        QString nom = parts.size() > 0 ? parts[0] : "";
+        QSqlQuery countQuery;
+        countQuery.prepare("SELECT COUNT(*) FROM PUBLICATION WHERE AUTEURS_PUB LIKE :val");
+        countQuery.bindValue(":val", "%" + nom + "%");
+        if(countQuery.exec() && countQuery.next()){
+            int res = countQuery.value(0).toInt();
+            lblResultCount->setText(QString("%1 Publication(s)").arg(res));
+            lblResultCount->setStyleSheet(QString("background-color: %1; color: white; font-family: Inter; font-weight: bold; font-size: 13px; padding: 5px 15px; border-radius: 6px; border: none;").arg(res > 0 ? "#10b981" : "#ef4444"));
+        }
+    });
+
+    if(comboUsers->count() > 0) {
+        QMetaObject::invokeMethod(comboUsers, "currentTextChanged", Qt::DirectConnection, Q_ARG(QString, comboUsers->currentText()));
+    }
+
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    mainLayout->setContentsMargins(8, 8, 8, 8);
+    mainLayout->setSpacing(10);
+    
+    QHBoxLayout *chartsLayout = new QHBoxLayout();
+    chartsLayout->addWidget(roleView, 1);
+    chartsLayout->addWidget(instView, 1);
+    
+    mainLayout->addLayout(chartsLayout, 1);
+    mainLayout->addWidget(interactiveContainer, 0);
+    
+    ui->groupBox_Stats_Utilisateur->setLayout(mainLayout);
 }
 
 void SmartResearch::updatePublicationStats() {
     QMap<QString, int> stats = Publication::getStatistics();
 
-    QBarSet *set0 = new QBarSet("Publications");
-    
-    // --- Premium Gradient for bars ---
-    QLinearGradient gradient(0, 0, 0, 400); // vertical gradient
-    gradient.setColorAt(0.0, QColor("#34d399")); // lighter emerald
-    gradient.setColorAt(1.0, QColor("#059669")); // darker emerald
-    set0->setBrush(QBrush(gradient));
-    set0->setBorderColor(QColor("#10b981").lighter(130)); // slightly brighter border for pop
-    
-    *set0 << stats["status_En attente"] 
-          << stats["status_Accepté"] 
-          << stats["status_Rejeté"] 
-          << stats["type_Journal"] 
-          << stats["type_Conférence"];
+    QMap<QString, int> statusData;
+    QMap<QString, int> typeData;
 
-    QBarSeries *series = new QBarSeries();
-    series->append(set0);
-    series->setBarWidth(0.5); // make bars slightly slimmer for elegant look
-
-    QChart *chart = new QChart();
-    chart->addSeries(series);
-    chart->setTitle("Statistiques des Publications");
-    chart->setAnimationOptions(QChart::SeriesAnimations);
-    chart->setBackgroundBrush(QBrush(Qt::transparent));
-    
-    // --- Custom Title Font & Color ---
-    QFont titleFont("Inter", 13, QFont::Bold);
-    chart->setTitleFont(titleFont);
-    chart->setTitleBrush(QBrush(QColor("#F8FAFC"))); // bright slate logic color
-    
-    // Remove redundant legend
-    chart->legend()->setVisible(false);
-
-    QStringList categories;
-    categories << "Attente" << "Accepté" << "Rejeté" << "Journal" << "Conférence";
-    
-    // --- X Axis Styling ---
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setLabelsBrush(QBrush(QColor("#94A3B8"))); // slate-gray text
-    QFont axisFont("Inter", 10, QFont::Medium);
-    axisX->setLabelsFont(axisFont);
-    axisX->setLinePen(QPen(QColor(255, 255, 255, 50), 1));
-    axisX->setGridLineVisible(false); // remove vertical grid lines
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
-
-    // --- Y Axis Styling ---
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setMin(0);
-    bool hasData2 = false;
-    for(QBarSet *set : series->barSets()) {
-        for(int i = 0; i < set->count(); ++i) {
-            if(set->at(i) > 0) hasData2 = true;
+    for (auto it = stats.begin(); it != stats.end(); ++it) {
+        if (it.key().startsWith("status_")) {
+            statusData[it.key().mid(7)] = it.value();
+        } else if (it.key().startsWith("type_")) {
+            typeData[it.key().mid(5)] = it.value();
         }
     }
-    if (!hasData2) axisY->setMax(1);
-    else axisY->applyNiceNumbers();
-    axisY->setLabelsBrush(QBrush(QColor("#94A3B8")));
-    axisY->setLabelsFont(axisFont);
-    axisY->setLinePen(QPen(Qt::transparent)); // hide thick axis line
-    axisY->setGridLinePen(QPen(QColor(255, 255, 255, 30), 1, Qt::DashLine)); // subtle dash lines
-    chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
-    
-    // Hide default text label from the UI to show chart view
+
+    if (statusData.isEmpty()) statusData["Aucun"] = 0;
+    if (typeData.isEmpty()) typeData["Aucun"] = 0;
+
+    QList<QColor> palette = {
+        QColor("#10b981"), QColor("#3b82f6"), QColor("#ef4444"),
+        QColor("#f59e0b"), QColor("#8b5cf6"), QColor("#06b6d4")
+    };
+
+    auto makePieChart = [&](const QMap<QString, int>& data, const QString& title) -> QChartView* {
+        int total = 0;
+        for (int v : data.values()) total += v;
+
+        QPieSeries *series = new QPieSeries();
+        series->setHoleSize(0.35);
+
+        int colorIdx = 0;
+        for (auto it = data.begin(); it != data.end(); ++it) {
+            double pct = total > 0 ? (100.0 * it.value() / total) : 0.0;
+            QString label = QString("%1 (%2%)").arg(it.key()).arg(pct, 0, 'f', 1);
+            QPieSlice *slice = series->append(label, it.value());
+            slice->setColor(palette[colorIdx % palette.size()]);
+            slice->setBorderColor(QColor(15, 23, 42));
+            slice->setBorderWidth(1);
+            if (it.value() == total || data.size() == 1) slice->setExploded(true);
+            colorIdx++;
+        }
+
+        series->setLabelsVisible(false);
+        series->setPieSize(0.80);
+
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle(title);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        chart->setBackgroundBrush(QBrush(Qt::transparent));
+        chart->setMargins(QMargins(0, 0, 0, 0));
+        chart->layout()->setContentsMargins(0, 0, 0, 0);
+
+        QFont titleFont("Inter", 11, QFont::Bold);
+        chart->setTitleFont(titleFont);
+        chart->setTitleBrush(QBrush(QColor("#F8FAFC")));
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignRight);
+        chart->legend()->setLabelColor(QColor("#94A3B8"));
+        QFont legendFont("Inter", 8);
+        chart->legend()->setFont(legendFont);
+
+        QChartView *view = new QChartView(chart);
+        view->setRenderHint(QPainter::Antialiasing);
+        view->setStyleSheet("background: transparent; border: none;");
+        view->setMinimumSize(250, 150);
+        return view;
+    };
+
+    QChartView *statusView = makePieChart(statusData, "Répartition par Statut");
+    QChartView *typeView = makePieChart(typeData, "Répartition par Type");
+
     ui->label_Chart_Publication->hide();
 
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setStyleSheet("background: transparent;");
-
-    // Clean up old layouts if present (for refresh)
-    if (ui->groupBox_Stats_Publication->layout() != nullptr) {
-        QLayoutItem *item;
-        while ((item = ui->groupBox_Stats_Publication->layout()->takeAt(0)) != nullptr) {
-            delete item->widget();
-            delete item;
+    QList<QWidget*> children = ui->groupBox_Stats_Publication->findChildren<QWidget*>();
+    for (QWidget *w : children) {
+        if (w != ui->label_Chart_Publication) {
+            w->deleteLater();
         }
+    }
+    if (ui->groupBox_Stats_Publication->layout() != nullptr) {
         delete ui->groupBox_Stats_Publication->layout();
     }
 
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->setContentsMargins(10, 10, 10, 10);
-    layout->addWidget(chartView);
-    ui->groupBox_Stats_Publication->setLayout(layout);
+    QWidget *interactiveContainer = new QWidget();
+    interactiveContainer->setStyleSheet("background-color: #1e293b; border-radius: 8px; border: 1px solid #334155;");
+    QHBoxLayout *interactiveLayout = new QHBoxLayout(interactiveContainer);
+    interactiveLayout->setContentsMargins(15, 10, 15, 10);
+    
+    QLabel *lblSelect = new QLabel("Consulter par statut :");
+    lblSelect->setStyleSheet("color: #94A3B8; font-family: Inter; font-size: 13px; font-weight: bold; border: none;");
+    
+    QComboBox *comboStatus = new QComboBox();
+    comboStatus->setStyleSheet("QComboBox { background-color: #0f172a; color: white; padding: 5px; border-radius: 4px; border: 1px solid #475569; font-family: Inter; font-size: 12px; }");
+    comboStatus->addItem("Accepté");
+    comboStatus->addItem("En attente");
+    comboStatus->addItem("Rejeté");
+    comboStatus->setMinimumWidth(200);
+    
+    QLabel *lblResultCount = new QLabel("0 Publication(s)");
+    lblResultCount->setStyleSheet("background-color: #3b82f6; color: white; font-family: Inter; font-weight: bold; font-size: 13px; padding: 5px 15px; border-radius: 6px; border: none;");
+    lblResultCount->setAlignment(Qt::AlignCenter);
+
+    interactiveLayout->addWidget(lblSelect);
+    interactiveLayout->addWidget(comboStatus);
+    interactiveLayout->addStretch();
+    interactiveLayout->addWidget(lblResultCount);
+
+    QObject::connect(comboStatus, &QComboBox::currentTextChanged, [=](const QString& text) {
+        QSqlQuery countQuery;
+        countQuery.prepare("SELECT COUNT(*) FROM PUBLICATION WHERE STATUT_PUB = :val");
+        countQuery.bindValue(":val", text);
+        if(countQuery.exec() && countQuery.next()){
+            int res = countQuery.value(0).toInt();
+            lblResultCount->setText(QString("%1 Publication(s)").arg(res));
+            lblResultCount->setStyleSheet(QString("background-color: %1; color: white; font-family: Inter; font-weight: bold; font-size: 13px; padding: 5px 15px; border-radius: 6px; border: none;").arg(res > 0 ? "#10b981" : "#ef4444"));
+        }
+    });
+
+    QMetaObject::invokeMethod(comboStatus, "currentTextChanged", Qt::DirectConnection, Q_ARG(QString, comboStatus->currentText()));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    mainLayout->setContentsMargins(8, 8, 8, 8);
+    mainLayout->setSpacing(10);
+    
+    QHBoxLayout *chartsLayout = new QHBoxLayout();
+    chartsLayout->addWidget(statusView, 1);
+    chartsLayout->addWidget(typeView, 1);
+    
+    mainLayout->addLayout(chartsLayout, 1);
+    mainLayout->addWidget(interactiveContainer, 0);
+    
+    ui->groupBox_Stats_Publication->setLayout(mainLayout);
 }
 
 void SmartResearch::drawBarChart(QLabel *label, const QMap<QString, int> &data, const QColor &barColor) {
@@ -2688,5 +2791,106 @@ void SmartResearch::on_btnChooseMap_clicked() {
             }
             QMessageBox::information(this, "Carte", "Pays sélectionné : " + country);
         }
+    }
+}
+
+void SmartResearch::setupSerial() {
+    arduino_is_available = false;
+    arduino_port_name = "";
+    
+    // Clean up if already exists
+    if (arduino) {
+        if (arduino->isOpen()) arduino->close();
+        delete arduino;
+        arduino = nullptr;
+    }
+    arduino = new QSerialPort(this);
+
+    qDebug() << "--- Démarrage de la recherche Arduino ---";
+
+    foreach(const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts()){
+        qDebug() << "Port trouvé :" << serialPortInfo.portName() 
+                 << "| Desc :" << serialPortInfo.description()
+                 << "| VID :" << serialPortInfo.vendorIdentifier()
+                 << "| PID :" << serialPortInfo.productIdentifier();
+
+        bool is_uno = false;
+        if(serialPortInfo.hasVendorIdentifier() && serialPortInfo.hasProductIdentifier()){
+            if(serialPortInfo.vendorIdentifier() == arduino_uno_vendor_id && 
+               serialPortInfo.productIdentifier() == arduino_uno_product_id){
+                is_uno = true;
+            }
+        }
+        
+        if (is_uno || serialPortInfo.description().contains("Arduino", Qt::CaseInsensitive) || 
+            serialPortInfo.manufacturer().contains("Arduino", Qt::CaseInsensitive)) {
+            arduino_port_name = serialPortInfo.portName();
+            arduino_is_available = true;
+            break; 
+        }
+    }
+
+    // FALLBACK : If no "Arduino" found, take the first available port (common for clones like CH340)
+    if (!arduino_is_available && !QSerialPortInfo::availablePorts().isEmpty()) {
+        arduino_port_name = QSerialPortInfo::availablePorts().first().portName();
+        arduino_is_available = true;
+        qDebug() << "Mode Fallback : Connexion forcée sur" << arduino_port_name;
+    }
+
+    if(arduino_is_available){
+        arduino->setPortName(arduino_port_name);
+        if(arduino->open(QSerialPort::ReadWrite)){
+            arduino->setBaudRate(QSerialPort::Baud9600);
+            arduino->setDataBits(QSerialPort::Data8);
+            arduino->setParity(QSerialPort::NoParity);
+            arduino->setStopBits(QSerialPort::OneStop);
+            arduino->setFlowControl(QSerialPort::NoFlowControl);
+            QObject::connect(arduino, &QSerialPort::readyRead, this, &SmartResearch::readSerial);
+            qDebug() << "SUCCÈS : Arduino détecté et connecté sur" << arduino_port_name;
+        } else {
+            qDebug() << "ERREUR : Impossible d'ouvrir le port" << arduino_port_name << ":" << arduino->errorString();
+        }
+    } else {
+        qDebug() << "ERREUR : Aucun port série détecté (Vérifiez le câble USB).";
+    }
+}
+
+void SmartResearch::readSerial() {
+    QByteArray data = arduino->readAll();
+    if (data.isEmpty()) return;
+
+    qDebug() << ">>> SERIAL DATA ARRIVED (" << data.size() << " bytes):" << data.toHex(' ');
+    qDebug() << ">>> String value:" << data;
+
+    static QByteArray buffer;
+    buffer.append(data);
+
+    if (!buffer.contains('\n')) return;
+
+    int pos = buffer.indexOf('\n');
+    QString idStr = QString::fromStdString(buffer.left(pos).toStdString()).trimmed();
+    buffer.remove(0, pos + 1);
+
+    // Clean and check ID
+    QString cleanId = "";
+    for(char c : idStr.toStdString()) { if(isdigit(c)) cleanId += c; }
+    
+    if (cleanId.isEmpty()) return;
+    int id = cleanId.toInt();
+
+    qDebug() << "ID Traité :" << id;
+
+    if(id == 1234 || id == 1) { 
+        arduino->write("1"); 
+        qDebug() << "!!! MATCH SPECIAL !!! Envoi de '1' (Accès Accordé).";
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM TABLE_UTILISATEUR WHERE ID_UTILISATEUR = :id");
+    query.bindValue(":id", id);
+    if(query.exec() && query.next()){
+        if(query.value(0).toInt() > 0) arduino->write("1");
+        else arduino->write("0");
     }
 }

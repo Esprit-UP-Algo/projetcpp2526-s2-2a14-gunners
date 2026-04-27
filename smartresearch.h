@@ -12,6 +12,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrl>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
+#include <QSqlQuery>
 #include "mapdialog.h"
 class GestionSession;
 class GestionReviewer;
@@ -119,5 +122,15 @@ private:
     Chatbot *chatbotWidget;
     int selectedJournalId     = -1;
     QNetworkAccessManager *apiManager;
+
+    // Arduino Serial Handling
+    QSerialPort *arduino;
+    static const uint16_t arduino_uno_vendor_id = 9025;
+    static const uint16_t arduino_uno_product_id = 67;
+    QString arduino_port_name;
+    bool arduino_is_available;
+    void setupSerial();
+private slots:
+    void readSerial();
 };
 #endif // SMARTRESEARCH_H

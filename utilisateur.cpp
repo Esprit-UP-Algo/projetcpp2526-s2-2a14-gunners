@@ -193,19 +193,23 @@ QMap<QString, int> Utilisateur::getStatistics()
     QMap<QString, int> stats;
     QSqlQuery query;
     
-    // Total count
-    query.prepare("SELECT COUNT(*) FROM TABLE_UTILISATEUR");
-    if (query.exec() && query.next()) {
-        stats["total"] = query.value(0).toInt();
+    // --- Stats par Rôle ---
+    query.exec("SELECT ROLE_UTILISATEUR, COUNT(*) FROM TABLE_UTILISATEUR GROUP BY ROLE_UTILISATEUR");
+    while (query.next()) {
+        QString role = query.value(0).toString();
+        int count = query.value(1).toInt();
+        if (!role.isEmpty()) {
+            stats["role_" + role] = count;
+        }
     }
     
-    // Count per role
-    QStringList roles = {"Admin", "manager", "editer", "reviewer"};
-    for (const QString &role : roles) {
-        query.prepare("SELECT COUNT(*) FROM TABLE_UTILISATEUR WHERE ROLE_UTILISATEUR = :role");
-        query.bindValue(":role", role);
-        if (query.exec() && query.next()) {
-            stats[role] = query.value(0).toInt();
+    // --- Stats par Institution ---
+    query.exec("SELECT INSTITUTION_UTILISATEUR, COUNT(*) FROM TABLE_UTILISATEUR GROUP BY INSTITUTION_UTILISATEUR");
+    while (query.next()) {
+        QString inst = query.value(0).toString();
+        int count = query.value(1).toInt();
+        if (!inst.isEmpty()) {
+            stats["inst_" + inst] = count;
         }
     }
     
