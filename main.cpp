@@ -1,4 +1,4 @@
-#include "smartreearch.h"
+#include "smartrearch.h"
 
 #include <QApplication>
 
